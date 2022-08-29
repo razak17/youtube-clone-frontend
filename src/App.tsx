@@ -1,6 +1,7 @@
 import styled from 'styled-components';
-import Menu from './components/Menu';
+import Sidebar from './components/Sidebar';
 import Navbar from './components/Navbar';
+import { BrowserRouter } from 'react-router-dom';
 
 const Container = styled.div`
 	display: flex;
@@ -16,11 +17,13 @@ const Wrapper = styled.div`
 function App() {
 	return (
 		<Container>
-			<Menu />
-			<Main>
-				<Navbar />
-				<Wrapper>Video Cards</Wrapper>
-			</Main>
+			<BrowserRouter>
+				<Sidebar />
+				<Main>
+					<Navbar />
+					<Wrapper>Video Cards</Wrapper>
+				</Main>
+			</BrowserRouter>
 		</Container>
 	);
 }
