@@ -1,13 +1,16 @@
 import styled from 'styled-components';
 import Sidebar from './components/Sidebar';
 import Navbar from './components/Navbar';
-import { BrowserRouter } from 'react-router-dom';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import Home from './pages/Home';
+import SignIn from './pages/SignIn';
+import Video from './pages/Video';
 
-const Container = styled.div`
+const StyledCOntainer = styled.div`
 	display: flex;
 `;
 
-const Main = styled.div`
+const StyledMain = styled.div`
 	flex: 4;
 `;
 const Wrapper = styled.div`
@@ -16,15 +19,25 @@ const Wrapper = styled.div`
 
 function App() {
 	return (
-		<Container>
+		<StyledCOntainer>
 			<BrowserRouter>
 				<Sidebar />
-				<Main>
+				<StyledMain>
 					<Navbar />
-					<Wrapper>Video Cards</Wrapper>
-				</Main>
+					<Wrapper>
+						<Routes>
+							<Route path='/'>
+								<Route index element={<Home />} />
+								<Route path='signin' element={<SignIn />} />
+								<Route path='video'>
+									<Route path=':id' element={<Video />} />
+								</Route>
+							</Route>
+						</Routes>
+					</Wrapper>
+				</StyledMain>
 			</BrowserRouter>
-		</Container>
+		</StyledCOntainer>
 	);
 }
 

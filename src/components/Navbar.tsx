@@ -9,7 +9,7 @@ const Container = styled.div`
   height: 56px;
 `;
 
-const Wrapper = styled.div`
+const StyledWrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: flex-end;
@@ -18,7 +18,7 @@ const Wrapper = styled.div`
   position: relative;
 `;
 
-const Search = styled.div`
+const StyeldSearch = styled.div`
   width: 40%;
   position: absolute;
   left: 0px;
@@ -32,13 +32,13 @@ const Search = styled.div`
   border-radius: 3px;
 `;
 
-const Input = styled.input`
+const StyledInput = styled.input`
   border: none;
   background-color: transparent;
   outline: none;
 `;
 
-const Button = styled.button`
+const StyledButton = styled.button`
   padding: 5px 15px;
   background-color: transparent;
   border: 1px solid #3ea6ff;
@@ -53,18 +53,18 @@ const Button = styled.button`
 const Navbar = () => {
   return (
     <Container>
-      <Wrapper>
-        <Search>
-          <Input placeholder="Search" />
+      <StyledWrapper>
+        <StyeldSearch>
+          <StyledInput placeholder="Search" />
           <SearchOutlinedIcon />
-        </Search>
+        </StyeldSearch>
         <Link to="signin" style={{ textDecoration: "none" }}>
-          <Button>
+          <StyledButton>
             <AccountCircleOutlinedIcon />
             SIGN IN
-          </Button>
+          </StyledButton>
         </Link>
-      </Wrapper>
+      </StyledWrapper>
     </Container>
   );
 };
