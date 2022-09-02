@@ -62,11 +62,10 @@ const StyledHr = styled.hr`
 `;
 
 const StyledButton = styled.button`
-	padding: 12px 45px;
+	padding: 6px 16px;
 	background-color: transparent;
 	border: 1px solid #3ea6ff;
 	color: #3ea6ff;
-	border-radius: 5px;
 	font-size: 16px;
 	font-weight: 500;
 	margin-top: 10px;
@@ -124,6 +123,7 @@ const Sidebar = () => {
 					</Link>
 				</div>
 				<StyledHr />
+				<StyledTitle>BEST OF DEVTUBE</StyledTitle>
 				<StyledItem>
 					<LibraryMusicOutlinedIcon />
 					Music
