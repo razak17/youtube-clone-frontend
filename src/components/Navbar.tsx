@@ -8,7 +8,7 @@ const Container = styled.div`
 	top: 0;
 	background-color: ${({ theme }) => theme.bgLighter};
 	height: 56px;
-  border-bottom:  ${({ theme }) => theme.searchBorder};
+	border-bottom: 1px solid ${({ theme }) => theme.softer};
 `;
 
 const StyledWrapper = styled.div`
@@ -30,7 +30,7 @@ const StyeldSearch = styled.div`
 	align-items: center;
 	justify-content: space-between;
 	padding: 6px;
-	border: ${({ theme }) => theme.searchBorder};
+	border: 1px solid ${({ theme }) => theme.softer};
 	border-radius: 3px;
 	background-color: ${({ theme }) => theme.bg};
 `;

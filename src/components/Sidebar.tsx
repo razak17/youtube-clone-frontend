@@ -62,7 +62,7 @@ const Logo = styled.div`
 
 const StyledGuideSection = styled.div`
 	padding: 12px 0;
-	border-bottom: ${({ theme }) => theme.sidebarBorder};
+  border-bottom: 1px solid ${({ theme }) => theme.soft};
 `;
 
 const StyledImg = styled.img`
