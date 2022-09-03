@@ -1,3 +1,4 @@
+import { Dispatch, SetStateAction } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import HomeIcon from '@mui/icons-material/Home';
@@ -18,31 +19,50 @@ import HelpOutlineOutlinedIcon from '@mui/icons-material/HelpOutlineOutlined';
 import SettingsBrightnessOutlinedIcon from '@mui/icons-material/SettingsBrightnessOutlined';
 
 import logo from '../assets/logo.png';
+import { FC } from '../main';
 
 const StyledContainer = styled.div`
-	flex: 1;
+	width: 240px;
 	height: 100%;
-	background-color: #030303;
-	color: white;
+	background-color: ${({ theme }) => theme.bgLighter};
+	color: ${({ theme }) => theme.text};
 	font-size: 14px;
+`;
+
+const StyledLogoWrapper = styled.div`
+	background-color: ${({ theme }) => theme.bgLighter};
 	position: sticky;
 	top: 0;
+	height: 62px;
+	padding: 0px 28px;
+	display: flex;
+	align-items: center;
+	gap: 5px;
+	span {
+		font-weight: bold;
+		font-size: 18px;
+		padding-top: 6px;
+	}
 `;
 
 const StyledWrapper = styled.div`
-	padding: 18px 26px;
+	height: 100%;
 `;
 
 const Logo = styled.div`
 	display: flex;
 	align-items: center;
 	gap: 5px;
-	margin-bottom: 20px;
 	span {
 		font-weight: bold;
 		font-size: 18px;
 		padding-top: 6px;
 	}
+`;
+
+const StyledGuideSection = styled.div`
+	padding: 12px 0;
+	border-bottom: ${({ theme }) => theme.sidebarBorder};
 `;
 
 const StyledImg = styled.img`
@@ -54,19 +74,20 @@ const StyledItem = styled.div`
 	align-items: center;
 	gap: 20px;
 	cursor: pointer;
-	padding: 7.5px 0px;
+	padding: 8px 28px;
 `;
 
-const StyledHr = styled.hr`
-	margin: 15px 0px;
+const StyledSignIn = styled.div`
+	padding: 8px 28px;
 `;
 
 const StyledButton = styled.button`
-	padding: 6px 16px;
+	padding: 6px 12px;
 	background-color: transparent;
-	border: 1px solid #3ea6ff;
-	color: #3ea6ff;
-	font-size: 16px;
+	border: 1px solid #065fd4;
+	color: #065fd4;
+	border-radius: 3px;
+	font-size: 14px;
 	font-weight: 500;
 	margin-top: 10px;
 	cursor: pointer;
@@ -76,95 +97,107 @@ const StyledButton = styled.button`
 `;
 
 const StyledTitle = styled.h2`
+	padding: 8px 28px 0px 28px;
+	margin: 0;
 	font-size: 14px;
+	text-transform: uppercase;
 	font-weight: 500;
 	color: #aaaaaa;
-	margin-bottom: 20px;
 `;
 
-const Sidebar = () => {
+const Sidebar: FC<{
+	darkMode?: boolean;
+	setDarkMode: Dispatch<SetStateAction<boolean>>;
+}> = ({ darkMode, setDarkMode }) => {
 	return (
 		<StyledContainer>
-			<StyledWrapper>
+			<StyledLogoWrapper>
 				<Link to='/' style={{ textDecoration: 'none', color: 'inherit' }}>
 					<Logo>
 						<StyledImg src={logo} />
 						<span>DevTube</span>
 					</Logo>
 				</Link>
-				<StyledItem>
-					<HomeIcon />
-					Home
-				</StyledItem>
-				<StyledItem>
-					<ExploreOutlinedIcon />
-					Explore
-				</StyledItem>
-				<StyledItem>
-					<SubscriptionsOutlinedIcon />
-					Subscriptions
-				</StyledItem>
-				<StyledHr />
-				<StyledItem>
-					<VideoLibraryOutlinedIcon />
-					Library
-				</StyledItem>
-				<StyledItem>
-					<HistoryOutlinedIcon />
-					History
-				</StyledItem>
-				<div>
-					Sign in to like videos, comment, and subscribe.
-					<Link to='signin' style={{ textDecoration: 'none' }}>
-						<StyledButton>
-							<AccountCircleOutlinedIcon />
-							SIGN IN
-						</StyledButton>
-					</Link>
-				</div>
-				<StyledHr />
-				<StyledTitle>BEST OF DEVTUBE</StyledTitle>
-				<StyledItem>
-					<LibraryMusicOutlinedIcon />
-					Music
-				</StyledItem>
-				<StyledItem>
-					<SportsBasketballOutlinedIcon />
-					Sports
-				</StyledItem>
-				<StyledItem>
-					<SportsEsportsOutlinedIcon />
-					Gaming
-				</StyledItem>
-				<StyledItem>
-					<MovieOutlinedIcon />
-					Movies
-				</StyledItem>
-				<StyledItem>
-					<ArticleOutlinedIcon />
-					News
-				</StyledItem>
-				<StyledItem>
-					<LiveTvOutlinedIcon />
-					Live
-				</StyledItem>
-				<StyledHr />
-				<StyledItem>
-					<SettingsOutlinedIcon />
-					Settings
-				</StyledItem>
-				<StyledItem>
-					<FlagOutlinedIcon />
-					Report
-				</StyledItem>
-				<StyledItem>
-					<HelpOutlineOutlinedIcon />
-					Help
-				</StyledItem>
-				<StyledItem onClick={() => console.log('Hello')}>
-					<SettingsBrightnessOutlinedIcon />
-					Dark Mode
-				</StyledItem>
+			</StyledLogoWrapper>
+			<StyledWrapper>
+				<StyledGuideSection>
+					<StyledItem>
+						<HomeIcon />
+						Home
+					</StyledItem>
+					<StyledItem>
+						<ExploreOutlinedIcon />
+						Explore
+					</StyledItem>
+					<StyledItem>
+						<SubscriptionsOutlinedIcon />
+						Subscriptions
+					</StyledItem>
+				</StyledGuideSection>
+				<StyledGuideSection>
+					<StyledItem>
+						<VideoLibraryOutlinedIcon />
+						Library
+					</StyledItem>
+					<StyledItem>
+						<HistoryOutlinedIcon />
+						History
+					</StyledItem>
+					<StyledSignIn>
+						Sign in to like videos, comment, and subscribe.
+						<Link to='signin' style={{ textDecoration: 'none' }}>
+							<StyledButton>
+								<AccountCircleOutlinedIcon />
+								SIGN IN
+							</StyledButton>
+						</Link>
+					</StyledSignIn>
+				</StyledGuideSection>
+				<StyledTitle>More from DevTube</StyledTitle>
+				<StyledGuideSection>
+					<StyledItem>
+						<LibraryMusicOutlinedIcon />
+						Music
+					</StyledItem>
+					<StyledItem>
+						<SportsBasketballOutlinedIcon />
+						Sports
+					</StyledItem>
+					<StyledItem>
+						<SportsEsportsOutlinedIcon />
+						Gaming
+					</StyledItem>
+					<StyledItem>
+						<MovieOutlinedIcon />
+						Movies
+					</StyledItem>
+					<StyledItem>
+						<ArticleOutlinedIcon />
+						News
+					</StyledItem>
+					<StyledItem>
+						<LiveTvOutlinedIcon />
+						Live
+					</StyledItem>
+				</StyledGuideSection>
+				<StyledGuideSection>
+					<StyledItem>
+						<SettingsOutlinedIcon />
+						Settings
+					</StyledItem>
+					<StyledItem>
+						<FlagOutlinedIcon />
+						Report
+					</StyledItem>
+					<StyledItem>
+						<HelpOutlineOutlinedIcon />
+						Help
+					</StyledItem>
+					<StyledItem onClick={() => setDarkMode(!darkMode)}>
+						<SettingsBrightnessOutlinedIcon />
+						{darkMode ? 'Light' : 'Dark'} Mode
+					</StyledItem>
+				</StyledGuideSection>
 			</StyledWrapper>
 		</StyledContainer>
 	);
