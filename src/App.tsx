@@ -17,7 +17,7 @@ const StyledMain = styled.div`
 	background-color: ${({ theme }) => theme.bg};
 `;
 const StyledWrapper = styled.div`
-	padding: 22px 42px;
+	padding: 22px 20px;
 `;
 
 function App() {

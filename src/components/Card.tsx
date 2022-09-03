@@ -4,7 +4,7 @@ import { videoURLs } from '../data';
 import { FC } from '../main';
 
 const StyledContainer = styled.div`
-	width: ${(props) => props.itemType !== 'sm' && '240px'};
+	width: ${(props) => props.itemType !== 'sm' && '250px'};
 	margin-bottom: ${(props) => (props.itemType === 'sm' ? '10px' : '45px')};
 	cursor: pointer;
 	display: ${(props) => props.itemType === 'sm' && 'flex'};
@@ -13,7 +13,7 @@ const StyledContainer = styled.div`
 
 const StyledImage = styled.img`
 	width: 100%;
-	height: ${(props) => (props.itemType === 'sm' ? '120px' : '150px')};
+	height: ${(props) => (props.itemType === 'sm' ? '120px' : '140px')};
 	background-color: #999;
 	flex: 1;
 `;
