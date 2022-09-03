@@ -23,7 +23,6 @@ import { FC } from '../main';
 
 const StyledContainer = styled.div`
 	width: 240px;
-	height: 100%;
 	background-color: ${({ theme }) => theme.bgLighter};
 	color: ${({ theme }) => theme.text};
 	font-size: 14px;
@@ -46,7 +45,6 @@ const StyledLogoWrapper = styled.div`
 `;
 
 const StyledWrapper = styled.div`
-	height: 100%;
 `;
 
 const Logo = styled.div`

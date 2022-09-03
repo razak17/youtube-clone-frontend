@@ -13,7 +13,7 @@ const StyledContainer = styled.div`
 
 const StyledImage = styled.img`
 	width: 100%;
-	height: ${(props) => (props.itemType === 'sm' ? '120px' : '140px')};
+	height: ${(props) => (props.itemType === 'sm' ? '100px' : '140px')};
 	background-color: #999;
 	flex: 1;
 `;
