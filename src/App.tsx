@@ -11,10 +11,10 @@ const StyledCOntainer = styled.div`
 `;
 
 const StyledMain = styled.div`
-	flex: 4;
+	flex: 5;
 `;
-const Wrapper = styled.div`
-	padding: 22px 96px;
+const StyledWrapper = styled.div`
+	padding: 22px 42px;
 `;
 
 function App() {
@@ -24,7 +24,7 @@ function App() {
 				<Sidebar />
 				<StyledMain>
 					<Navbar />
-					<Wrapper>
+					<StyledWrapper>
 						<Routes>
 							<Route path='/'>
 								<Route index element={<Home />} />
@@ -34,7 +34,7 @@ function App() {
 								</Route>
 							</Route>
 						</Routes>
-					</Wrapper>
+					</StyledWrapper>
 				</StyledMain>
 			</BrowserRouter>
 		</StyledCOntainer>

@@ -4,8 +4,6 @@ import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
 import { Link } from "react-router-dom";
 
 const Container = styled.div`
-  position: sticky;
-  top: 0;
   height: 56px;
 `;
 
@@ -50,6 +48,7 @@ const StyledButton = styled.button`
   align-items: center;
   gap: 5px;
 `;
+
 const Navbar = () => {
   return (
     <Container>
