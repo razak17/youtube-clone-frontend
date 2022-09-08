@@ -4,7 +4,7 @@ export const darkColors = {
 	text: 'white',
 	textSoft: '#aaaaaa',
 	soft: '#383838',
-	softer: '#303030',
+	softer: '#303030'
 };
 export const lightColors = {
 	bg: '#f9f9f9',
@@ -12,5 +12,5 @@ export const lightColors = {
 	text: 'black',
 	textSoft: '#606060',
 	soft: '#e5e5e5',
-	softer: '#cccccc',
+	softer: '#cccccc'
 };

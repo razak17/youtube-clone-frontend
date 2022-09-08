@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import Card from '../components/Card';
+import { useVideo } from '../context/videos';
 
 const StyledContianer = styled.div`
 	display: flex;
@@ -8,6 +9,9 @@ const StyledContianer = styled.div`
 `;
 
 const Home = () => {
+	const { videos } = useVideo();
+	console.log(videos);
+
 	return (
 		<StyledContianer>
 			<Card />

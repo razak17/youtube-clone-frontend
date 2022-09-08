@@ -27,7 +27,6 @@ const StyledTitle = styled.h1`
 `;
 
 const StyledDetails = styled.div`
-
 	display: flex;
 	align-items: center;
 	justify-content: space-between;

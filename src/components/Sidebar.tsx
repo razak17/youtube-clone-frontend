@@ -44,8 +44,7 @@ const StyledLogoWrapper = styled.div`
 	}
 `;
 
-const StyledWrapper = styled.div`
-`;
+const StyledWrapper = styled.div``;
 
 const Logo = styled.div`
 	display: flex;
@@ -60,7 +59,7 @@ const Logo = styled.div`
 
 const StyledGuideSection = styled.div`
 	padding: 12px 0;
-  border-bottom: 1px solid ${({ theme }) => theme.soft};
+	border-bottom: 1px solid ${({ theme }) => theme.soft};
 `;
 
 const StyledImg = styled.img`
