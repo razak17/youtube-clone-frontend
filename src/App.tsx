@@ -1,12 +1,15 @@
 import { useState } from 'react';
 import styled, { ThemeProvider } from 'styled-components';
+import { QueryClient, QueryClientProvider } from 'react-query';
+import { ReactQueryDevtools } from 'react-query/devtools';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+
+import { darkColors, lightColors } from './style/theme';
 import Sidebar from './components/Sidebar';
 import Navbar from './components/Navbar';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Home from './pages/Home';
 import SignIn from './pages/SignIn';
 import Video from './pages/Video';
-import { darkColors, lightColors } from './style/theme';
 
 const StyledCOntainer = styled.div`
 	display: flex;
@@ -20,7 +23,9 @@ const StyledWrapper = styled.div`
 	padding: 22px 20px;
 `;
 
-function App() {
+const queryClient = new QueryClient();
+
+function BaseApp() {
 	const [darkMode, setDarkMode] = useState(true);
 
 	return (
@@ -45,6 +50,15 @@ function App() {
 				</BrowserRouter>
 			</StyledCOntainer>
 		</ThemeProvider>
+	);
+}
+
+function App() {
+	return (
+		<QueryClientProvider client={queryClient}>
+			<BaseApp />
+			<ReactQueryDevtools initialIsOpen />
+		</QueryClientProvider>
 	);
 }
 

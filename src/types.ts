@@ -1,25 +1,26 @@
 export interface Video {
 	_id: string;
-	owner: string;
-	createdAt: Date;
-	updatedAt: Date;
+  owner: string;
+  title: string;
+  description: string;
+	views: number;
 	__v: number;
-	description: string;
-	title: string;
+  createdAt: Date;
+  updatedAt: Date;
 }
 export interface Comment {
 	_id: string;
-	owner: string;
+  owner: string;
+  title: string;
+  videoId: string;
 	createdAt: Date;
 	updatedAt: Date;
 	__v: number;
-	videoId: string;
-	title: string;
 }
 
 export enum QueryKeys {
 	me = 'me',
-	videos = 'videos'
+	videos = 'Videos'
 }
 
 export interface Me {

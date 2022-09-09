@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { videoURLs } from '../data';
 import { FC } from '../main';
+import { Video } from '../types';
 
 const StyledContainer = styled.div`
 	width: ${(props) => props.itemType !== 'sm' && '250px'};
@@ -56,7 +57,7 @@ const StyledInfo = styled.div`
 	color: ${({ theme }) => theme.textSoft};
 `;
 
-const Card: FC<{ type?: string }> = ({ type }) => {
+const Card: FC<{ type?: string; video: Video }> = ({ type, video }) => {
 	return (
 		<Link to='/video/test' style={{ textDecoration: 'none' }}>
 			<StyledContainer itemType={type}>
@@ -64,11 +65,13 @@ const Card: FC<{ type?: string }> = ({ type }) => {
 				<StyledDetails itemType={type}>
 					<StyledChannelImage itemType={type} src={videoURLs[2]} />
 					<StyledTexts>
-						<StyledTitle>
-							Test video that has to long for prototyping purposes
-						</StyledTitle>
+						<StyledTitle>{video.title}</StyledTitle>
 						<StyledChannelName>Lama Dev</StyledChannelName>
-						<StyledInfo>660,908 views • 1 day ago</StyledInfo>
+						<StyledInfo>
+							<>
+								{video.views} views • {video.createdAt}
+							</>
+						</StyledInfo>
 					</StyledTexts>
 				</StyledDetails>
 			</StyledContainer>

@@ -1,6 +1,9 @@
 import styled from 'styled-components';
 import Card from '../components/Card';
-import { useVideo } from '../context/videos';
+import { useQuery } from 'react-query';
+
+import { QueryKeys } from '../types';
+import { getVideos } from '../lib/api';
 
 const StyledContianer = styled.div`
 	display: flex;
@@ -9,19 +12,16 @@ const StyledContianer = styled.div`
 `;
 
 const Home = () => {
-	const { videos } = useVideo();
-	console.log(videos);
+	const { data: videos } = useQuery(QueryKeys.videos, getVideos, {
+		initialData: []
+	});
+	console.log('videos', videos);
 
 	return (
 		<StyledContianer>
-			<Card />
-			<Card />
-			<Card />
-			<Card />
-			<Card />
-			<Card />
-			<Card />
-			<Card />
+			{(videos || []).map((video) => {
+				return <Card key={video._id} video={video} />;
+			})}
 		</StyledContianer>
 	);
 };
