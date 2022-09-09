@@ -2,8 +2,9 @@ import styled from 'styled-components';
 import Card from '../components/Card';
 import { useQuery } from 'react-query';
 
-import { QueryKeys } from '../types';
+import { QueryKeys, VideoType } from '../types';
 import { getVideos } from '../lib/api';
+import { FC } from '../main';
 
 const StyledContianer = styled.div`
 	display: flex;
@@ -11,16 +12,15 @@ const StyledContianer = styled.div`
 	flex-wrap: wrap;
 `;
 
-const Home = () => {
-	const { data: videos } = useQuery(QueryKeys.videos, getVideos, {
+const Home: FC<{ type: VideoType }> = ({ type }) => {
+	const { data: videos } = useQuery(QueryKeys.VIDEOS, () => getVideos(type), {
 		initialData: []
 	});
-	console.log('videos', videos);
 
 	return (
 		<StyledContianer>
 			{(videos || []).map((video) => {
-				return <Card key={video._id} video={video} />;
+				return <Card key={video._id} video={video} ownerId={video.owner} />;
 			})}
 		</StyledContianer>
 	);

@@ -20,6 +20,7 @@ import SettingsBrightnessOutlinedIcon from '@mui/icons-material/SettingsBrightne
 
 import logo from '../assets/logo.png';
 import { FC } from '../main';
+import { AppLinks } from '../types';
 
 const StyledContainer = styled.div`
 	width: 240px;
@@ -109,7 +110,10 @@ const Sidebar: FC<{
 	return (
 		<StyledContainer>
 			<StyledLogoWrapper>
-				<Link to='/' style={{ textDecoration: 'none', color: 'inherit' }}>
+				<Link
+					to={AppLinks.HOME}
+					style={{ textDecoration: 'none', color: 'inherit' }}
+				>
 					<Logo>
 						<StyledImg src={logo} />
 						<span>DevTube</span>
@@ -118,18 +122,33 @@ const Sidebar: FC<{
 			</StyledLogoWrapper>
 			<StyledWrapper>
 				<StyledGuideSection>
-					<StyledItem>
-						<HomeIcon />
-						Home
-					</StyledItem>
-					<StyledItem>
-						<ExploreOutlinedIcon />
-						Explore
-					</StyledItem>
-					<StyledItem>
-						<SubscriptionsOutlinedIcon />
-						Subscriptions
-					</StyledItem>
+					<Link
+						to={AppLinks.HOME}
+						style={{ textDecoration: 'none', color: 'inherit' }}
+					>
+						<StyledItem>
+							<HomeIcon />
+							Home
+						</StyledItem>
+					</Link>
+					<Link
+						to={AppLinks.EXPLORE}
+						style={{ textDecoration: 'none', color: 'inherit' }}
+					>
+						<StyledItem>
+							<ExploreOutlinedIcon />
+							Explore
+						</StyledItem>
+					</Link>
+					<Link
+						to={AppLinks.SUBSCRIPTIONS}
+						style={{ textDecoration: 'none', color: 'inherit' }}
+					>
+						<StyledItem>
+							<SubscriptionsOutlinedIcon />
+							Subscriptions
+						</StyledItem>
+					</Link>
 				</StyledGuideSection>
 				<StyledGuideSection>
 					<StyledItem>

@@ -1,8 +1,10 @@
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import { videoURLs } from '../data';
 import { FC } from '../main';
-import { Video } from '../types';
+import { QueryKeys, Video } from '../types';
+import { format } from 'timeago.js';
+import { getUsers } from '../lib/api';
+import { useQuery } from 'react-query';
 
 const StyledContainer = styled.div`
 	width: ${(props) => props.itemType !== 'sm' && '250px'};
@@ -57,20 +59,28 @@ const StyledInfo = styled.div`
 	color: ${({ theme }) => theme.textSoft};
 `;
 
-const Card: FC<{ type?: string; video: Video }> = ({ type, video }) => {
+const Card: FC<{ type?: string; video: Video; ownerId: string }> = ({
+	type,
+	video,
+	ownerId
+}) => {
+	const { data: owner } = useQuery(QueryKeys.USERS, () => getUsers(ownerId), {
+		initialData: undefined
+	});
+
 	return (
 		<Link to='/video/test' style={{ textDecoration: 'none' }}>
 			<StyledContainer itemType={type}>
-				<StyledImage itemType={type} src={videoURLs[1]} />
+				<StyledImage itemType={type} src={video.thumbnailUrl} />
 				<StyledDetails itemType={type}>
-					<StyledChannelImage itemType={type} src={videoURLs[2]} />
+					<StyledChannelImage itemType={type} src={owner?.profilePic} />
 					<StyledTexts>
 						<StyledTitle>{video.title}</StyledTitle>
-						<StyledChannelName>Lama Dev</StyledChannelName>
+						<StyledChannelName>{owner?.username}</StyledChannelName>
 						<StyledInfo>
-							<>
-								{video.views} views • {video.createdAt}
-							</>
+							<span>
+								{video.views} views • {format(video.createdAt.toString())}{' '}
+							</span>
 						</StyledInfo>
 					</StyledTexts>
 				</StyledDetails>
