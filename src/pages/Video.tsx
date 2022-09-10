@@ -3,9 +3,15 @@ import ThumbUpOutlinedIcon from '@mui/icons-material/ThumbUpOutlined';
 import ThumbDownOffAltOutlinedIcon from '@mui/icons-material/ThumbDownOffAltOutlined';
 import ReplyOutlinedIcon from '@mui/icons-material/ReplyOutlined';
 import AddTaskOutlinedIcon from '@mui/icons-material/AddTaskOutlined';
+import ThumbUpIcon from '@mui/icons-material/ThumbUp';
 import Comments from '../components/Comments';
 import Card from '../components/Card';
-import { videoURLs } from '../data';
+import { useLocation } from 'react-router-dom';
+import { QueryKeys } from '../types';
+import { getUser, getVideo } from '../lib/api';
+import { useQuery } from 'react-query';
+import { useMe } from '../context/me';
+import { format } from 'timeago.js';
 
 const StyledContainer = styled.div`
 	display: flex;
@@ -106,6 +112,25 @@ const StyledSubscribe = styled.button`
 `;
 
 const Video = () => {
+	const { user } = useMe();
+
+	const path = useLocation().pathname.split('/')[2];
+	const { data: video, refetch: videoRefetch } = useQuery([QueryKeys.CURRENT_VIDEO], () => getVideo(path));
+	const { data: owner, refetch: ownerRefetch } = useQuery([QueryKeys.USER], () => getUser(video?.owner as string));
+	console.log('owner', owner);
+	console.log('cvideo', video);
+
+	const handleLike = () => {
+		alert('like');
+	};
+
+	const handleSubscribe = () => {
+		alert('subscribe');
+	};
+
+	{
+		/* https://www.youtube.com/embed/k3Vfj-e1Ma4 */
+	}
 	return (
 		<StyledContainer>
 			<StyledContent>
@@ -113,64 +138,66 @@ const Video = () => {
 					<iframe
 						width='100%'
 						height='480'
-						src='https://www.youtube.com/embed/k3Vfj-e1Ma4'
+						src=''
 						title='YouTube video player'
 						frameBorder='0'
 						allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture'
 						allowFullScreen
 					></iframe>
 				</StyledVideoWrapper>
-				<StyledTitle>Test Video</StyledTitle>
-				<StyledDetails>
-					<StyledInfo>7,948,154 views • Jun 22, 2022</StyledInfo>
-					<StyledButtons>
-						<StyledButton>
-							<ThumbUpOutlinedIcon /> 123
-						</StyledButton>
-						<StyledButton>
-							<ThumbDownOffAltOutlinedIcon /> Dislike
-						</StyledButton>
-						<StyledButton>
-							<ReplyOutlinedIcon /> Share
-						</StyledButton>
-						<StyledButton>
-							<AddTaskOutlinedIcon /> Save
-						</StyledButton>
-					</StyledButtons>
-				</StyledDetails>
+				<StyledTitle>{video?.title}</StyledTitle>
+				{video && (
+					<StyledDetails>
+						<StyledInfo>
+							<span>
+								{video?.views === 0 ? 'No' : video?.views}
+                {video?.views === 1 ? 'view' : 'views'} •{' '}
+								{format(video?.createdAt.toString())}
+							</span>
+						</StyledInfo>
+						<StyledButtons>
+							<StyledButton onClick={handleLike}>
+								{video.likes?.includes(owner?._id as string) ?
+                  <ThumbUpIcon /> : <ThumbUpOutlinedIcon /> }
+                {video.likes?.length}
+							</StyledButton>
+							<StyledButton>
+								<ThumbDownOffAltOutlinedIcon /> {video.dislikes}
+							</StyledButton>
+							<StyledButton>
+								<ReplyOutlinedIcon /> Share
+							</StyledButton>
+							<StyledButton>
+								<AddTaskOutlinedIcon /> Save
+							</StyledButton>
+						</StyledButtons>
+					</StyledDetails>
+				)}
 				<StyledHr />
 				<StyledChannel>
 					<StyledChannelInfo>
-						<StyledImage src={videoURLs[2]} />
+						<StyledImage src={owner?.profilePic} />
 						<StyledChannelDetail>
-							<StyledChannelName>Lama Dev</StyledChannelName>
-							<StyledChannelCounter>200K subscribers</StyledChannelCounter>
-							<StyledDescription>
-								Lorem ipsum dolor, sit amet consectetur adipisicing elit. Doloribus laborum delectus unde quaerat dolore culpa
-								sit aliquam at. Vitae facere ipsum totam ratione exercitationem. Suscipit animi accusantium dolores ipsam ut.
-							</StyledDescription>
+							<StyledChannelName>{owner?.username}</StyledChannelName>
+							<StyledChannelCounter>
+								<span>
+									{owner?.subscriberCount === 0 ? 'No' : owner?.subscriberCount}{' '}
+									{owner?.subscriberCount === 1 ? 'subscriber' : 'subscribers'}
+								</span>
+							</StyledChannelCounter>
+							<StyledDescription>{video?.description}</StyledDescription>
 						</StyledChannelDetail>
 					</StyledChannelInfo>
-					<StyledSubscribe>SUBSCRIBE</StyledSubscribe>
+					<StyledSubscribe onClick={handleSubscribe}>
+            {user?.subscriptions?.includes(owner?._id as string)
+              ? "SUBSCRIBED"
+              : "SUBSCRIBE"}
+          </StyledSubscribe>
 				</StyledChannel>
 				<StyledHr />
 				<Comments />
 			</StyledContent>
-			<StyledRecommendation>
-				<Card type='sm' />
-				<Card type='sm' />
-				<Card type='sm' />
-				<Card type='sm' />
-				<Card type='sm' />
-				<Card type='sm' />
-				<Card type='sm' />
-				<Card type='sm' />
-				<Card type='sm' />
-				<Card type='sm' />
-				<Card type='sm' />
-				<Card type='sm' />
-				<Card type='sm' />
-			</StyledRecommendation>
+			<StyledRecommendation></StyledRecommendation>
 		</StyledContainer>
 	);
 };

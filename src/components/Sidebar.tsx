@@ -113,14 +113,6 @@ const Sidebar: FC<{
 }> = ({ darkMode, setDarkMode }) => {
 	const { user } = useMe();
 
-	const { user: u, refetch } = useMe();
-
-	const handleLogout = () => {
-		{
-			/* mutation.mutate({user: undefined}); */
-		}
-	};
-
 	return (
 		<StyledContainer>
 			<StyledLogoWrapper>
@@ -216,18 +208,6 @@ const Sidebar: FC<{
 					<StyledItem onClick={() => setDarkMode(!darkMode)}>
 						<SettingsBrightnessOutlinedIcon />
 						{darkMode ? 'Light' : 'Dark'} Mode
-					</StyledItem>
-					<StyledItem onClick={() => setDarkMode(!darkMode)}>
-						{user && (
-							<StyledLogin>
-								<Link to='/' style={{ textDecoration: 'none' }}>
-									<StyledBtn onClick={handleLogout}>
-										<AccountCircleOutlinedIcon />
-										sign out
-									</StyledBtn>
-								</Link>
-							</StyledLogin>
-						)}
 					</StyledItem>
 				</StyledGuideSection>
 			</StyledWrapper>

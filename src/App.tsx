@@ -65,7 +65,7 @@ function App() {
 												</AuthRoute>
 											}
 										/>
-										<Route path='video'>
+										<Route path='watch'>
 											<Route path=':id' element={<Video />} />
 										</Route>
 									</Route>

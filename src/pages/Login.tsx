@@ -1,7 +1,7 @@
 import { AxiosError } from 'axios';
 import { useState } from 'react';
 import { useMutation } from 'react-query';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 import { login } from '../lib/api';
 import {
@@ -13,14 +13,13 @@ import {
 	StyledSubTitle,
 	StyledTitle
 } from './Register';
-import { useNavigate } from 'react-router-dom';
 import { useMe } from '../context/me';
 import GoogleLogin from './GoogleLogin';
 
 const Login = () => {
 	const [formData, setFormData] = useState({
 		email: 'bo@email.com',
-		password: 'cruzmissile'
+		password: 'cruzmis2sile'
 	});
 	const navigate = useNavigate();
 	const { user, refetch } = useMe();

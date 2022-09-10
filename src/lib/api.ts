@@ -37,6 +37,13 @@ export async function login(payload: { email: string; password: string }) {
 	return res.data;
 }
 
+export async function logout() {
+	const res = await axios.post(`${authBase}/logout`, {
+		withCredentials: true
+	});
+	return res.data;
+}
+
 export async function googleLogin(payload: GoogleUser) {
 	const res = await axios.post(`${authBase}/google`, payload, {
 		withCredentials: true
@@ -48,5 +55,10 @@ export async function getMe(): Promise<User> {
 	const res = await axios.get(`${userBase}/me`, {
 		withCredentials: true
 	});
+	return res.data;
+}
+
+export async function getVideo(videoId: string): Promise<Video> {
+	const res = await axios.get(`${videoBase}/find/${videoId}`);
 	return res.data;
 }

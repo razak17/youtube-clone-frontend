@@ -60,12 +60,10 @@ const StyledInfo = styled.div`
 `;
 
 const Card: FC<{ type?: string; video: Video; ownerId: string }> = ({ type, video, ownerId }) => {
-	const { data: owner } = useQuery(QueryKeys.USER, () => getUser(ownerId), {
-		initialData: undefined
-	});
+	const { data: owner } = useQuery([QueryKeys.USER], () => getUser(ownerId));
 
 	return (
-		<Link to='/video/test' style={{ textDecoration: 'none' }}>
+		<Link to={`/watch/${video._id}`} style={{ textDecoration: 'none' }}>
 			<StyledContainer itemType={type}>
 				<StyledImage itemType={type} src={video.thumbnailUrl} />
 				<StyledDetails itemType={type}>

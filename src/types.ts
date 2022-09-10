@@ -49,7 +49,10 @@ export interface Comment {
 }
 
 export enum QueryKeys {
-	ME = 'me',
+	ME = 'Me',
+	VIDEO = 'Video',
+	CURRENT_VIDEO = 'currentVideo',
+	CURRENT_VIDEO_OWNER = 'currentVideoOwner',
 	VIDEOS = 'Videos',
 	USER = 'User',
 	GOOGLE_USER = 'googleUser',
