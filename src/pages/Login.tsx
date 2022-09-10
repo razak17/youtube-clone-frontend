@@ -2,6 +2,7 @@ import { AxiosError } from 'axios';
 import { useState } from 'react';
 import { useMutation } from 'react-query';
 import { Link } from 'react-router-dom';
+
 import { login } from '../lib/api';
 import {
 	StyledButton,
@@ -14,6 +15,7 @@ import {
 } from './Register';
 import { useNavigate } from 'react-router-dom';
 import { useMe } from '../context/me';
+import GoogleLogin from './GoogleLogin';
 
 const Login = () => {
 	const [formData, setFormData] = useState({
@@ -31,7 +33,7 @@ const Login = () => {
 	const mutation = useMutation<string, AxiosError, Parameters<typeof login>['0']>(login, {
 		onSuccess: () => {
 			navigate('/', { replace: true });
-			refetch();
+			refetch && refetch();
 		}
 	});
 
@@ -60,6 +62,7 @@ const Login = () => {
 				<StyledSpan>
 					new user? <Link to='/register'>register</Link>
 				</StyledSpan>
+				<GoogleLogin />
 			</StyledSection>
 		</StyledContainer>
 	);

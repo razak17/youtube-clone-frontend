@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { User, Video, VideoType } from '../types';
+import { GoogleUser, User, Video, VideoType } from '../types';
 
 const base = import.meta.env.VITE_PUBLIC_API_ENDPOINT;
 
@@ -32,6 +32,13 @@ export async function register(payload: {
 
 export async function login(payload: { email: string; password: string }) {
 	const res = await axios.post(`${authBase}/login`, payload, {
+		withCredentials: true
+	});
+	return res.data;
+}
+
+export async function googleLogin(payload: GoogleUser) {
+	const res = await axios.post(`${authBase}/google`, payload, {
 		withCredentials: true
 	});
 	return res.data;

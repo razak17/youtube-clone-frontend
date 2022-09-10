@@ -10,9 +10,6 @@ export const StyledContainer = styled.div`
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	 {
-		/* justify-content: center; */
-	}
 	height: calc(100vh - 56px);
 	color: ${({ theme }) => theme.text};
 	padding-top: 48px;
@@ -90,7 +87,7 @@ const Register = () => {
 	const mutation = useMutation<string, AxiosError, Parameters<typeof register>['0']>(register, {
 		onSuccess: () => {
 			navigate('/login', { replace: true });
-			refetch();
+			refetch && refetch();
 		}
 	});
 

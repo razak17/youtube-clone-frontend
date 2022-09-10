@@ -32,6 +32,12 @@ export interface User {
 	__v: number;
 }
 
+export interface GoogleUser {
+	username: string;
+	email: string;
+	profilePic: string;
+}
+
 export interface Comment {
 	_id: string;
 	owner: string;
@@ -46,5 +52,6 @@ export enum QueryKeys {
 	ME = 'me',
 	VIDEOS = 'Videos',
 	USER = 'User',
+	GOOGLE_USER = 'googleUser',
 	USERS = 'Users'
 }

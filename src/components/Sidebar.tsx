@@ -62,8 +62,7 @@ const Logo = styled.div`
 `;
 
 const StyledWrapper = styled.div`
-	height: 100vh;
-  padding-bottom: 48px;
+	height: 100%;
 `;
 
 const StyledGuideSection = styled.div`
@@ -83,7 +82,7 @@ const StyledLogin = styled.div`
 	padding: 8px 28px;
 `;
 
-const StyledButton = styled.button`
+const StyledBtn = styled.button`
 	padding: 6px 12px;
 	background-color: transparent;
 	border: 1px solid #065fd4;
@@ -91,6 +90,7 @@ const StyledButton = styled.button`
 	border-radius: 3px;
 	font-size: 14px;
 	font-weight: 500;
+	text-transform: uppercase;
 	margin-top: 10px;
 	cursor: pointer;
 	display: flex;
@@ -112,6 +112,14 @@ const Sidebar: FC<{
 	setDarkMode: Dispatch<SetStateAction<boolean>>;
 }> = ({ darkMode, setDarkMode }) => {
 	const { user } = useMe();
+
+	const { user: u, refetch } = useMe();
+
+	const handleLogout = () => {
+		{
+			/* mutation.mutate({user: undefined}); */
+		}
+	};
 
 	return (
 		<StyledContainer>
@@ -157,10 +165,10 @@ const Sidebar: FC<{
 						<StyledLogin>
 							Sign in to like videos, comment, and subscribe.
 							<Link to='login' style={{ textDecoration: 'none' }}>
-								<StyledButton>
+								<StyledBtn>
 									<AccountCircleOutlinedIcon />
 									SIGN IN
-								</StyledButton>
+								</StyledBtn>
 							</Link>
 						</StyledLogin>
 					)}
@@ -208,6 +216,18 @@ const Sidebar: FC<{
 					<StyledItem onClick={() => setDarkMode(!darkMode)}>
 						<SettingsBrightnessOutlinedIcon />
 						{darkMode ? 'Light' : 'Dark'} Mode
+					</StyledItem>
+					<StyledItem onClick={() => setDarkMode(!darkMode)}>
+						{user && (
+							<StyledLogin>
+								<Link to='/' style={{ textDecoration: 'none' }}>
+									<StyledBtn onClick={handleLogout}>
+										<AccountCircleOutlinedIcon />
+										sign out
+									</StyledBtn>
+								</Link>
+							</StyledLogin>
+						)}
 					</StyledItem>
 				</StyledGuideSection>
 			</StyledWrapper>

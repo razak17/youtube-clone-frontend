@@ -75,7 +75,8 @@ const Card: FC<{ type?: string; video: Video; ownerId: string }> = ({ type, vide
 						<StyledChannelName>{owner?.username}</StyledChannelName>
 						<StyledInfo>
 							<span>
-								{video.views} views • {format(video.createdAt.toString())}{' '}
+								{video.views === 0 ? 'No' : video.views} {video.views === 1 ? 'view' : 'views'} •{' '}
+								{format(video.createdAt.toString())}
 							</span>
 						</StyledInfo>
 					</StyledTexts>
