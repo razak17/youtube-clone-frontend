@@ -59,11 +59,7 @@ const StyledInfo = styled.div`
 	color: ${({ theme }) => theme.textSoft};
 `;
 
-const Card: FC<{ type?: string; video: Video; ownerId: string }> = ({
-	type,
-	video,
-	ownerId
-}) => {
+const Card: FC<{ type?: string; video: Video; ownerId: string }> = ({ type, video, ownerId }) => {
 	const { data: owner } = useQuery(QueryKeys.USER, () => getUser(ownerId), {
 		initialData: undefined
 	});

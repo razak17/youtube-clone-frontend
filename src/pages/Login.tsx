@@ -9,7 +9,7 @@ import {
 	StyledInput,
 	StyledSection,
 	StyledSpan,
-  StyledSubTitle,
+	StyledSubTitle,
 	StyledTitle
 } from './Register';
 import { useNavigate } from 'react-router-dom';
@@ -23,19 +23,12 @@ const Login = () => {
 	const navigate = useNavigate();
 	const { user, refetch } = useMe();
 
-	const handleChangeInput = (
-		e: React.ChangeEvent<HTMLInputElement> &
-			React.ChangeEvent<HTMLTextAreaElement>
-	) => {
+	const handleChangeInput = (e: React.ChangeEvent<HTMLInputElement> & React.ChangeEvent<HTMLTextAreaElement>) => {
 		const { name, value } = e.target;
 		setFormData({ ...formData, [name]: value });
 	};
 
-	const mutation = useMutation<
-		string,
-		AxiosError,
-		Parameters<typeof login>['0']
-	>(login, {
+	const mutation = useMutation<string, AxiosError, Parameters<typeof login>['0']>(login, {
 		onSuccess: () => {
 			navigate('/', { replace: true });
 			refetch();
@@ -55,16 +48,11 @@ const Login = () => {
 				</StyledTitle>
 
 				<StyledSubTitle>sign in to continue</StyledSubTitle>
+				<StyledInput name='email' placeholder='Email' value={formData.email} onChange={handleChangeInput} />
 				<StyledInput
-					name='email'
-					placeholder='Email'
-          value={formData.email}
-					onChange={handleChangeInput}
-				/>
-				<StyledInput
-          type='password'
+					type='password'
 					name='password'
-          placeholder='Password'
+					placeholder='Password'
 					value={formData.password}
 					onChange={handleChangeInput}
 				/>

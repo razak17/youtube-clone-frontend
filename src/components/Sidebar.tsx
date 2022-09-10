@@ -20,10 +20,11 @@ import SettingsBrightnessOutlinedIcon from '@mui/icons-material/SettingsBrightne
 
 import logo from '../assets/logo.png';
 import { FC } from '../main';
-import { AppLinks } from '../types';
 import { useMe } from '../context/me';
 
 const StyledContainer = styled.div`
+	position: sticky;
+	overflow: scroll;
 	width: 240px;
 	background-color: ${({ theme }) => theme.bgLighter};
 	color: ${({ theme }) => theme.text};
@@ -46,8 +47,6 @@ const StyledLogoWrapper = styled.div`
 	}
 `;
 
-const StyledWrapper = styled.div``;
-
 const Logo = styled.div`
 	display: flex;
 	align-items: center;
@@ -57,15 +56,19 @@ const Logo = styled.div`
 		font-size: 18px;
 		padding-top: 6px;
 	}
+	img {
+		height: 25px;
+	}
+`;
+
+const StyledWrapper = styled.div`
+	height: 100vh;
+  padding-bottom: 48px;
 `;
 
 const StyledGuideSection = styled.div`
 	padding: 12px 0;
 	border-bottom: 1px solid ${({ theme }) => theme.soft};
-`;
-
-const StyledImg = styled.img`
-	height: 25px;
 `;
 
 const StyledItem = styled.div`
@@ -113,40 +116,28 @@ const Sidebar: FC<{
 	return (
 		<StyledContainer>
 			<StyledLogoWrapper>
-				<Link
-					to={AppLinks.HOME}
-					style={{ textDecoration: 'none', color: 'inherit' }}
-				>
+				<Link to='/' style={{ textDecoration: 'none', color: 'inherit' }}>
 					<Logo>
-						<StyledImg src={logo} />
+						<img src={logo} />
 						<span>DevTube</span>
 					</Logo>
 				</Link>
 			</StyledLogoWrapper>
 			<StyledWrapper>
 				<StyledGuideSection>
-					<Link
-						to={AppLinks.HOME}
-						style={{ textDecoration: 'none', color: 'inherit' }}
-					>
+					<Link to='/' style={{ textDecoration: 'none', color: 'inherit' }}>
 						<StyledItem>
 							<HomeIcon />
 							Home
 						</StyledItem>
 					</Link>
-					<Link
-						to={AppLinks.EXPLORE}
-						style={{ textDecoration: 'none', color: 'inherit' }}
-					>
+					<Link to='/explore' style={{ textDecoration: 'none', color: 'inherit' }}>
 						<StyledItem>
 							<ExploreOutlinedIcon />
 							Explore
 						</StyledItem>
 					</Link>
-					<Link
-						to={AppLinks.SUBSCRIPTIONS}
-						style={{ textDecoration: 'none', color: 'inherit' }}
-					>
+					<Link to='/subscriptions' style={{ textDecoration: 'none', color: 'inherit' }}>
 						<StyledItem>
 							<SubscriptionsOutlinedIcon />
 							Subscriptions

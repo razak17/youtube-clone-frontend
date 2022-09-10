@@ -82,19 +82,12 @@ const Register = () => {
 	const navigate = useNavigate();
 	const { user, refetch } = useMe();
 
-	const handleChangeInput = (
-		e: React.ChangeEvent<HTMLInputElement> &
-			React.ChangeEvent<HTMLTextAreaElement>
-	) => {
+	const handleChangeInput = (e: React.ChangeEvent<HTMLInputElement> & React.ChangeEvent<HTMLTextAreaElement>) => {
 		const { name, value } = e.target;
 		setFormData({ ...formData, [name]: value });
 	};
 
-	const mutation = useMutation<
-		string,
-		AxiosError,
-		Parameters<typeof register>['0']
-	>(register, {
+	const mutation = useMutation<string, AxiosError, Parameters<typeof register>['0']>(register, {
 		onSuccess: () => {
 			navigate('/login', { replace: true });
 			refetch();
@@ -113,19 +106,8 @@ const Register = () => {
 					<h1>Register</h1>
 				</StyledTitle>
 				<StyledSubTitle>sign up to get started</StyledSubTitle>
-				<StyledInput
-					name='username'
-					placeholder='Username'
-					value={formData.username}
-					onChange={handleChangeInput}
-				/>
-				<StyledInput
-					type='email'
-					name='email'
-					placeholder='Email'
-					value={formData.email}
-					onChange={handleChangeInput}
-				/>
+				<StyledInput name='username' placeholder='Username' value={formData.username} onChange={handleChangeInput} />
+				<StyledInput type='email' name='email' placeholder='Email' value={formData.email} onChange={handleChangeInput} />
 				<StyledInput
 					type='password'
 					name='password'

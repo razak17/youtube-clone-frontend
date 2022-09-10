@@ -13,13 +13,11 @@ const StyledContianer = styled.div`
 `;
 
 const Home: FC<{ type: VideoType }> = ({ type }) => {
-	const { data: videos } = useQuery(
-		[QueryKeys.VIDEOS, type],
-		() => getVideos(type),
-		{
-			initialData: []
-		}
-	);
+	const { data: videos } = useQuery([QueryKeys.VIDEOS, type], () => getVideos(type), {
+		initialData: []
+	});
+	console.log('videos', videos);
+
 	console.log('videos', videos);
 
 	return (

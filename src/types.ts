@@ -12,7 +12,7 @@ export interface Video {
 	dislikes: string[];
 	createdAt: Date;
 	updatedAt: Date;
-  __v: number;
+	__v: number;
 }
 
 export type VideoType = 'random' | 'trending' | 'subscriptions';
@@ -24,12 +24,12 @@ export interface User {
 	password: string;
 	profilePic: string;
 	subscriberCount: number;
-  subscriptions: string[];
+	subscriptions: string[];
 	subscribers: string[];
 	fromGoogle: boolean;
 	createdAt: Date;
 	updatedAt: Date;
-  __v: number;
+	__v: number;
 }
 
 export interface Comment {
@@ -46,12 +46,5 @@ export enum QueryKeys {
 	ME = 'me',
 	VIDEOS = 'Videos',
 	USER = 'User',
-	USERS = 'Users',
-}
-
-export enum AppLinks {
-	HOME = '/',
-	TRENDING = '/trending',
-	SUBSCRIPTIONS = '/subscriptions',
-	EXPLORE = '/explore'
+	USERS = 'Users'
 }

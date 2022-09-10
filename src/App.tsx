@@ -38,34 +38,36 @@ function App() {
 							<Navbar />
 							<StyledWrapper>
 								<Routes>
-									<Route index element={<Home type='random' />} />
-									<Route path='explore' element={<Home type='trending' />} />
-									<Route
-										path='subscriptions'
-										element={
-											<PrivateRoute>
-												<Home type='subscriptions' />
-											</PrivateRoute>
-										}
-									/>
-									<Route
-										path='login'
-										element={
-											<AuthRoute>
-												<Login />
-											</AuthRoute>
-										}
-									/>
-									<Route
-										path='register'
-										element={
-											<AuthRoute>
-												<Register />
-											</AuthRoute>
-										}
-									/>
-									<Route path='video'>
-										<Route path=':id' element={<Video />} />
+									<Route path='/'>
+										<Route index element={<Home type='random' />} />
+										<Route path='explore' element={<Home type='trending' />} />
+										<Route
+											path='subscriptions'
+											element={
+												<PrivateRoute>
+													<Home type='subscriptions' />
+												</PrivateRoute>
+											}
+										/>
+										<Route
+											path='login'
+											element={
+												<AuthRoute>
+													<Login />
+												</AuthRoute>
+											}
+										/>
+										<Route
+											path='register'
+											element={
+												<AuthRoute>
+													<Register />
+												</AuthRoute>
+											}
+										/>
+										<Route path='video'>
+											<Route path=':id' element={<Video />} />
+										</Route>
 									</Route>
 								</Routes>
 							</StyledWrapper>

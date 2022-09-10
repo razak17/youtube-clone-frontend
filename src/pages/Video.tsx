@@ -146,10 +146,8 @@ const Video = () => {
 							<StyledChannelName>Lama Dev</StyledChannelName>
 							<StyledChannelCounter>200K subscribers</StyledChannelCounter>
 							<StyledDescription>
-								Lorem ipsum dolor, sit amet consectetur adipisicing elit. Doloribus
-								laborum delectus unde quaerat dolore culpa sit aliquam at. Vitae facere
-								ipsum totam ratione exercitationem. Suscipit animi accusantium dolores
-								ipsam ut.
+								Lorem ipsum dolor, sit amet consectetur adipisicing elit. Doloribus laborum delectus unde quaerat dolore culpa
+								sit aliquam at. Vitae facere ipsum totam ratione exercitationem. Suscipit animi accusantium dolores ipsam ut.
 							</StyledDescription>
 						</StyledChannelDetail>
 					</StyledChannelInfo>

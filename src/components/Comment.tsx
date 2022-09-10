@@ -44,10 +44,8 @@ const Comment = () => {
 					John Doe <StyledDate>1 day ago</StyledDate>
 				</StyledName>
 				<StyledText>
-					Lorem ipsum dolor, sit amet consectetur adipisicing elit. Vel, ex
-					laboriosam ipsam aliquam voluptatem perferendis provident modi, sequi
-					tempore reiciendis quod, optio ullam cumque? Quidem numquam sint mollitia
-					totam reiciendis?
+					Lorem ipsum dolor, sit amet consectetur adipisicing elit. Vel, ex laboriosam ipsam aliquam voluptatem perferendis
+					provident modi, sequi tempore reiciendis quod, optio ullam cumque? Quidem numquam sint mollitia totam reiciendis?
 				</StyledText>
 			</StyledDetails>
 		</StyledCOntainer>
