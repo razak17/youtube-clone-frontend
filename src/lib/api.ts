@@ -9,11 +9,13 @@ const videoBase = `${base}/videos`;
 // const commentsBase = `${base}/comments`;
 
 export const getVideos = async (type: VideoType): Promise<Video[]> => {
-	const res = await axios.get(`${videoBase}/${type}`);
+	const res = await axios.get(`${videoBase}/${type}`, {
+		withCredentials: type === 'subscriptions'
+	});
 	return res.data;
 };
 
-export const getUsers = async (userId: string): Promise<User> => {
+export const getUser = async (userId: string): Promise<User> => {
 	const res = await axios.get(`${userBase}/find/${userId}`);
 	return res.data;
 };

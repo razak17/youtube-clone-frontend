@@ -24,9 +24,10 @@ const Home: FC<{ type: VideoType }> = ({ type }) => {
 
 	return (
 		<StyledContianer>
-			{(videos || []).map((video) => {
-				return <Card key={video._id} video={video} ownerId={video.owner} />;
-			})}
+			{videos?.length &&
+				videos.map((video) => {
+					return <Card key={video._id} video={video} ownerId={video.owner} />;
+				})}
 		</StyledContianer>
 	);
 };

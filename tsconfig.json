@@ -13,6 +13,7 @@
 		"moduleResolution": "Node",
 		"resolveJsonModule": true,
 		"isolatedModules": true,
+		"noImplicitAnyForClassMembers": false,
 		"noEmit": true,
 		"jsx": "react-jsx"
 	},

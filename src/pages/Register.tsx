@@ -1,8 +1,9 @@
 import { AxiosError } from 'axios';
 import { useState } from 'react';
 import { useMutation } from 'react-query';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
+import { useMe } from '../context/me';
 import { register } from '../lib/api';
 
 export const StyledContainer = styled.div`
@@ -30,10 +31,15 @@ export const StyledSection = styled.div`
 `;
 
 export const StyledTitle = styled.div`
-	margin-bottom: 18px;
 	h1 {
 		font-size: 24px;
 	}
+`;
+
+export const StyledSubTitle = styled.h2`
+	font-size: 14px;
+	font-weight: 300;
+	margin-bottom: 12px;
 `;
 
 export const StyledInput = styled.input`
@@ -59,19 +65,22 @@ export const StyledButton = styled.button`
 
 export const StyledSpan = styled.div`
 	padding-top: 12px;
-	font-size: 12px;
+	font-size: 14px;
 	a {
 		text-decoration: none;
 		color: ${({ theme }) => theme.blue};
 	}
 `;
+
 const Register = () => {
 	const [formData, setFormData] = useState({
-		username: '',
-		email: '',
-		password: '',
-		confirmPassword: ''
+		username: 'bob',
+		email: 'bob@email.com',
+		password: 'bobishere',
+		confirmPassword: 'bobishere'
 	});
+	const navigate = useNavigate();
+	const { user, refetch } = useMe();
 
 	const handleChangeInput = (
 		e: React.ChangeEvent<HTMLInputElement> &
@@ -85,38 +94,58 @@ const Register = () => {
 		string,
 		AxiosError,
 		Parameters<typeof register>['0']
-	>(register);
+	>(register, {
+		onSuccess: () => {
+			navigate('/login', { replace: true });
+			refetch();
+		}
+	});
+
+	const handleRegister = () => {
+		console.log(formData);
+		mutation.mutate(formData);
+	};
 
 	return (
-		<StyledSection>
-			<StyledTitle>
-				<h1>Register</h1>
-			</StyledTitle>
-			<StyledInput
-				name='username'
-				placeholder='Username'
-				onChange={handleChangeInput}
-			/>
-			<StyledInput name='email' placeholder='Email' onChange={handleChangeInput} />
-			<StyledInput
-				name='password'
-				type='password'
-				placeholder='Password'
-				onChange={handleChangeInput}
-			/>
-			<StyledInput
-				name='confirmPassword'
-				type='password'
-				placeholder='Confirm Password'
-				onChange={handleChangeInput}
-			/>
-			<StyledButton onSubmit={() => mutation.mutate(formData)}>
-				Register
-			</StyledButton>
-			<StyledSpan>
-				already registered? <Link to='/login'>login</Link>
-			</StyledSpan>
-		</StyledSection>
+		<StyledContainer>
+			<StyledSection>
+				<StyledTitle>
+					<h1>Register</h1>
+				</StyledTitle>
+				<StyledSubTitle>sign up to get started</StyledSubTitle>
+				<StyledInput
+					name='username'
+					placeholder='Username'
+					value={formData.username}
+					onChange={handleChangeInput}
+				/>
+				<StyledInput
+					type='email'
+					name='email'
+					placeholder='Email'
+					value={formData.email}
+					onChange={handleChangeInput}
+				/>
+				<StyledInput
+					type='password'
+					name='password'
+					placeholder='Password'
+					value={formData.password}
+					onChange={handleChangeInput}
+				/>
+				<StyledInput
+					type='password'
+					name='confirmPassword'
+					value={formData.confirmPassword}
+					placeholder='Confirm Password'
+					onChange={handleChangeInput}
+				/>
+				<StyledButton onClick={handleRegister}>Register</StyledButton>
+				<StyledSpan>
+					already registered? <Link to='/login'>login</Link>
+				</StyledSpan>
+			</StyledSection>
+		</StyledContainer>
 	);
 };
 

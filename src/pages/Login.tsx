@@ -1,13 +1,15 @@
 import { AxiosError } from 'axios';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useMutation } from 'react-query';
-import { Link, Navigate, useLocation } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { login } from '../lib/api';
 import {
 	StyledButton,
+	StyledContainer,
 	StyledInput,
 	StyledSection,
 	StyledSpan,
+  StyledSubTitle,
 	StyledTitle
 } from './Register';
 import { useNavigate } from 'react-router-dom';
@@ -19,10 +21,7 @@ const Login = () => {
 		password: 'cruzmissile'
 	});
 	const navigate = useNavigate();
-	const location = useLocation();
-	const userContext = useMe();
-
-	const user = userContext?.user;
+	const { user, refetch } = useMe();
 
 	const handleChangeInput = (
 		e: React.ChangeEvent<HTMLInputElement> &
@@ -38,14 +37,8 @@ const Login = () => {
 		Parameters<typeof login>['0']
 	>(login, {
 		onSuccess: () => {
-			// 👇️ replace set to true
 			navigate('/', { replace: true });
-			{
-				/* const origin: unknown = location.state?.from.pathname as string || '/dashboard'; */
-			}
-			{
-				/* navigate(origin, { replace: true }); */
-			}
+			refetch();
 		}
 	});
 
@@ -55,28 +48,32 @@ const Login = () => {
 	};
 
 	return (
-		<StyledSection>
-			<StyledTitle>
-				<h1>Login</h1>
-			</StyledTitle>
-			<StyledInput
-				name='email'
-				value={formData.email}
-				placeholder='Email'
-				onChange={handleChangeInput}
-			/>
-			<StyledInput
-				name='password'
-				value={formData.email}
-				onChange={handleChangeInput}
-				type='password'
-				placeholder='Password'
-			/>
-			<StyledButton onClick={handleLogin}>Login</StyledButton>
-			<StyledSpan>
-				new user? <Link to='/register'>register</Link>
-			</StyledSpan>
-		</StyledSection>
+		<StyledContainer>
+			<StyledSection>
+				<StyledTitle>
+					<h1>Login</h1>
+				</StyledTitle>
+
+				<StyledSubTitle>sign in to continue</StyledSubTitle>
+				<StyledInput
+					name='email'
+					placeholder='Email'
+          value={formData.email}
+					onChange={handleChangeInput}
+				/>
+				<StyledInput
+          type='password'
+					name='password'
+          placeholder='Password'
+					value={formData.password}
+					onChange={handleChangeInput}
+				/>
+				<StyledButton onClick={handleLogin}>Login</StyledButton>
+				<StyledSpan>
+					new user? <Link to='/register'>register</Link>
+				</StyledSpan>
+			</StyledSection>
+		</StyledContainer>
 	);
 };
 

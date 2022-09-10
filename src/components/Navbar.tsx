@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined';
 import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
 import { Link } from 'react-router-dom';
-import { User } from '../types';
+import { useMe } from '../context/me';
 
 const Container = styled.div`
 	position: sticky;
@@ -49,6 +49,7 @@ const StyledButton = styled.button`
 	border: 1px solid #065fd4;
 	color: #065fd4;
 	border-radius: 3px;
+	text-transform: uppercase;
 	font-weight: 500;
 	cursor: pointer;
 	display: flex;
@@ -56,7 +57,9 @@ const StyledButton = styled.button`
 	gap: 5px;
 `;
 
-const Navbar = ({ user }: { user: User }) => {
+const Navbar = () => {
+	const { user } = useMe();
+
 	return (
 		<Container>
 			<StyledWrapper>
@@ -65,10 +68,10 @@ const Navbar = ({ user }: { user: User }) => {
 					<SearchOutlinedIcon style={{ color: '#606060' }} />
 				</StyeldSearch>
 				{!user && (
-					<Link to='login' style={{ textDecoration: 'none' }}>
+					<Link to='register' style={{ textDecoration: 'none' }}>
 						<StyledButton>
 							<AccountCircleOutlinedIcon />
-							SIGN IN
+							sign up
 						</StyledButton>
 					</Link>
 				)}

@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { FC } from '../main';
 import { QueryKeys, Video } from '../types';
 import { format } from 'timeago.js';
-import { getUsers } from '../lib/api';
+import { getUser } from '../lib/api';
 import { useQuery } from 'react-query';
 
 const StyledContainer = styled.div`
@@ -64,7 +64,7 @@ const Card: FC<{ type?: string; video: Video; ownerId: string }> = ({
 	video,
 	ownerId
 }) => {
-	const { data: owner } = useQuery(QueryKeys.USERS, () => getUsers(ownerId), {
+	const { data: owner } = useQuery(QueryKeys.USER, () => getUser(ownerId), {
 		initialData: undefined
 	});
 

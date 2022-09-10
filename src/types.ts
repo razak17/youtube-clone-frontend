@@ -45,6 +45,7 @@ export interface Comment {
 export enum QueryKeys {
 	ME = 'me',
 	VIDEOS = 'Videos',
+	USER = 'User',
 	USERS = 'Users',
 }
 

@@ -20,7 +20,8 @@ import SettingsBrightnessOutlinedIcon from '@mui/icons-material/SettingsBrightne
 
 import logo from '../assets/logo.png';
 import { FC } from '../main';
-import { AppLinks, User } from '../types';
+import { AppLinks } from '../types';
+import { useMe } from '../context/me';
 
 const StyledContainer = styled.div`
 	width: 240px;
@@ -106,8 +107,9 @@ const StyledTitle = styled.h2`
 const Sidebar: FC<{
 	darkMode?: boolean;
 	setDarkMode: Dispatch<SetStateAction<boolean>>;
-	user: User;
-}> = ({ darkMode, setDarkMode, user }) => {
+}> = ({ darkMode, setDarkMode }) => {
+	const { user } = useMe();
+
 	return (
 		<StyledContainer>
 			<StyledLogoWrapper>
