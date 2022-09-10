@@ -1,8 +1,11 @@
 import styled from 'styled-components';
 import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined';
 import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
+import VideoCallOutlinedIcon from '@mui/icons-material/VideoCallOutlined';
 import { Link } from 'react-router-dom';
 import { useMe } from '../context/me';
+import { useState } from 'react';
+import Upload from './Upload';
 
 const Container = styled.div`
 	position: sticky;
@@ -57,26 +60,51 @@ const StyledButton = styled.button`
 	gap: 5px;
 `;
 
+const StyledUser = styled.div`
+	display: flex;
+	align-items: center;
+	gap: 10px;
+	font-weight: 500;
+	color: ${({ theme }) => theme.text};
+`;
+
+const StyledAvatar = styled.img`
+	width: 32px;
+	height: 32px;
+	margin-left: 12px;
+	border-radius: 50%;
+	background-color: #999;
+`;
+
 const Navbar = () => {
+	const [open, setOpen] = useState(false);
 	const { user } = useMe();
 
 	return (
-		<Container>
-			<StyledWrapper>
-				<StyeldSearch>
-					<StyledInput placeholder='Search' />
-					<SearchOutlinedIcon style={{ color: '#606060' }} />
-				</StyeldSearch>
-				{!user && (
-					<Link to='register' style={{ textDecoration: 'none' }}>
-						<StyledButton>
-							<AccountCircleOutlinedIcon />
-							sign up
-						</StyledButton>
-					</Link>
-				)}
-			</StyledWrapper>
-		</Container>
+		<>
+			<Container>
+				<StyledWrapper>
+					<StyeldSearch>
+						<StyledInput placeholder='Search' />
+						<SearchOutlinedIcon style={{ color: '#606060' }} />
+					</StyeldSearch>
+					{user ? (
+						<StyledUser>
+							<VideoCallOutlinedIcon onClick={() => setOpen(true)} />
+							<StyledAvatar src={user.profilePic} />
+						</StyledUser>
+					) : (
+						<Link to='register' style={{ textDecoration: 'none' }}>
+							<StyledButton>
+								<AccountCircleOutlinedIcon />
+								sign up
+							</StyledButton>
+						</Link>
+					)}
+				</StyledWrapper>
+			</Container>
+			{open && <Upload />}
+		</>
 	);
 };
 
