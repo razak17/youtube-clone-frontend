@@ -20,7 +20,7 @@ import SettingsBrightnessOutlinedIcon from '@mui/icons-material/SettingsBrightne
 
 import logo from '../assets/logo.png';
 import { FC } from '../main';
-import { AppLinks } from '../types';
+import { AppLinks, User } from '../types';
 
 const StyledContainer = styled.div`
 	width: 240px;
@@ -75,7 +75,7 @@ const StyledItem = styled.div`
 	padding: 8px 28px;
 `;
 
-const StyledSignIn = styled.div`
+const StyledLogin = styled.div`
 	padding: 8px 28px;
 `;
 
@@ -106,7 +106,8 @@ const StyledTitle = styled.h2`
 const Sidebar: FC<{
 	darkMode?: boolean;
 	setDarkMode: Dispatch<SetStateAction<boolean>>;
-}> = ({ darkMode, setDarkMode }) => {
+	user: User;
+}> = ({ darkMode, setDarkMode, user }) => {
 	return (
 		<StyledContainer>
 			<StyledLogoWrapper>
@@ -159,15 +160,17 @@ const Sidebar: FC<{
 						<HistoryOutlinedIcon />
 						History
 					</StyledItem>
-					<StyledSignIn>
-						Sign in to like videos, comment, and subscribe.
-						<Link to='signin' style={{ textDecoration: 'none' }}>
-							<StyledButton>
-								<AccountCircleOutlinedIcon />
-								SIGN IN
-							</StyledButton>
-						</Link>
-					</StyledSignIn>
+					{!user && (
+						<StyledLogin>
+							Sign in to like videos, comment, and subscribe.
+							<Link to='login' style={{ textDecoration: 'none' }}>
+								<StyledButton>
+									<AccountCircleOutlinedIcon />
+									SIGN IN
+								</StyledButton>
+							</Link>
+						</StyledLogin>
+					)}
 				</StyledGuideSection>
 				<StyledTitle>More from DevTube</StyledTitle>
 				<StyledGuideSection>

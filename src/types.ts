@@ -54,9 +54,3 @@ export enum AppLinks {
 	SUBSCRIPTIONS = '/subscriptions',
 	EXPLORE = '/explore'
 }
-
-export interface Me {
-	_id: string;
-	email: string;
-	username: string;
-}
