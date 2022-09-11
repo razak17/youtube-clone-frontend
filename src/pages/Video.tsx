@@ -4,6 +4,7 @@ import ThumbDownOffAltOutlinedIcon from '@mui/icons-material/ThumbDownOffAltOutl
 import ReplyOutlinedIcon from '@mui/icons-material/ReplyOutlined';
 import AddTaskOutlinedIcon from '@mui/icons-material/AddTaskOutlined';
 import ThumbUpIcon from '@mui/icons-material/ThumbUp';
+import ThumbDownIcon from '@mui/icons-material/ThumbDown';
 import Comments from '../components/Comments';
 import Card from '../components/Card';
 import { useLocation } from 'react-router-dom';
@@ -170,11 +171,11 @@ const Video = () => {
 							<StyledButton onClick={() => likeMutation.mutate(video._id as string)}>
 								{/* eslint-disable-next-line max-len */}
 								{video.likes.includes(owner?._id as string) ? <ThumbUpIcon /> : <ThumbUpOutlinedIcon />}
-								{video.likes.length === 0 ? ' ' : video.likes.length}
+								{video.likes.length}
 							</StyledButton>
 							<StyledButton onClick={() => dislikeMutation.mutate(video._id as string)}>
-								<ThumbDownOffAltOutlinedIcon />
-								{video.dislikes.length === 0 ? ' ' : video.dislikes.length}
+								{video.dislikes.includes(owner?._id as string) ? <ThumbDownIcon /> : <ThumbDownOffAltOutlinedIcon />}
+								{video.dislikes.length}
 							</StyledButton>
 							<StyledButton>
 								<ReplyOutlinedIcon /> Share
@@ -200,7 +201,7 @@ const Video = () => {
 							<StyledDescription>{video?.description}</StyledDescription>
 						</StyledChannelDetail>
 					</StyledChannelInfo>
-					<StyledSubscribe onClick={handleSubscribe} disabled={user?.subscriptions?.includes(owner?._id as string)}>
+					<StyledSubscribe onClick={handleSubscribe}>
 						{user?.subscriptions?.includes(owner?._id as string) ? 'SUBSCRIBED' : 'SUBSCRIBE'}
 					</StyledSubscribe>
 				</StyledChannel>
