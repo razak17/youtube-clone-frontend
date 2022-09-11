@@ -1,6 +1,6 @@
 import { AxiosError } from 'axios';
 import { useState } from 'react';
-import { useMutation } from 'react-query';
+import { useMutation, useQueryClient } from 'react-query';
 import { Link, useNavigate } from 'react-router-dom';
 
 import { login } from '../lib/api';
@@ -13,8 +13,8 @@ import {
 	StyledSubTitle,
 	StyledTitle
 } from './Register';
-import { useMe } from '../context/me';
 import GoogleLogin from './GoogleLogin';
+import { QueryKeys } from '../types';
 
 const Login = () => {
 	const [formData, setFormData] = useState({
@@ -22,7 +22,7 @@ const Login = () => {
 		password: 'bobishere'
 	});
 	const navigate = useNavigate();
-	const { user, refetch } = useMe();
+	const queryClient = useQueryClient();
 
 	const handleChangeInput = (e: React.ChangeEvent<HTMLInputElement> & React.ChangeEvent<HTMLTextAreaElement>) => {
 		const { name, value } = e.target;
@@ -32,12 +32,11 @@ const Login = () => {
 	const mutation = useMutation<string, AxiosError, Parameters<typeof login>['0']>(login, {
 		onSuccess: () => {
 			navigate('/', { replace: true });
-			refetch && refetch();
+			queryClient.invalidateQueries([QueryKeys.ME]);
 		}
 	});
 
 	const handleLogin = () => {
-		console.log(formData);
 		mutation.mutate(formData);
 	};
 

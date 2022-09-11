@@ -1,10 +1,10 @@
 import { AxiosError } from 'axios';
 import { useState } from 'react';
-import { useMutation } from 'react-query';
+import { useMutation, useQueryClient } from 'react-query';
 import { Link, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
-import { useMe } from '../context/me';
 import { register } from '../lib/api';
+import { QueryKeys } from '../types';
 
 export const StyledContainer = styled.div`
 	display: flex;
@@ -77,7 +77,7 @@ const Register = () => {
 		confirmPassword: 'bobishere'
 	});
 	const navigate = useNavigate();
-	const { user, refetch } = useMe();
+	const queryClient = useQueryClient();
 
 	const handleChangeInput = (e: React.ChangeEvent<HTMLInputElement> & React.ChangeEvent<HTMLTextAreaElement>) => {
 		const { name, value } = e.target;
@@ -87,12 +87,11 @@ const Register = () => {
 	const mutation = useMutation<string, AxiosError, Parameters<typeof register>['0']>(register, {
 		onSuccess: () => {
 			navigate('/login', { replace: true });
-			refetch && refetch();
+			queryClient.invalidateQueries([QueryKeys.ME]);
 		}
 	});
 
 	const handleRegister = () => {
-		console.log(formData);
 		mutation.mutate(formData);
 	};
 
