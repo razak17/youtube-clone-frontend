@@ -8,10 +8,11 @@ import Comments from '../components/Comments';
 import Card from '../components/Card';
 import { useLocation } from 'react-router-dom';
 import { QueryKeys } from '../types';
-import { getUser, getVideo } from '../lib/api';
-import { useQuery } from 'react-query';
+import { dislikeVideo, getUser, getVideo, likeVideo } from '../lib/api';
+import { useMutation, useQuery } from 'react-query';
 import { useMe } from '../context/me';
 import { format } from 'timeago.js';
+import { AxiosError } from 'axios';
 
 const StyledContainer = styled.div`
 	display: flex;
@@ -113,24 +114,35 @@ const StyledSubscribe = styled.button`
 
 const Video = () => {
 	const { user } = useMe();
-
+	const { CURRENT_VIDEO, CURRENT_VIDEO_OWNER } = QueryKeys;
 	const path = useLocation().pathname.split('/')[2];
-	const { data: video, refetch: videoRefetch } = useQuery([QueryKeys.CURRENT_VIDEO], () => getVideo(path));
-	const { data: owner, refetch: ownerRefetch } = useQuery([QueryKeys.USER], () => getUser(video?.owner as string));
+
+	const { data: video, refetch: videoRefetch } = useQuery([CURRENT_VIDEO], () => getVideo(path));
+  /* eslint-disable-next-line max-len */
+  const { data: owner, refetch: ownerRefetch } = useQuery([CURRENT_VIDEO_OWNER], () => getUser(video?.owner as string));
 	console.log('owner', owner);
+	console.log('path', path);
 	console.log('cvideo', video);
 
-	const handleLike = () => {
-		alert('like');
-	};
+	const likeMutation = useMutation<string, AxiosError, Parameters<typeof likeVideo>['0']>(likeVideo, {
+		onSuccess: () => {
+			videoRefetch && videoRefetch();
+			// ownerRefetch && ownerRefetch();
+		}
+	});
+
+	const dislikeMutation = useMutation<string, AxiosError, Parameters<typeof dislikeVideo>['0']>(dislikeVideo, {
+		onSuccess: () => {
+			videoRefetch && videoRefetch();
+		}
+	});
 
 	const handleSubscribe = () => {
-		alert('subscribe');
+		dislikeMutation.mutate(video?._id as string);
 	};
 
-	{
-		/* https://www.youtube.com/embed/k3Vfj-e1Ma4 */
-	}
+	// https://www.youtube.com/embed/k3Vfj-e1Ma4
+
 	return (
 		<StyledContainer>
 			<StyledContent>
@@ -150,19 +162,19 @@ const Video = () => {
 					<StyledDetails>
 						<StyledInfo>
 							<span>
-								{video?.views === 0 ? 'No' : video?.views}
-                {video?.views === 1 ? 'view' : 'views'} •{' '}
+								{video.views === 0 ? 'No' : video.views} {video.views === 1 ? 'view' : 'views'} •{' '}
 								{format(video?.createdAt.toString())}
 							</span>
 						</StyledInfo>
 						<StyledButtons>
-							<StyledButton onClick={handleLike}>
-								{video.likes?.includes(owner?._id as string) ?
-                  <ThumbUpIcon /> : <ThumbUpOutlinedIcon /> }
-                {video.likes?.length}
+							<StyledButton onClick={() => likeMutation.mutate(video._id as string)}>
+								{/* eslint-disable-next-line max-len */}
+								{video.likes.includes(owner?._id as string) ? <ThumbUpIcon /> : <ThumbUpOutlinedIcon />}
+								{video.likes.length === 0 ? ' ' : video.likes.length}
 							</StyledButton>
-							<StyledButton>
-								<ThumbDownOffAltOutlinedIcon /> {video.dislikes}
+							<StyledButton onClick={() => dislikeMutation.mutate(video._id as string)}>
+								<ThumbDownOffAltOutlinedIcon />
+								{video.dislikes.length === 0 ? ' ' : video.dislikes.length}
 							</StyledButton>
 							<StyledButton>
 								<ReplyOutlinedIcon /> Share
@@ -188,11 +200,9 @@ const Video = () => {
 							<StyledDescription>{video?.description}</StyledDescription>
 						</StyledChannelDetail>
 					</StyledChannelInfo>
-					<StyledSubscribe onClick={handleSubscribe}>
-            {user?.subscriptions?.includes(owner?._id as string)
-              ? "SUBSCRIBED"
-              : "SUBSCRIBE"}
-          </StyledSubscribe>
+					<StyledSubscribe onClick={handleSubscribe} disabled={user?.subscriptions?.includes(owner?._id as string)}>
+						{user?.subscriptions?.includes(owner?._id as string) ? 'SUBSCRIBED' : 'SUBSCRIBE'}
+					</StyledSubscribe>
 				</StyledChannel>
 				<StyledHr />
 				<Comments />

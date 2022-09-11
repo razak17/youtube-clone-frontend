@@ -8,6 +8,11 @@ const authBase = `${base}/auth`;
 const videoBase = `${base}/videos`;
 // const commentsBase = `${base}/comments`;
 
+const auth = axios.create({
+  baseURL: base,
+  withCredentials: true
+})
+
 export const getVideos = async (type: VideoType): Promise<Video[]> => {
 	const res = await axios.get(`${videoBase}/${type}`, {
 		withCredentials: type === 'subscriptions'
@@ -31,34 +36,31 @@ export async function register(payload: {
 }
 
 export async function login(payload: { email: string; password: string }) {
-	const res = await axios.post(`${authBase}/login`, payload, {
-		withCredentials: true
-	});
-	return res.data;
-}
-
-export async function logout() {
-	const res = await axios.post(`${authBase}/logout`, {
-		withCredentials: true
-	});
+	const res = await auth.post(`${authBase}/login`, payload);
 	return res.data;
 }
 
 export async function googleLogin(payload: GoogleUser) {
-	const res = await axios.post(`${authBase}/google`, payload, {
-		withCredentials: true
-	});
+	const res = await auth.post(`${authBase}/google`, payload);
 	return res.data;
 }
 
 export async function getMe(): Promise<User> {
-	const res = await axios.get(`${userBase}/me`, {
-		withCredentials: true
-	});
+	const res = await auth.get(`${userBase}/me`);
 	return res.data;
 }
 
 export async function getVideo(videoId: string): Promise<Video> {
 	const res = await axios.get(`${videoBase}/find/${videoId}`);
+	return res.data;
+}
+
+export async function likeVideo(videoId: string) {
+	const res = await auth.put(`${userBase}/like/${videoId}`);
+	return res.data;
+}
+
+export async function dislikeVideo(videoId: string) {
+	const res = await auth.put(`${userBase}/dislike/${videoId}`);
 	return res.data;
 }
