@@ -117,13 +117,18 @@ const Video = () => {
 	const { user } = useMe();
 	const navigate = useNavigate();
 	const queryClient = useQueryClient();
-	const path = useLocation().pathname.split('/')[2];
+	const path = useLocation().pathname;
+	const videoPath = path.split('/')[2];
 
-	const { data: video, isLoading: videoLoading } = useQuery([QueryKeys.CURRENT_VIDEO, path], () => getVideo(path));
+	const { data: video, isLoading: videoLoading } = useQuery([QueryKeys.CURRENT_VIDEO, videoPath], () =>
+		getVideo(videoPath)
+	);
 
 	/* eslint-disable-next-line max-len */
-	const { data: owner, isLoading: ownerLoading } = useQuery([QueryKeys.CURRENT_VIDEO_OWNER], () => getVideoOwner(path));
-	console.log('path', path);
+	const { data: owner, isLoading: ownerLoading } = useQuery([QueryKeys.CURRENT_VIDEO_OWNER], () =>
+		getVideoOwner(videoPath)
+	);
+	console.log('videoPath', videoPath);
 
 	const likeMutation = useMutation<string, AxiosError, Parameters<typeof likeVideo>['0']>(likeVideo, {
 		onSuccess: () => {
@@ -160,7 +165,7 @@ const Video = () => {
 	};
 
 	const handleSubscribe = () => {
-		if (!user) navigate('/login');
+		if (!user) navigate('/login', { state: path });
 		owner?.subscribers?.includes(user?._id as string)
 			? unsubscribeMutation.mutate(owner?._id as string)
 			: subscribeMutation.mutate(owner?._id as string);
@@ -215,28 +220,26 @@ const Video = () => {
 					</StyledDetails>
 				)}
 				<StyledHr />
-				{owner && (
 					<StyledChannel>
 						<StyledChannelInfo>
-							<StyledImage src={owner.profilePic} />
+							<StyledImage src={owner?.profilePic} />
 							<StyledChannelDetail>
-								<StyledChannelName>{owner.username}</StyledChannelName>
+								<StyledChannelName>{owner?.username}</StyledChannelName>
 								<StyledChannelCounter>
 									<span>
-										{owner.subscribers.length === 0 ? 'No' : owner.subscribers.length}{' '}
-										{owner.subscribers.length === 1 ? 'subscriber' : 'subscribers'}
+										{owner?.subscribers?.length === 0 ? 'No' : owner?.subscribers?.length}{' '}
+										{owner?.subscribers?.length === 1 ? 'subscriber' : 'subscribers'}
 									</span>
 								</StyledChannelCounter>
 								<StyledDescription>{video?.description}</StyledDescription>
 							</StyledChannelDetail>
 						</StyledChannelInfo>
-						{owner._id !== user?._id && (
+						{owner?._id !== user?._id && (
 							<StyledSubscribe onClick={handleSubscribe}>
-								{owner.subscribers.includes(user?._id as string) ? 'SUBSCRIBED' : 'SUBSCRIBE'}
+								{owner?.subscribers?.includes(user?._id as string) ? 'SUBSCRIBED' : 'SUBSCRIBE'}
 							</StyledSubscribe>
 						)}
 					</StyledChannel>
-				)}
 				<StyledHr />
 				<Comments />
 			</StyledContent>
