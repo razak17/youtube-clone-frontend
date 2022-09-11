@@ -9,7 +9,7 @@ import Comments from '../components/Comments';
 import Card from '../components/Card';
 import { useLocation } from 'react-router-dom';
 import { QueryKeys } from '../types';
-import { dislikeVideo, getUser, getVideo, likeVideo, subscribe, unsubscribe } from '../lib/api';
+import { dislikeVideo, getUser, getVideo, getVideoOwner, likeVideo, subscribe, unsubscribe } from '../lib/api';
 import { useMutation, useQuery } from 'react-query';
 import { useMe } from '../context/me';
 import { format } from 'timeago.js';
@@ -122,21 +122,23 @@ const Video = () => {
 		data: video,
 		isLoading: videoLoading,
 		refetch: videoRefetch
-	} = useQuery([CURRENT_VIDEO], () => getVideo(path));
+	} = useQuery([CURRENT_VIDEO, path], () => getVideo(path));
+
+	const videoOwnerId = video?.owner as string;
+
 	/* eslint-disable-next-line max-len */
 	const {
 		data: owner,
 		isLoading: ownerLoading,
 		refetch: ownerRefetch
-	} = useQuery([CURRENT_VIDEO_OWNER], () => getUser(video?.owner as string));
+	} = useQuery([CURRENT_VIDEO_OWNER, videoOwnerId], () => getVideoOwner(path));
+  console.log('path', path);
+  console.log('cvideo', video);
 	console.log('owner', owner);
-	console.log('path', path);
-	console.log('cvideo', video);
 
 	const likeMutation = useMutation<string, AxiosError, Parameters<typeof likeVideo>['0']>(likeVideo, {
 		onSuccess: () => {
 			videoRefetch && videoRefetch();
-			// ownerRefetch && ownerRefetch();
 		}
 	});
 
@@ -166,7 +168,7 @@ const Video = () => {
 
 	// https://www.youtube.com/embed/k3Vfj-e1Ma4
 
-	if (ownerLoading || videoLoading) {
+	if (ownerLoading) {
 		return <p>Loading...</p>;
 	}
 

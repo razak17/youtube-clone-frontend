@@ -14,6 +14,8 @@ const auth = axios.create({
 });
 
 export const getVideos = async (type: VideoType): Promise<Video[]> => {
+	// Make sure parameters passed from React component are not undefined.
+	if (!type) throw new Error('video type is not defined.');
 	const res = await axios.get(`${videoBase}/${type}`, {
 		withCredentials: type === 'subscriptions'
 	});
@@ -21,6 +23,7 @@ export const getVideos = async (type: VideoType): Promise<Video[]> => {
 };
 
 export const getUser = async (userId: string): Promise<User> => {
+	if (!userId) throw new Error('userId is not defined.');
 	const res = await axios.get(`${userBase}/find/${userId}`);
 	return res.data;
 };
@@ -51,26 +54,38 @@ export async function getMe(): Promise<User> {
 }
 
 export async function getVideo(videoId: string): Promise<Video> {
+	if (!videoId) throw new Error('videoId is not defined.');
 	const res = await axios.get(`${videoBase}/find/${videoId}`);
 	return res.data;
 }
 
+export const getVideoOwner = async (videoId: string): Promise<User> => {
+	if (!videoId) throw new Error('videoId is not defined.');
+	const video = await getVideo(videoId);
+	const res = await axios.get(`${userBase}/find/${video.owner}`);
+	return res.data;
+};
+
 export async function likeVideo(videoId: string) {
+	if (!videoId) throw new Error('videoId is not defined.');
 	const res = await auth.put(`${userBase}/like/${videoId}`);
 	return res.data;
 }
 
 export async function dislikeVideo(videoId: string) {
+	if (!videoId) throw new Error('videoId is not defined.');
 	const res = await auth.put(`${userBase}/dislike/${videoId}`);
 	return res.data;
 }
 
 export async function subscribe(userId: string) {
+	if (!userId) throw new Error('userId is not defined.');
 	const res = await auth.put(`${userBase}/sub/${userId}`);
 	return res.data;
 }
 
 export async function unsubscribe(userId: string) {
+	if (!userId) throw new Error('userId is not defined.');
 	const res = await auth.put(`${userBase}/unsub/${userId}`);
 	return res.data;
 }
