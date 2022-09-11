@@ -53,6 +53,7 @@ export enum QueryKeys {
 	VIDEO = 'Video',
 	CURRENT_VIDEO = 'currentVideo',
 	CURRENT_VIDEO_OWNER = 'currentVideoOwner',
+	VIDEO_OWNER = 'videoOwner',
 	VIDEOS = 'Videos',
 	USER = 'User',
 	GOOGLE_USER = 'googleUser',

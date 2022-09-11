@@ -60,7 +60,7 @@ const StyledInfo = styled.div`
 `;
 
 const Card: FC<{ type?: string; video: Video; ownerId: string }> = ({ type, video, ownerId }) => {
-	const { data: owner } = useQuery([QueryKeys.USER], () => getUser(ownerId));
+	const { data: owner } = useQuery([QueryKeys.VIDEO_OWNER, ownerId], () => getUser(ownerId));
 
 	return (
 		<Link to={`/watch/${video._id}`} style={{ textDecoration: 'none' }}>

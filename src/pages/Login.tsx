@@ -18,8 +18,8 @@ import GoogleLogin from './GoogleLogin';
 
 const Login = () => {
 	const [formData, setFormData] = useState({
-		email: 'bo@email.com',
-		password: 'cruzmis2sile'
+		email: 'bob@email.com',
+		password: 'bobishere'
 	});
 	const navigate = useNavigate();
 	const { user, refetch } = useMe();

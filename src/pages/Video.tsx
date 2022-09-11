@@ -9,7 +9,7 @@ import Comments from '../components/Comments';
 import Card from '../components/Card';
 import { useLocation } from 'react-router-dom';
 import { QueryKeys } from '../types';
-import { dislikeVideo, getUser, getVideo, getVideoOwner, likeVideo, subscribe, unsubscribe } from '../lib/api';
+import { dislikeVideo, getVideo, getVideoOwner, likeVideo, subscribe, unsubscribe } from '../lib/api';
 import { useMutation, useQuery } from 'react-query';
 import { useMe } from '../context/me';
 import { format } from 'timeago.js';
@@ -132,8 +132,8 @@ const Video = () => {
 		isLoading: ownerLoading,
 		refetch: ownerRefetch
 	} = useQuery([CURRENT_VIDEO_OWNER, videoOwnerId], () => getVideoOwner(path));
-  console.log('path', path);
-  console.log('cvideo', video);
+	console.log('path', path);
+	console.log('cvideo', video);
 	console.log('owner', owner);
 
 	const likeMutation = useMutation<string, AxiosError, Parameters<typeof likeVideo>['0']>(likeVideo, {
@@ -168,7 +168,7 @@ const Video = () => {
 
 	// https://www.youtube.com/embed/k3Vfj-e1Ma4
 
-	if (ownerLoading) {
+	if (videoLoading) {
 		return <p>Loading...</p>;
 	}
 
@@ -223,8 +223,8 @@ const Video = () => {
 								<StyledChannelName>{owner.username}</StyledChannelName>
 								<StyledChannelCounter>
 									<span>
-										{owner.subscriberCount === 0 ? 'No' : owner.subscriberCount}{' '}
-										{owner.subscriberCount === 1 ? 'subscriber' : 'subscribers'}
+										{owner.subscribers.length === 0 ? 'No' : owner.subscribers.length}{' '}
+										{owner.subscribers.length === 1 ? 'subscriber' : 'subscribers'}
 									</span>
 								</StyledChannelCounter>
 								<StyledDescription>{video?.description}</StyledDescription>

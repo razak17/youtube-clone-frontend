@@ -7,7 +7,13 @@ import App from './App';
 /* eslint-disable-next-line no-unused-vars */
 export type FC<T> = (val: T) => JSX.Element;
 
-const queryClient = new QueryClient();
+const queryClient = new QueryClient({
+	defaultOptions: {
+		queries: {
+			refetchOnWindowFocus: false
+		}
+	}
+});
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
 	<React.StrictMode>
