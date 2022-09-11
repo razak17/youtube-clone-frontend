@@ -9,7 +9,7 @@ import Comments from '../components/Comments';
 import Card from '../components/Card';
 import { useLocation } from 'react-router-dom';
 import { QueryKeys } from '../types';
-import { dislikeVideo, getUser, getVideo, likeVideo } from '../lib/api';
+import { dislikeVideo, getUser, getVideo, likeVideo, subscribe, unsubscribe } from '../lib/api';
 import { useMutation, useQuery } from 'react-query';
 import { useMe } from '../context/me';
 import { format } from 'timeago.js';
@@ -118,9 +118,17 @@ const Video = () => {
 	const { CURRENT_VIDEO, CURRENT_VIDEO_OWNER } = QueryKeys;
 	const path = useLocation().pathname.split('/')[2];
 
-	const { data: video, refetch: videoRefetch } = useQuery([CURRENT_VIDEO], () => getVideo(path));
-  /* eslint-disable-next-line max-len */
-  const { data: owner, refetch: ownerRefetch } = useQuery([CURRENT_VIDEO_OWNER], () => getUser(video?.owner as string));
+	const {
+		data: video,
+		isLoading: videoLoading,
+		refetch: videoRefetch
+	} = useQuery([CURRENT_VIDEO], () => getVideo(path));
+	/* eslint-disable-next-line max-len */
+	const {
+		data: owner,
+		isLoading: ownerLoading,
+		refetch: ownerRefetch
+	} = useQuery([CURRENT_VIDEO_OWNER], () => getUser(video?.owner as string));
 	console.log('owner', owner);
 	console.log('path', path);
 	console.log('cvideo', video);
@@ -138,11 +146,29 @@ const Video = () => {
 		}
 	});
 
+	const subscribeMutation = useMutation<string, AxiosError, Parameters<typeof subscribe>['0']>(subscribe, {
+		onSuccess: () => {
+			ownerRefetch && ownerRefetch();
+		}
+	});
+
+	const unsubscribeMutation = useMutation<string, AxiosError, Parameters<typeof unsubscribe>['0']>(unsubscribe, {
+		onSuccess: () => {
+			ownerRefetch && ownerRefetch();
+		}
+	});
+
 	const handleSubscribe = () => {
-		dislikeMutation.mutate(video?._id as string);
+		user?.subscriptions?.includes(owner?._id as string)
+			? subscribeMutation.mutate(owner?._id as string)
+			: unsubscribeMutation.mutate(owner?._id as string);
 	};
 
 	// https://www.youtube.com/embed/k3Vfj-e1Ma4
+
+	if (ownerLoading || videoLoading) {
+		return <p>Loading...</p>;
+	}
 
 	return (
 		<StyledContainer>
@@ -150,7 +176,7 @@ const Video = () => {
 				<StyledVideoWrapper>
 					<iframe
 						width='100%'
-						height='480'
+						height='400'
 						src=''
 						title='YouTube video player'
 						frameBorder='0'
@@ -187,24 +213,28 @@ const Video = () => {
 					</StyledDetails>
 				)}
 				<StyledHr />
-				<StyledChannel>
-					<StyledChannelInfo>
-						<StyledImage src={owner?.profilePic} />
-						<StyledChannelDetail>
-							<StyledChannelName>{owner?.username}</StyledChannelName>
-							<StyledChannelCounter>
-								<span>
-									{owner?.subscriberCount === 0 ? 'No' : owner?.subscriberCount}{' '}
-									{owner?.subscriberCount === 1 ? 'subscriber' : 'subscribers'}
-								</span>
-							</StyledChannelCounter>
-							<StyledDescription>{video?.description}</StyledDescription>
-						</StyledChannelDetail>
-					</StyledChannelInfo>
-					<StyledSubscribe onClick={handleSubscribe}>
-						{user?.subscriptions?.includes(owner?._id as string) ? 'SUBSCRIBED' : 'SUBSCRIBE'}
-					</StyledSubscribe>
-				</StyledChannel>
+				{owner && (
+					<StyledChannel>
+						<StyledChannelInfo>
+							<StyledImage src={owner.profilePic} />
+							<StyledChannelDetail>
+								<StyledChannelName>{owner.username}</StyledChannelName>
+								<StyledChannelCounter>
+									<span>
+										{owner.subscriberCount === 0 ? 'No' : owner.subscriberCount}{' '}
+										{owner.subscriberCount === 1 ? 'subscriber' : 'subscribers'}
+									</span>
+								</StyledChannelCounter>
+								<StyledDescription>{video?.description}</StyledDescription>
+							</StyledChannelDetail>
+						</StyledChannelInfo>
+						{owner._id !== user?._id && (
+							<StyledSubscribe onClick={handleSubscribe} disabled={owner._id === user?._id}>
+								{user?.subscriptions?.includes(owner._id as string) ? 'SUBSCRIBED' : 'SUBSCRIBE'}
+							</StyledSubscribe>
+						)}
+					</StyledChannel>
+				)}
 				<StyledHr />
 				<Comments />
 			</StyledContent>

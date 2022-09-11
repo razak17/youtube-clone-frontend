@@ -9,9 +9,9 @@ const videoBase = `${base}/videos`;
 // const commentsBase = `${base}/comments`;
 
 const auth = axios.create({
-  baseURL: base,
-  withCredentials: true
-})
+	baseURL: base,
+	withCredentials: true
+});
 
 export const getVideos = async (type: VideoType): Promise<Video[]> => {
 	const res = await axios.get(`${videoBase}/${type}`, {
@@ -62,5 +62,15 @@ export async function likeVideo(videoId: string) {
 
 export async function dislikeVideo(videoId: string) {
 	const res = await auth.put(`${userBase}/dislike/${videoId}`);
+	return res.data;
+}
+
+export async function subscribe(userId: string) {
+	const res = await auth.put(`${userBase}/sub/${userId}`);
+	return res.data;
+}
+
+export async function unsubscribe(userId: string) {
+	const res = await auth.put(`${userBase}/unsub/${userId}`);
 	return res.data;
 }
