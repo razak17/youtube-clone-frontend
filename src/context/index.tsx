@@ -1,9 +1,7 @@
 import { createContext, Dispatch, ReactNode, SetStateAction, useContext, useState } from 'react';
 import { FC } from '../main';
 
-const MainContext = createContext<{ sidebarOpen: boolean; setSidebarOpen: Dispatch<SetStateAction<boolean>> } | null>(
-	null
-);
+const MainContext = createContext<{ sidebarOpen: boolean; setSidebarOpen: Dispatch<SetStateAction<boolean>> }>();
 
 const MainContextProvider: FC<{ children: ReactNode }> = ({ children }) => {
 	const [sidebarOpen, setSidebarOpen] = useState(false);
