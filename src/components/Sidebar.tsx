@@ -183,11 +183,11 @@ const Sidebar: FC<{
 					</StyledItem>
 					{!user && (
 						<StyledLogin>
-							Sign in to like videos, comment, and subscribe.
+							log in to like videos, comment, and subscribe.
 							<Link to='login' style={{ textDecoration: 'none' }}>
 								<StyledBtn>
 									<AccountCircleOutlinedIcon />
-									SIGN IN
+									LOG IN
 								</StyledBtn>
 							</Link>
 						</StyledLogin>

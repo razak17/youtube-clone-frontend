@@ -2,11 +2,12 @@ import styled from 'styled-components';
 import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined';
 import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
 import VideoCallOutlinedIcon from '@mui/icons-material/VideoCallOutlined';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useMe } from '../context/me';
 import { useMainContext } from '../context';
 import MenuIcon from '@mui/icons-material/Menu';
 import { SidebarProps } from './Sidebar';
+import { useState } from 'react';
 
 const Container = styled.header<SidebarProps>`
 	display: flex;
@@ -46,6 +47,7 @@ const StyeldSearch = styled.div`
 const StyledInput = styled.input`
 	border: none;
 	background-color: ${({ theme }) => theme.bg};
+	width: 100%;
 	color: ${({ theme }) => theme.text};
 	outline: none;
 `;
@@ -84,7 +86,14 @@ const StyledAvatar = styled.img`
 
 const Navbar = () => {
 	const { user } = useMe();
+	const navigate = useNavigate();
+
 	const { sidebarOpen, setSidebarOpen } = useMainContext();
+	const [query, setQuery] = useState('');
+
+	const handleSearch = () => {
+		if (query.trim() !== '') navigate(`/search?q=${query}`);
+	};
 
 	return (
 		<>
@@ -95,8 +104,8 @@ const Navbar = () => {
 						style={{ color: '#fff', borderRadius: '20px', fontSize: '28px', cursor: 'pointer' }}
 					/>
 					<StyeldSearch>
-						<StyledInput placeholder='Search' />
-						<SearchOutlinedIcon style={{ color: '#606060' }} />
+						<StyledInput placeholder='Search' onChange={(e) => setQuery(e.target.value)} />
+						<SearchOutlinedIcon style={{ color: '#606060', cursor: 'pointer' }} onClick={handleSearch} />
 					</StyeldSearch>
 					{user ? (
 						<StyledUser sidebarOpen={sidebarOpen}>
@@ -110,7 +119,7 @@ const Navbar = () => {
 						<Link to='register' style={{ textDecoration: 'none' }}>
 							<StyledButton sidebarOpen={sidebarOpen}>
 								<AccountCircleOutlinedIcon />
-								sign up
+								register
 							</StyledButton>
 						</Link>
 					)}

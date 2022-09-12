@@ -14,6 +14,7 @@ import PrivateRoute from './components/PrivateRoute';
 import AuthRoute from './components/AuthRoute';
 import { useMainContext } from './context';
 import Upload from './pages/Upload';
+import Search from './pages/Search';
 
 const StyledCOntainer = styled.div`
 	background-color: ${({ theme }) => theme.bg};
@@ -56,6 +57,7 @@ function App() {
 												</PrivateRoute>
 											}
 										/>
+										<Route path='search' element={<Search />} />
 										<Route
 											path='upload'
 											element={

@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import {Comment as CommentType, QueryKeys} from '../types';
+import { Comment as CommentType, QueryKeys } from '../types';
 import { format } from 'timeago.js';
 import { getUser } from '../lib/api';
 import { useQuery } from 'react-query';
@@ -38,21 +38,16 @@ const StyledText = styled.span`
 	font-size: 14px;
 `;
 
-const Comment = ({ comment }: {comment: CommentType}) => {
-
-	const { data: commentOwner } = useQuery([QueryKeys.COMMENT_OWNER, comment.videoId], () =>
-		getUser(comment.owner)
-	);
+const Comment = ({ comment }: { comment: CommentType }) => {
+	const { data: commentOwner } = useQuery([QueryKeys.COMMENT_OWNER, comment.videoId], () => getUser(comment.owner));
 	return (
 		<StyledCOntainer>
 			<StyledAvatar src={commentOwner?.profilePic} />
 			<StyledDetails>
 				<StyledName>
-          {commentOwner?.username} <StyledDate>{format(comment?.createdAt.toString())}</StyledDate>
+					{commentOwner?.username} <StyledDate>{format(comment?.createdAt.toString())}</StyledDate>
 				</StyledName>
-				<StyledText>
-          {comment.description}
-				</StyledText>
+				<StyledText>{comment.description}</StyledText>
 			</StyledDetails>
 		</StyledCOntainer>
 	);

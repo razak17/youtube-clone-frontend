@@ -3,8 +3,9 @@
 ✅ Logout
 ✅ Comments
 ✅ Sidebar(sticky)
-- Video Upload
+✅ Video Upload
 - Search
 - History
 - Save
 - Form Error Handling
+- Mobile Responsiveness

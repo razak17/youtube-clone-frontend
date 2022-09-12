@@ -84,6 +84,12 @@ export const getRecommendations = async (tags: string): Promise<Video[]> => {
 	return res.data;
 };
 
+export const videoSearch = async (query: string): Promise<Video[]> => {
+	if (!query) throw new Error('query is not defined.');
+	const res = await axios.get(`${videoBase}/search${query}`);
+	return res.data;
+};
+
 export async function likeVideo(videoId: string) {
 	if (!videoId) throw new Error('videoId is not defined.');
 	const res = await auth.put(`${userBase}/like/${videoId}`);

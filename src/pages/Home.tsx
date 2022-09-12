@@ -9,14 +9,13 @@ import { FC } from '../main';
 const StyledContianer = styled.div`
 	background-color: ${({ theme }) => theme.bg};
 	display: flex;
-	justify-content: space-between;
+	gap: 24px;
 	flex-wrap: wrap;
+	height: 100%;
 `;
 
 const Home: FC<{ type: VideoType }> = ({ type }) => {
-	const { data: videos } = useQuery([QueryKeys.VIDEOS, type], () => getVideos(type), {
-		initialData: []
-	});
+	const { data: videos } = useQuery([QueryKeys.VIDEOS, type], () => getVideos(type), { initialData: [] });
 
 	return (
 		<StyledContianer>

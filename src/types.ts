@@ -60,5 +60,6 @@ export enum QueryKeys {
 	USER = 'User',
 	GOOGLE_USER = 'googleUser',
 	USERS = 'Users',
-	RECOMMENDATIONS = 'Recommendations'
+	RECOMMENDATIONS = 'Recommendations',
+	SEARCH = 'search'
 }
