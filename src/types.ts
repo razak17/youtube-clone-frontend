@@ -41,7 +41,7 @@ export interface GoogleUser {
 export interface Comment {
 	_id: string;
 	owner: string;
-	title: string;
+	description: string;
 	videoId: string;
 	createdAt: Date;
 	updatedAt: Date;
@@ -52,6 +52,8 @@ export enum QueryKeys {
 	ME = 'Me',
 	VIDEO = 'Video',
 	CURRENT_VIDEO = 'currentVideo',
+	COMMENTS = 'comments',
+	COMMENT_OWNER = 'commentOwner',
 	CURRENT_VIDEO_OWNER = 'currentVideoOwner',
 	VIDEO_OWNER = 'videoOwner',
 	VIDEOS = 'Videos',

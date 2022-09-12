@@ -14,16 +14,25 @@ import Comments from '../components/Comments';
 import Card from '../components/Card';
 import { QueryKeys } from '../types';
 import { useMe } from '../context/me';
-import { dislikeVideo, getVideo, getVideoOwner, likeVideo, subscribe, unsubscribe } from '../lib/api';
+import { dislikeVideo, getComments, getVideo, getVideoOwner, likeVideo, subscribe, unsubscribe } from '../lib/api';
+import { useMainContext } from '../context';
 
 const StyledContainer = styled.div`
-	width: calc(100% - 270px);
-	display: flex;
+  display: flex;
 `;
 
-const StyledContent = styled.div``;
+const StyledContent = styled.div`
+	width: ${(props) => (props.contextMenu ? 'calc(100% - 70px)' : '')};
+`;
 
-const StyledVideoWrapper = styled.div``;
+const StyledVideoWrapper = styled.div`
+`;
+
+const StyledVideoFrame = styled.video`
+	width: ${(props) => (props.contextMenu ? '920px' : '100%')};
+	max-height: 720px;
+	object-fit: cover;
+`;
 
 const StyledTitle = styled.h1`
 	font-size: 18px;
@@ -62,8 +71,9 @@ const StyledHr = styled.hr`
 `;
 
 const StyledRecommendation = styled.div`
-	flex: 2;
+	width: ${(props) => (props.contextMenu ? '390px' : '100px')};
 `;
+
 const StyledChannel = styled.div`
 	display: flex;
 	justify-content: space-between;
@@ -112,28 +122,21 @@ const StyledSubscribe = styled.button`
 	cursor: pointer;
 `;
 
-const StyledVideoFrame = styled.video`
-  max-height: 720px;
-  width: 100%;
-  object-fit: cover;
-`;
-
 const Video = () => {
 	const { user } = useMe();
 	const navigate = useNavigate();
 	const queryClient = useQueryClient();
 	const path = useLocation().pathname;
 	const videoPath = path.split('/')[2];
+	const { menuOpen } = useMainContext();
 
 	const { data: video, isLoading: videoLoading } = useQuery([QueryKeys.CURRENT_VIDEO, videoPath], () =>
 		getVideo(videoPath)
 	);
 
-	/* eslint-disable-next-line max-len */
 	const { data: owner, isLoading: ownerLoading } = useQuery([QueryKeys.CURRENT_VIDEO_OWNER], () =>
 		getVideoOwner(videoPath)
 	);
-	console.log('videoPath', videoPath);
 
 	const likeMutation = useMutation<string, AxiosError, Parameters<typeof likeVideo>['0']>(likeVideo, {
 		onSuccess: () => {
@@ -183,10 +186,10 @@ const Video = () => {
 	}
 
 	return (
-		<StyledContainer>
+		<StyledContainer  contextMenu={menuOpen ? 'open' : undefined}>
 			<StyledContent>
-				<StyledVideoWrapper>
-          <StyledVideoFrame src={video?.videoUrl} controls />
+				<StyledVideoWrapper contextMenu={menuOpen ? 'open' : undefined}>
+					<StyledVideoFrame contextMenu={menuOpen ? 'open' : undefined} src={video?.videoUrl} controls />
 				</StyledVideoWrapper>
 				<StyledTitle>{video?.title}</StyledTitle>
 				{video && (
@@ -238,9 +241,11 @@ const Video = () => {
 					)}
 				</StyledChannel>
 				<StyledHr />
-				<Comments />
+				<Comments videoId={videoPath} />
 			</StyledContent>
-			<StyledRecommendation></StyledRecommendation>
+			<StyledRecommendation contextMenu={menuOpen ? 'open' : undefined}>
+
+      </StyledRecommendation>
 		</StyledContainer>
 	);
 };

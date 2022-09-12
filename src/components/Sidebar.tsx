@@ -28,18 +28,18 @@ import { useMutation, useQueryClient } from 'react-query';
 import { QueryKeys } from '../types';
 
 const StyledContainer = styled.nav`
-display: ${(props) => props.contextMenu ? "none" : "block"};
-  width: 240px;
+	display: ${(props) => (props.contextMenu ? 'none' : 'block')};
+	width: 240px;
 	color: ${({ theme }) => theme.text};
 `;
 
 const StyledWrapper = styled.div`
 	background-color: ${({ theme }) => theme.bgLighter};
-  width: 240px;
+	width: 240px;
 	height: 100%;
 	overflow-y: auto;
 	display: flex;
-  position: fixed;
+	position: fixed;
 	flex-direction: column;
 	z-index: 1200;
 	top: 0px;
@@ -53,7 +53,7 @@ const StyledLogoWrapper = styled.div`
 	top: 0;
 	padding: 13px 28px;
 	display: flex;
-  justify-content: space-between;
+	justify-content: space-between;
 	align-items: center;
 	// border-bottom: 1px solid ${({ theme }) => theme.soft};
 	span {
@@ -124,9 +124,8 @@ const Sidebar: FC<{
 	setDarkMode: Dispatch<SetStateAction<boolean>>;
 }> = ({ darkMode, setDarkMode }) => {
 	const { user } = useMe();
-  const queryClient = useQueryClient();
-  const { menuOpen } = useMainContext();
-
+	const queryClient = useQueryClient();
+	const { menuOpen } = useMainContext();
 
 	const mutation = useMutation<string, AxiosError, Parameters<typeof logout>>(logout, {
 		onSuccess: () => {
@@ -134,108 +133,108 @@ const Sidebar: FC<{
 		}
 	});
 
-  const handleLogout = () => {
-    mutation.mutate([]);
-  };
+	const handleLogout = () => {
+		mutation.mutate([]);
+	};
 
 	return (
 		<StyledContainer contextMenu={menuOpen ? 'open' : undefined}>
-		<StyledWrapper>
-			<StyledLogoWrapper>
-				<Link to='/' style={{ textDecoration: 'none', color: 'inherit' }}>
-					<Logo>
-						<img src={logo} />
-						<span>DevTube</span>
-					</Logo>
-				</Link>
-			</StyledLogoWrapper>
-			<StyledGuideSection>
-				<Link to='/' style={{ textDecoration: 'none', color: 'inherit' }}>
+			<StyledWrapper>
+				<StyledLogoWrapper>
+					<Link to='/' style={{ textDecoration: 'none', color: 'inherit' }}>
+						<Logo>
+							<img src={logo} />
+							<span>DevTube</span>
+						</Logo>
+					</Link>
+				</StyledLogoWrapper>
+				<StyledGuideSection>
+					<Link to='/' style={{ textDecoration: 'none', color: 'inherit' }}>
+						<StyledItem>
+							<HomeIcon />
+							Home
+						</StyledItem>
+					</Link>
+					<Link to='/explore' style={{ textDecoration: 'none', color: 'inherit' }}>
+						<StyledItem>
+							<ExploreOutlinedIcon />
+							Explore
+						</StyledItem>
+					</Link>
+					<Link to='/subscriptions' style={{ textDecoration: 'none', color: 'inherit' }}>
+						<StyledItem>
+							<SubscriptionsOutlinedIcon />
+							Subscriptions
+						</StyledItem>
+					</Link>
+				</StyledGuideSection>
+				<StyledGuideSection>
 					<StyledItem>
-						<HomeIcon />
-						Home
+						<VideoLibraryOutlinedIcon />
+						Library
 					</StyledItem>
-				</Link>
-				<Link to='/explore' style={{ textDecoration: 'none', color: 'inherit' }}>
 					<StyledItem>
-						<ExploreOutlinedIcon />
-						Explore
+						<HistoryOutlinedIcon />
+						History
 					</StyledItem>
-				</Link>
-				<Link to='/subscriptions' style={{ textDecoration: 'none', color: 'inherit' }}>
+					{!user && (
+						<StyledLogin>
+							Sign in to like videos, comment, and subscribe.
+							<Link to='login' style={{ textDecoration: 'none' }}>
+								<StyledBtn>
+									<AccountCircleOutlinedIcon />
+									SIGN IN
+								</StyledBtn>
+							</Link>
+						</StyledLogin>
+					)}
+				</StyledGuideSection>
+				<StyledTitle>More from DevTube</StyledTitle>
+				<StyledGuideSection>
 					<StyledItem>
-						<SubscriptionsOutlinedIcon />
-						Subscriptions
+						<LibraryMusicOutlinedIcon />
+						Music
 					</StyledItem>
-				</Link>
-			</StyledGuideSection>
-			<StyledGuideSection>
-				<StyledItem>
-					<VideoLibraryOutlinedIcon />
-					Library
-				</StyledItem>
-				<StyledItem>
-					<HistoryOutlinedIcon />
-					History
-				</StyledItem>
-				{!user && (
-					<StyledLogin>
-						Sign in to like videos, comment, and subscribe.
-						<Link to='login' style={{ textDecoration: 'none' }}>
-							<StyledBtn>
-								<AccountCircleOutlinedIcon />
-								SIGN IN
-							</StyledBtn>
-						</Link>
-					</StyledLogin>
-				)}
-			</StyledGuideSection>
-			<StyledTitle>More from DevTube</StyledTitle>
-			<StyledGuideSection>
-				<StyledItem>
-					<LibraryMusicOutlinedIcon />
-					Music
-				</StyledItem>
-				<StyledItem>
-					<SportsBasketballOutlinedIcon />
-					Sports
-				</StyledItem>
-				<StyledItem>
-					<SportsEsportsOutlinedIcon />
-					Gaming
-				</StyledItem>
-				<StyledItem>
-					<MovieOutlinedIcon />
-					Movies
-				</StyledItem>
-				<StyledItem>
-					<ArticleOutlinedIcon />
-					News
-				</StyledItem>
-				<StyledItem>
-					<LiveTvOutlinedIcon />
-					Live
-				</StyledItem>
-			</StyledGuideSection>
-			<StyledGuideSection>
-				<StyledItem>
-					<SettingsOutlinedIcon />
-					Settings
-				</StyledItem>
-				<StyledItem>
-					<FlagOutlinedIcon />
-					Report
-				</StyledItem>
-				<StyledItem>
-					<HelpOutlineOutlinedIcon />
-					Help
-				</StyledItem>
-				<StyledItem onClick={() => setDarkMode(!darkMode)}>
-					<SettingsBrightnessOutlinedIcon />
-					{darkMode ? 'Light' : 'Dark'} Mode
-				</StyledItem>
-			</StyledGuideSection>
-          {user && (
+					<StyledItem>
+						<SportsBasketballOutlinedIcon />
+						Sports
+					</StyledItem>
+					<StyledItem>
+						<SportsEsportsOutlinedIcon />
+						Gaming
+					</StyledItem>
+					<StyledItem>
+						<MovieOutlinedIcon />
+						Movies
+					</StyledItem>
+					<StyledItem>
+						<ArticleOutlinedIcon />
+						News
+					</StyledItem>
+					<StyledItem>
+						<LiveTvOutlinedIcon />
+						Live
+					</StyledItem>
+				</StyledGuideSection>
+				<StyledGuideSection>
+					<StyledItem>
+						<SettingsOutlinedIcon />
+						Settings
+					</StyledItem>
+					<StyledItem>
+						<FlagOutlinedIcon />
+						Report
+					</StyledItem>
+					<StyledItem>
+						<HelpOutlineOutlinedIcon />
+						Help
+					</StyledItem>
+					<StyledItem onClick={() => setDarkMode(!darkMode)}>
+						<SettingsBrightnessOutlinedIcon />
+						{darkMode ? 'Light' : 'Dark'} Mode
+					</StyledItem>
+				</StyledGuideSection>
+				{user && (
 					<StyledLogin onClick={handleLogout}>
 						<Link to='login' style={{ textDecoration: 'none' }}>
 							<StyledBtn>
@@ -244,9 +243,8 @@ const Sidebar: FC<{
 							</StyledBtn>
 						</Link>
 					</StyledLogin>
-
-          )}
-		</StyledWrapper>
+				)}
+			</StyledWrapper>
 		</StyledContainer>
 	);
 };

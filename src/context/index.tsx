@@ -2,21 +2,16 @@ import { createContext, Dispatch, ReactNode, SetStateAction, useContext, useStat
 import { FC } from '../main';
 
 const MainContext = createContext<{
-  menuOpen: boolean,
-  setMenuOpen: Dispatch<SetStateAction<boolean>>
+	menuOpen: boolean;
+	setMenuOpen: Dispatch<SetStateAction<boolean>>;
 } | null>(null);
 
 const MainContextProvider: FC<{ children: ReactNode }> = ({ children }) => {
-  const [menuOpen, setMenuOpen] = useState(false);
+	const [menuOpen, setMenuOpen] = useState(false);
 
-	return (
-		<MainContext.Provider value={{ menuOpen, setMenuOpen }}>
-			{children}
-		</MainContext.Provider>
-	);
+	return <MainContext.Provider value={{ menuOpen, setMenuOpen }}>{children}</MainContext.Provider>;
 };
 
 const useMainContext = () => useContext(MainContext);
 
 export { MainContextProvider, useMainContext };
-

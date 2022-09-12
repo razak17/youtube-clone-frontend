@@ -1,5 +1,8 @@
 import styled from 'styled-components';
-import { videoURLs } from '../data';
+import {Comment as CommentType, QueryKeys} from '../types';
+import { format } from 'timeago.js';
+import { getUser } from '../lib/api';
+import { useQuery } from 'react-query';
 
 const StyledCOntainer = styled.div`
 	display: flex;
@@ -35,17 +38,20 @@ const StyledText = styled.span`
 	font-size: 14px;
 `;
 
-const Comment = () => {
+const Comment = ({ comment }: {comment: CommentType}) => {
+
+	const { data: commentOwner } = useQuery([QueryKeys.COMMENT_OWNER, comment.videoId], () =>
+		getUser(comment.owner)
+	);
 	return (
 		<StyledCOntainer>
-			<StyledAvatar src={videoURLs[2]} />
+			<StyledAvatar src={commentOwner?.profilePic} />
 			<StyledDetails>
 				<StyledName>
-					John Doe <StyledDate>1 day ago</StyledDate>
+          {commentOwner?.username} <StyledDate>{format(comment?.createdAt.toString())}</StyledDate>
 				</StyledName>
 				<StyledText>
-					Lorem ipsum dolor, sit amet consectetur adipisicing elit. Vel, ex laboriosam ipsam aliquam voluptatem perferendis
-					provident modi, sequi tempore reiciendis quod, optio ullam cumque? Quidem numquam sint mollitia totam reiciendis?
+          {comment.description}
 				</StyledText>
 			</StyledDetails>
 		</StyledCOntainer>

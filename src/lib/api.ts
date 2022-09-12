@@ -1,12 +1,12 @@
 import axios from 'axios';
-import { GoogleUser, User, Video, VideoType } from '../types';
+import { GoogleUser, User, Video, VideoType, Comment } from '../types';
 
 const base = import.meta.env.VITE_PUBLIC_API_ENDPOINT;
 
 const userBase = `${base}/users`;
 const authBase = `${base}/auth`;
 const videoBase = `${base}/videos`;
-// const commentsBase = `${base}/comments`;
+const commentsBase = `${base}/comments`;
 
 const auth = axios.create({
 	baseURL: base,
@@ -44,7 +44,7 @@ export async function login(payload: { email: string; password: string }) {
 }
 
 export async function logout() {
-	const res = await auth.post(`${authBase}/logout` );
+	const res = await auth.post(`${authBase}/logout`);
 	return res.data;
 }
 
@@ -92,5 +92,16 @@ export async function subscribe(userId: string) {
 export async function unsubscribe(userId: string) {
 	if (!userId) throw new Error('userId is not defined.');
 	const res = await auth.put(`${userBase}/unsub/${userId}`);
+	return res.data;
+}
+
+export async function getComments(videoId: string): Promise<Comment[]> {
+	if (!videoId) throw new Error('videoId is not defined.');
+	const res = await auth.get(`${commentsBase}/${videoId}`);
+	return res.data;
+}
+
+export async function addComment(payload: Pick<Comment, "videoId" | "description">) {
+	const res = await auth.post(`${commentsBase}`, payload);
 	return res.data;
 }

@@ -4,9 +4,7 @@ import { useMe } from '../context/me';
 
 const AuthRoute = ({ children }: { children: ReactNode }) => {
 	const { user } = useMe();
-	return (
-  <>
-  {user ? <Navigate to='/' replace /> : children}</>);
+	return <>{user ? <Navigate to='/' replace /> : children}</>;
 };
 
 export default AuthRoute;

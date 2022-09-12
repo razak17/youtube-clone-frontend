@@ -14,10 +14,10 @@ const Container = styled.header`
 	flex-direction: column;
 	position: fixed;
 	z-index: 1100;
-  width: ${(props) => props.contextMenu ? '100%' : 'calc(100% - 270px)'};
+	width: ${(props) => (props.contextMenu ? '100%' : 'calc(100% - 270px)')};
 	top: 0;
-  left: ${(props) => props.contextMenu ? '' : 'auto'};
-  right: ${(props) => props.contextMenu ? '' : '0'};
+	left: ${(props) => (props.contextMenu ? '' : 'auto')};
+	right: ${(props) => (props.contextMenu ? '' : '0')};
 	background-color: ${({ theme }) => theme.bgLighter};
 	border-bottom: 1px solid ${({ theme }) => theme.softer};
 	padding: 8px 16px;
@@ -52,7 +52,7 @@ const StyledInput = styled.input`
 `;
 
 const StyledButton = styled.button`
-  margin-right: ${(props) => props.contextMenu ? '32px' : '0px'};
+	margin-right: ${(props) => (props.contextMenu ? '32px' : '0px')};
 	padding: 6px 12px;
 	background-color: transparent;
 	border: 1px solid ${({ theme }) => theme.blue};
@@ -67,7 +67,7 @@ const StyledButton = styled.button`
 `;
 
 const StyledUser = styled.div`
-  margin-right: ${(props) => props.contextMenu ? '32px' : '0px'};
+	margin-right: ${(props) => (props.contextMenu ? '32px' : '0px')};
 	display: flex;
 	align-items: center;
 	gap: 10px;
@@ -86,14 +86,16 @@ const StyledAvatar = styled.img`
 const Navbar = () => {
 	const [open, setOpen] = useState(false);
 	const { user } = useMe();
-  const { menuOpen, setMenuOpen } = useMainContext();
+	const { menuOpen, setMenuOpen } = useMainContext();
 
 	return (
 		<>
 			<Container contextMenu={menuOpen ? 'open' : undefined}>
 				<StyledWrapper>
-				<MenuIcon
-            onClick={() => setMenuOpen(!menuOpen)} style={{ color: '#fff', borderRadius: '20px', fontSize: '28px', cursor: 'pointer' }} />
+					<MenuIcon
+						onClick={() => setMenuOpen(!menuOpen)}
+						style={{ color: '#fff', borderRadius: '20px', fontSize: '28px', cursor: 'pointer' }}
+					/>
 					<StyeldSearch>
 						<StyledInput placeholder='Search' />
 						<SearchOutlinedIcon style={{ color: '#606060' }} />
@@ -105,7 +107,7 @@ const Navbar = () => {
 						</StyledUser>
 					) : (
 						<Link to='register' style={{ textDecoration: 'none' }}>
-							<StyledButton  contextMenu={menuOpen ? 'open' : undefined}>
+							<StyledButton contextMenu={menuOpen ? 'open' : undefined}>
 								<AccountCircleOutlinedIcon />
 								sign up
 							</StyledButton>

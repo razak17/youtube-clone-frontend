@@ -17,8 +17,8 @@ import { useMainContext } from './context';
 const StyledCOntainer = styled.div`
 	background-color: ${({ theme }) => theme.bg};
 	display: flex;
-  height: 100vh;
-  overflow-x: scroll;
+	height: 100vh;
+	overflow-x: scroll;
 `;
 
 const StyledInner = styled.div`
@@ -26,66 +26,63 @@ const StyledInner = styled.div`
 `;
 
 const StyledMain = styled.main`
-  display: flex;
-	width: calc(100% - 270px);
-  width: ${(props) => props.contextMenu ? '100%' : 'calc(100% - 270px)'};
+	display: flex;
+	width: ${(props) => (props.contextMenu ? '100%' : 'calc(100% - 270px)')};
 	padding: 72px 16px;
 `;
 
 function App() {
 	const [darkMode, setDarkMode] = useState(true);
-  const {menuOpen} = useMainContext();
+	const { menuOpen } = useMainContext();
 
 	return (
 		<MeContextProvider>
 			<ThemeProvider theme={darkMode ? darkColors : lightColors}>
-        <BrowserRouter>
-				<StyledCOntainer>
-            <StyledInner>
-						<Navbar />
-						<Sidebar darkMode={darkMode} setDarkMode={setDarkMode} />
-						<StyledMain  contextMenu={menuOpen ? 'open' : undefined}>
-							<Routes>
-								<Route path='/'>
-									<Route index element={<Home type='random' />} />
-									<Route path='explore' element={<Home type='trending' />} />
-									<Route
-										path='subscriptions'
-										element={
-											<PrivateRoute>
-												<Home type='subscriptions' />
-											</PrivateRoute>
-										}
-									/>
-									<Route
-										path='login'
-										element={
-											<AuthRoute>
-												<Login />
-											</AuthRoute>
-										}
-									/>
-									<Route
-										path='register'
-										element={
-											<AuthRoute>
-												<Register />
-											</AuthRoute>
-										}
-									/>
-									<Route path='watch'>
-										<Route path=':id' element={<Video />} />
+				<BrowserRouter>
+					<StyledCOntainer>
+						<StyledInner>
+							<Navbar />
+							<Sidebar darkMode={darkMode} setDarkMode={setDarkMode} />
+							<StyledMain contextMenu={menuOpen ? 'open' : undefined}>
+								<Routes>
+									<Route path='/'>
+										<Route index element={<Home type='random' />} />
+										<Route path='explore' element={<Home type='trending' />} />
+										<Route
+											path='subscriptions'
+											element={
+												<PrivateRoute>
+													<Home type='subscriptions' />
+												</PrivateRoute>
+											}
+										/>
+										<Route
+											path='login'
+											element={
+												<AuthRoute>
+													<Login />
+												</AuthRoute>
+											}
+										/>
+										<Route
+											path='register'
+											element={
+												<AuthRoute>
+													<Register />
+												</AuthRoute>
+											}
+										/>
+										<Route path='watch'>
+											<Route path=':id' element={<Video />} />
+										</Route>
 									</Route>
-								</Route>
-							</Routes>
-						</StyledMain>
-
-            </StyledInner>
-				</StyledCOntainer>
-        </BrowserRouter>
+								</Routes>
+							</StyledMain>
+						</StyledInner>
+					</StyledCOntainer>
+				</BrowserRouter>
 			</ThemeProvider>
 		</MeContextProvider>
-
 	);
 }
 

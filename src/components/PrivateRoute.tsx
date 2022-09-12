@@ -4,7 +4,7 @@ import { useMe } from '../context/me';
 
 const PrivateRoute = ({ children }: { children: ReactNode }) => {
 	const { user } = useMe();
-	return (<>{user ? children : <Navigate to='/login' replace />}</>)
+	return <>{user ? children : <Navigate to='/login' replace />}</>;
 };
 
 export default PrivateRoute;
