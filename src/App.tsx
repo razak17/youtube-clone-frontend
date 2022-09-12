@@ -27,7 +27,7 @@ const StyledInner = styled.div`
 const StyledMain = styled.main`
   display: flex;
 	width: calc(100% - 270px);
-	padding: 72px 20px;
+	padding: 72px 16px;
 `;
 
 function App() {
