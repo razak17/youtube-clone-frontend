@@ -22,7 +22,7 @@ const Login = () => {
 		password: 'bobishere'
 	});
 	const navigate = useNavigate();
-  const state = useLocation();
+	const state = useLocation();
 	const queryClient = useQueryClient();
 
 	const handleChangeInput = (e: React.ChangeEvent<HTMLInputElement> & React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -32,7 +32,7 @@ const Login = () => {
 
 	const mutation = useMutation<string, AxiosError, Parameters<typeof login>['0']>(login, {
 		onSuccess: () => {
-      navigate(state.state || "/dashboard", { replace: true });
+			navigate(state.state || '/dashboard', { replace: true });
 			queryClient.invalidateQueries([QueryKeys.ME]);
 		}
 	});

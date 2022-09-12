@@ -22,24 +22,33 @@ import logo from '../assets/logo.png';
 import { FC } from '../main';
 import { useMe } from '../context/me';
 
-const StyledContainer = styled.div`
-	position: sticky;
-	overflow: scroll;
-	width: 240px;
-	background-color: ${({ theme }) => theme.bgLighter};
+const StyledContainer = styled.nav`
+  width: 240px;
 	color: ${({ theme }) => theme.text};
-	font-size: 14px;
+`;
+
+const StyledWrapper = styled.div`
+	background-color: ${({ theme }) => theme.bgLighter};
+  width: 240px;
+	height: 100%;
+	overflow-y: auto;
+	display: flex;
+  position: fixed;
+	flex-direction: column;
+	z-index: 1200;
+	top: 0px;
+	left: 0px;
+	border-right: 1px solid ${({ theme }) => theme.soft};
 `;
 
 const StyledLogoWrapper = styled.div`
 	background-color: ${({ theme }) => theme.bgLighter};
 	position: sticky;
 	top: 0;
-	height: 62px;
-	padding: 0px 28px;
+	padding: 13px 28px;
 	display: flex;
 	align-items: center;
-	gap: 5px;
+	// border-bottom: 1px solid ${({ theme }) => theme.soft};
 	span {
 		font-weight: bold;
 		font-size: 18px;
@@ -59,10 +68,6 @@ const Logo = styled.div`
 	img {
 		height: 25px;
 	}
-`;
-
-const StyledWrapper = styled.div`
-	height: 100%;
 `;
 
 const StyledGuideSection = styled.div`
@@ -85,8 +90,8 @@ const StyledLogin = styled.div`
 const StyledBtn = styled.button`
 	padding: 6px 12px;
 	background-color: transparent;
-	border: 1px solid #065fd4;
-	color: #065fd4;
+	border: 1px solid ${({ theme }) => theme.blue};
+	color: ${({ theme }) => theme.blue};
 	border-radius: 3px;
 	font-size: 14px;
 	font-weight: 500;
@@ -104,7 +109,7 @@ const StyledTitle = styled.h2`
 	font-size: 14px;
 	text-transform: uppercase;
 	font-weight: 500;
-	color: #aaaaaa;
+	color: ${({ theme }) => theme.textSoft};
 `;
 
 const Sidebar: FC<{
@@ -115,6 +120,7 @@ const Sidebar: FC<{
 
 	return (
 		<StyledContainer>
+		<StyledWrapper>
 			<StyledLogoWrapper>
 				<Link to='/' style={{ textDecoration: 'none', color: 'inherit' }}>
 					<Logo>
@@ -123,94 +129,93 @@ const Sidebar: FC<{
 					</Logo>
 				</Link>
 			</StyledLogoWrapper>
-			<StyledWrapper>
-				<StyledGuideSection>
-					<Link to='/' style={{ textDecoration: 'none', color: 'inherit' }}>
-						<StyledItem>
-							<HomeIcon />
-							Home
-						</StyledItem>
-					</Link>
-					<Link to='/explore' style={{ textDecoration: 'none', color: 'inherit' }}>
-						<StyledItem>
-							<ExploreOutlinedIcon />
-							Explore
-						</StyledItem>
-					</Link>
-					<Link to='/subscriptions' style={{ textDecoration: 'none', color: 'inherit' }}>
-						<StyledItem>
-							<SubscriptionsOutlinedIcon />
-							Subscriptions
-						</StyledItem>
-					</Link>
-				</StyledGuideSection>
-				<StyledGuideSection>
+			<StyledGuideSection>
+				<Link to='/' style={{ textDecoration: 'none', color: 'inherit' }}>
 					<StyledItem>
-						<VideoLibraryOutlinedIcon />
-						Library
+						<HomeIcon />
+						Home
 					</StyledItem>
+				</Link>
+				<Link to='/explore' style={{ textDecoration: 'none', color: 'inherit' }}>
 					<StyledItem>
-						<HistoryOutlinedIcon />
-						History
+						<ExploreOutlinedIcon />
+						Explore
 					</StyledItem>
-					{!user && (
-						<StyledLogin>
-							Sign in to like videos, comment, and subscribe.
-							<Link to='login' style={{ textDecoration: 'none' }}>
-								<StyledBtn>
-									<AccountCircleOutlinedIcon />
-									SIGN IN
-								</StyledBtn>
-							</Link>
-						</StyledLogin>
-					)}
-				</StyledGuideSection>
-				<StyledTitle>More from DevTube</StyledTitle>
-				<StyledGuideSection>
+				</Link>
+				<Link to='/subscriptions' style={{ textDecoration: 'none', color: 'inherit' }}>
 					<StyledItem>
-						<LibraryMusicOutlinedIcon />
-						Music
+						<SubscriptionsOutlinedIcon />
+						Subscriptions
 					</StyledItem>
-					<StyledItem>
-						<SportsBasketballOutlinedIcon />
-						Sports
-					</StyledItem>
-					<StyledItem>
-						<SportsEsportsOutlinedIcon />
-						Gaming
-					</StyledItem>
-					<StyledItem>
-						<MovieOutlinedIcon />
-						Movies
-					</StyledItem>
-					<StyledItem>
-						<ArticleOutlinedIcon />
-						News
-					</StyledItem>
-					<StyledItem>
-						<LiveTvOutlinedIcon />
-						Live
-					</StyledItem>
-				</StyledGuideSection>
-				<StyledGuideSection>
-					<StyledItem>
-						<SettingsOutlinedIcon />
-						Settings
-					</StyledItem>
-					<StyledItem>
-						<FlagOutlinedIcon />
-						Report
-					</StyledItem>
-					<StyledItem>
-						<HelpOutlineOutlinedIcon />
-						Help
-					</StyledItem>
-					<StyledItem onClick={() => setDarkMode(!darkMode)}>
-						<SettingsBrightnessOutlinedIcon />
-						{darkMode ? 'Light' : 'Dark'} Mode
-					</StyledItem>
-				</StyledGuideSection>
-			</StyledWrapper>
+				</Link>
+			</StyledGuideSection>
+			<StyledGuideSection>
+				<StyledItem>
+					<VideoLibraryOutlinedIcon />
+					Library
+				</StyledItem>
+				<StyledItem>
+					<HistoryOutlinedIcon />
+					History
+				</StyledItem>
+				{!user && (
+					<StyledLogin>
+						Sign in to like videos, comment, and subscribe.
+						<Link to='login' style={{ textDecoration: 'none' }}>
+							<StyledBtn>
+								<AccountCircleOutlinedIcon />
+								SIGN IN
+							</StyledBtn>
+						</Link>
+					</StyledLogin>
+				)}
+			</StyledGuideSection>
+			<StyledTitle>More from DevTube</StyledTitle>
+			<StyledGuideSection>
+				<StyledItem>
+					<LibraryMusicOutlinedIcon />
+					Music
+				</StyledItem>
+				<StyledItem>
+					<SportsBasketballOutlinedIcon />
+					Sports
+				</StyledItem>
+				<StyledItem>
+					<SportsEsportsOutlinedIcon />
+					Gaming
+				</StyledItem>
+				<StyledItem>
+					<MovieOutlinedIcon />
+					Movies
+				</StyledItem>
+				<StyledItem>
+					<ArticleOutlinedIcon />
+					News
+				</StyledItem>
+				<StyledItem>
+					<LiveTvOutlinedIcon />
+					Live
+				</StyledItem>
+			</StyledGuideSection>
+			<StyledGuideSection>
+				<StyledItem>
+					<SettingsOutlinedIcon />
+					Settings
+				</StyledItem>
+				<StyledItem>
+					<FlagOutlinedIcon />
+					Report
+				</StyledItem>
+				<StyledItem>
+					<HelpOutlineOutlinedIcon />
+					Help
+				</StyledItem>
+				<StyledItem onClick={() => setDarkMode(!darkMode)}>
+					<SettingsBrightnessOutlinedIcon />
+					{darkMode ? 'Light' : 'Dark'} Mode
+				</StyledItem>
+			</StyledGuideSection>
+		</StyledWrapper>
 		</StyledContainer>
 	);
 };

@@ -7,12 +7,18 @@ import { useMe } from '../context/me';
 import { useState } from 'react';
 import Upload from './Upload';
 
-const Container = styled.div`
-	position: sticky;
+const Container = styled.header`
+	display: flex;
+	flex-direction: column;
+	position: fixed;
+	z-index: 1100;
+	width: calc(100% - 270px);
 	top: 0;
+	left: auto;
+	right: 0;
 	background-color: ${({ theme }) => theme.bgLighter};
-	height: 56px;
 	border-bottom: 1px solid ${({ theme }) => theme.softer};
+	padding: 8px 16px;
 `;
 
 const StyledWrapper = styled.div`
@@ -20,15 +26,14 @@ const StyledWrapper = styled.div`
 	align-items: center;
 	justify-content: flex-end;
 	height: 100%;
-	padding: 0px 20px;
 	position: relative;
 `;
 
 const StyeldSearch = styled.div`
 	width: 40%;
 	position: absolute;
-	left: 0px;
-	right: 0px;
+	left: 0;
+	right: 0;
 	margin: auto;
 	display: flex;
 	align-items: center;
@@ -49,8 +54,8 @@ const StyledInput = styled.input`
 const StyledButton = styled.button`
 	padding: 6px 12px;
 	background-color: transparent;
-	border: 1px solid #065fd4;
-	color: #065fd4;
+	border: 1px solid ${({ theme }) => theme.blue};
+	color: ${({ theme }) => theme.blue};
 	border-radius: 3px;
 	text-transform: uppercase;
 	font-weight: 500;
@@ -73,7 +78,7 @@ const StyledAvatar = styled.img`
 	height: 32px;
 	margin-left: 12px;
 	border-radius: 50%;
-	background-color: #999;
+	background-color: ${({ theme }) => theme.textSoft};
 `;
 
 const Navbar = () => {

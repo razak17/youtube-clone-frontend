@@ -1,3 +1,7 @@
+import { useLocation, useNavigate } from 'react-router-dom';
+import { useMutation, useQuery, useQueryClient } from 'react-query';
+import { format } from 'timeago.js';
+import { AxiosError } from 'axios';
 import styled from 'styled-components';
 import ThumbUpOutlinedIcon from '@mui/icons-material/ThumbUpOutlined';
 import ThumbDownOffAltOutlinedIcon from '@mui/icons-material/ThumbDownOffAltOutlined';
@@ -6,23 +10,18 @@ import AddTaskOutlinedIcon from '@mui/icons-material/AddTaskOutlined';
 import ThumbUpIcon from '@mui/icons-material/ThumbUp';
 import ThumbDownIcon from '@mui/icons-material/ThumbDown';
 import Comments from '../components/Comments';
+import ArrowCircleLeftIcon from '@mui/icons-material/ArrowCircleLeft';
+
 import Card from '../components/Card';
-import { useLocation, useNavigate } from 'react-router-dom';
 import { QueryKeys } from '../types';
-import { dislikeVideo, getVideo, getVideoOwner, likeVideo, subscribe, unsubscribe } from '../lib/api';
-import { useMutation, useQuery, useQueryClient } from 'react-query';
 import { useMe } from '../context/me';
-import { format } from 'timeago.js';
-import { AxiosError } from 'axios';
+import { dislikeVideo, getVideo, getVideoOwner, likeVideo, subscribe, unsubscribe } from '../lib/api';
 
 const StyledContainer = styled.div`
 	display: flex;
-	gap: 24px;
 `;
 
-const StyledContent = styled.div`
-	flex: 5;
-`;
+const StyledContent = styled.div``;
 
 const StyledVideoWrapper = styled.div``;
 
@@ -180,6 +179,7 @@ const Video = () => {
 	return (
 		<StyledContainer>
 			<StyledContent>
+				<ArrowCircleLeftIcon style={{ color: '#fff', borderRadius: '20px', fontSize: '32px' }} />
 				<StyledVideoWrapper>
 					<iframe
 						width='100%'
@@ -220,26 +220,26 @@ const Video = () => {
 					</StyledDetails>
 				)}
 				<StyledHr />
-					<StyledChannel>
-						<StyledChannelInfo>
-							<StyledImage src={owner?.profilePic} />
-							<StyledChannelDetail>
-								<StyledChannelName>{owner?.username}</StyledChannelName>
-								<StyledChannelCounter>
-									<span>
-										{owner?.subscribers?.length === 0 ? 'No' : owner?.subscribers?.length}{' '}
-										{owner?.subscribers?.length === 1 ? 'subscriber' : 'subscribers'}
-									</span>
-								</StyledChannelCounter>
-								<StyledDescription>{video?.description}</StyledDescription>
-							</StyledChannelDetail>
-						</StyledChannelInfo>
-						{owner?._id !== user?._id && (
-							<StyledSubscribe onClick={handleSubscribe}>
-								{owner?.subscribers?.includes(user?._id as string) ? 'SUBSCRIBED' : 'SUBSCRIBE'}
-							</StyledSubscribe>
-						)}
-					</StyledChannel>
+				<StyledChannel>
+					<StyledChannelInfo>
+						<StyledImage src={owner?.profilePic} />
+						<StyledChannelDetail>
+							<StyledChannelName>{owner?.username}</StyledChannelName>
+							<StyledChannelCounter>
+								<span>
+									{owner?.subscribers?.length === 0 ? 'No' : owner?.subscribers?.length}{' '}
+									{owner?.subscribers?.length === 1 ? 'subscriber' : 'subscribers'}
+								</span>
+							</StyledChannelCounter>
+							<StyledDescription>{video?.description}</StyledDescription>
+						</StyledChannelDetail>
+					</StyledChannelInfo>
+					{owner?._id !== user?._id && (
+						<StyledSubscribe onClick={handleSubscribe}>
+							{owner?.subscribers?.includes(user?._id as string) ? 'SUBSCRIBED' : 'SUBSCRIBE'}
+						</StyledSubscribe>
+					)}
+				</StyledChannel>
 				<StyledHr />
 				<Comments />
 			</StyledContent>

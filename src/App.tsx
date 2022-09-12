@@ -14,15 +14,20 @@ import PrivateRoute from './components/PrivateRoute';
 import AuthRoute from './components/AuthRoute';
 
 const StyledCOntainer = styled.div`
+	background-color: ${({ theme }) => theme.bg};
+	display: flex;
+  height: 100vh;
+  overflow-x: scroll;
+`;
+
+const StyledInner = styled.div`
 	display: flex;
 `;
 
-const StyledMain = styled.div`
-	flex: 4;
-	background-color: ${({ theme }) => theme.bg};
-`;
-const StyledWrapper = styled.div`
-	padding: 22px 20px;
+const StyledMain = styled.main`
+  display: flex;
+	width: calc(100% - 270px);
+	padding: 72px 20px;
 `;
 
 function App() {
@@ -31,49 +36,50 @@ function App() {
 	return (
 		<MeContextProvider>
 			<ThemeProvider theme={darkMode ? darkColors : lightColors}>
+        <BrowserRouter>
 				<StyledCOntainer>
-					<BrowserRouter>
+            <StyledInner>
+						<Navbar />
 						<Sidebar darkMode={darkMode} setDarkMode={setDarkMode} />
 						<StyledMain>
-							<Navbar />
-							<StyledWrapper>
-								<Routes>
-									<Route path='/'>
-										<Route index element={<Home type='random' />} />
-										<Route path='explore' element={<Home type='trending' />} />
-										<Route
-											path='subscriptions'
-											element={
-												<PrivateRoute>
-													<Home type='subscriptions' />
-												</PrivateRoute>
-											}
-										/>
-										<Route
-											path='login'
-											element={
-												<AuthRoute>
-													<Login />
-												</AuthRoute>
-											}
-										/>
-										<Route
-											path='register'
-											element={
-												<AuthRoute>
-													<Register />
-												</AuthRoute>
-											}
-										/>
-										<Route path='watch'>
-											<Route path=':id' element={<Video />} />
-										</Route>
+							<Routes>
+								<Route path='/'>
+									<Route index element={<Home type='random' />} />
+									<Route path='explore' element={<Home type='trending' />} />
+									<Route
+										path='subscriptions'
+										element={
+											<PrivateRoute>
+												<Home type='subscriptions' />
+											</PrivateRoute>
+										}
+									/>
+									<Route
+										path='login'
+										element={
+											<AuthRoute>
+												<Login />
+											</AuthRoute>
+										}
+									/>
+									<Route
+										path='register'
+										element={
+											<AuthRoute>
+												<Register />
+											</AuthRoute>
+										}
+									/>
+									<Route path='watch'>
+										<Route path=':id' element={<Video />} />
 									</Route>
-								</Routes>
-							</StyledWrapper>
+								</Route>
+							</Routes>
 						</StyledMain>
-					</BrowserRouter>
+
+            </StyledInner>
 				</StyledCOntainer>
+        </BrowserRouter>
 			</ThemeProvider>
 		</MeContextProvider>
 	);

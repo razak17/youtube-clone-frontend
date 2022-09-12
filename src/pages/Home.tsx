@@ -7,6 +7,7 @@ import { getVideos } from '../lib/api';
 import { FC } from '../main';
 
 const StyledContianer = styled.div`
+	background-color: ${({ theme }) => theme.bg};
 	display: flex;
 	justify-content: space-between;
 	flex-wrap: wrap;
