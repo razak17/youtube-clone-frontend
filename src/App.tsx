@@ -12,6 +12,7 @@ import Register from './pages/Register';
 import { MeContextProvider } from './context/me';
 import PrivateRoute from './components/PrivateRoute';
 import AuthRoute from './components/AuthRoute';
+import { useMainContext } from './context';
 
 const StyledCOntainer = styled.div`
 	background-color: ${({ theme }) => theme.bg};
@@ -27,11 +28,13 @@ const StyledInner = styled.div`
 const StyledMain = styled.main`
   display: flex;
 	width: calc(100% - 270px);
+  width: ${(props) => props.contextMenu ? '100%' : 'calc(100% - 270px)'};
 	padding: 72px 16px;
 `;
 
 function App() {
 	const [darkMode, setDarkMode] = useState(true);
+  const {menuOpen} = useMainContext();
 
 	return (
 		<MeContextProvider>
@@ -41,7 +44,7 @@ function App() {
             <StyledInner>
 						<Navbar />
 						<Sidebar darkMode={darkMode} setDarkMode={setDarkMode} />
-						<StyledMain>
+						<StyledMain  contextMenu={menuOpen ? 'open' : undefined}>
 							<Routes>
 								<Route path='/'>
 									<Route index element={<Home type='random' />} />
@@ -82,6 +85,7 @@ function App() {
         </BrowserRouter>
 			</ThemeProvider>
 		</MeContextProvider>
+
 	);
 }
 

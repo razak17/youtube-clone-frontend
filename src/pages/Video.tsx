@@ -10,7 +10,6 @@ import AddTaskOutlinedIcon from '@mui/icons-material/AddTaskOutlined';
 import ThumbUpIcon from '@mui/icons-material/ThumbUp';
 import ThumbDownIcon from '@mui/icons-material/ThumbDown';
 import Comments from '../components/Comments';
-import ArrowCircleLeftIcon from '@mui/icons-material/ArrowCircleLeft';
 
 import Card from '../components/Card';
 import { QueryKeys } from '../types';
@@ -18,6 +17,7 @@ import { useMe } from '../context/me';
 import { dislikeVideo, getVideo, getVideoOwner, likeVideo, subscribe, unsubscribe } from '../lib/api';
 
 const StyledContainer = styled.div`
+	width: calc(100% - 270px);
 	display: flex;
 `;
 
@@ -179,7 +179,6 @@ const Video = () => {
 	return (
 		<StyledContainer>
 			<StyledContent>
-				<ArrowCircleLeftIcon style={{ color: '#fff', borderRadius: '20px', fontSize: '32px' }} />
 				<StyledVideoWrapper>
 					<iframe
 						width='100%'

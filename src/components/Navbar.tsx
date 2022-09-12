@@ -6,16 +6,18 @@ import { Link } from 'react-router-dom';
 import { useMe } from '../context/me';
 import { useState } from 'react';
 import Upload from './Upload';
+import { useMainContext } from '../context';
+import MenuIcon from '@mui/icons-material/Menu';
 
 const Container = styled.header`
 	display: flex;
 	flex-direction: column;
 	position: fixed;
 	z-index: 1100;
-	width: calc(100% - 270px);
+  width: ${(props) => props.contextMenu ? '100%' : 'calc(100% - 270px)'};
 	top: 0;
-	left: auto;
-	right: 0;
+  left: ${(props) => props.contextMenu ? '' : 'auto'};
+  right: ${(props) => props.contextMenu ? '' : '0'};
 	background-color: ${({ theme }) => theme.bgLighter};
 	border-bottom: 1px solid ${({ theme }) => theme.softer};
 	padding: 8px 16px;
@@ -24,17 +26,15 @@ const Container = styled.header`
 const StyledWrapper = styled.div`
 	display: flex;
 	align-items: center;
-	justify-content: flex-end;
+	justify-content: space-between;
 	height: 100%;
 	position: relative;
 `;
 
 const StyeldSearch = styled.div`
 	width: 40%;
-	position: absolute;
 	left: 0;
 	right: 0;
-	margin: auto;
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
@@ -52,6 +52,7 @@ const StyledInput = styled.input`
 `;
 
 const StyledButton = styled.button`
+  margin-right: ${(props) => props.contextMenu ? '32px' : '0px'};
 	padding: 6px 12px;
 	background-color: transparent;
 	border: 1px solid ${({ theme }) => theme.blue};
@@ -84,11 +85,14 @@ const StyledAvatar = styled.img`
 const Navbar = () => {
 	const [open, setOpen] = useState(false);
 	const { user } = useMe();
+  const {menuOpen, setMenuOpen} = useMainContext();
 
 	return (
 		<>
-			<Container>
+			<Container contextMenu={menuOpen ? 'open' : undefined}>
 				<StyledWrapper>
+				<MenuIcon
+            onClick={() => setMenuOpen(!menuOpen)} style={{ color: '#fff', borderRadius: '20px', fontSize: '28px', cursor: 'pointer' }} />
 					<StyeldSearch>
 						<StyledInput placeholder='Search' />
 						<SearchOutlinedIcon style={{ color: '#606060' }} />
@@ -100,7 +104,7 @@ const Navbar = () => {
 						</StyledUser>
 					) : (
 						<Link to='register' style={{ textDecoration: 'none' }}>
-							<StyledButton>
+							<StyledButton  contextMenu={menuOpen ? 'open' : undefined}>
 								<AccountCircleOutlinedIcon />
 								sign up
 							</StyledButton>

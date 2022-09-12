@@ -32,7 +32,7 @@ const Login = () => {
 
 	const mutation = useMutation<string, AxiosError, Parameters<typeof login>['0']>(login, {
 		onSuccess: () => {
-			navigate(state.state || '/dashboard', { replace: true });
+			navigate(state.state || '/', { replace: true });
 			queryClient.invalidateQueries([QueryKeys.ME]);
 		}
 	});

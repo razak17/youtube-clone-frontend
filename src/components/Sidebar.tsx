@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction } from 'react';
+import { Dispatch, SetStateAction, useState } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import HomeIcon from '@mui/icons-material/Home';
@@ -21,8 +21,10 @@ import SettingsBrightnessOutlinedIcon from '@mui/icons-material/SettingsBrightne
 import logo from '../assets/logo.png';
 import { FC } from '../main';
 import { useMe } from '../context/me';
+import { useMainContext } from '../context';
 
 const StyledContainer = styled.nav`
+display: ${(props) => props.contextMenu ? "none" : "block"};
   width: 240px;
 	color: ${({ theme }) => theme.text};
 `;
@@ -47,6 +49,7 @@ const StyledLogoWrapper = styled.div`
 	top: 0;
 	padding: 13px 28px;
 	display: flex;
+  justify-content: space-between;
 	align-items: center;
 	// border-bottom: 1px solid ${({ theme }) => theme.soft};
 	span {
@@ -63,10 +66,10 @@ const Logo = styled.div`
 	span {
 		font-weight: bold;
 		font-size: 18px;
-		padding-top: 6px;
+		padding-top: 0px;
 	}
 	img {
-		height: 25px;
+		height: 22px;
 	}
 `;
 
@@ -117,9 +120,12 @@ const Sidebar: FC<{
 	setDarkMode: Dispatch<SetStateAction<boolean>>;
 }> = ({ darkMode, setDarkMode }) => {
 	const { user } = useMe();
+  const {menuOpen} = useMainContext();
+
+  const toggleMenu = () => setMenuOpen(!menuOpen);
 
 	return (
-		<StyledContainer>
+		<StyledContainer contextMenu={menuOpen ? 'open' : undefined}>
 		<StyledWrapper>
 			<StyledLogoWrapper>
 				<Link to='/' style={{ textDecoration: 'none', color: 'inherit' }}>
