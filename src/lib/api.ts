@@ -78,6 +78,12 @@ export const getVideoOwner = async (videoId: string): Promise<User> => {
 	return res.data;
 };
 
+export const getRecommendations = async (tags: string): Promise<Video[]> => {
+	if (!tags) throw new Error('tags is not defined.');
+	const res = await axios.get(`${videoBase}/tags?tags=${tags}`);
+	return res.data;
+};
+
 export async function likeVideo(videoId: string) {
 	if (!videoId) throw new Error('videoId is not defined.');
 	const res = await auth.put(`${userBase}/like/${videoId}`);
@@ -104,7 +110,7 @@ export async function unsubscribe(userId: string) {
 
 export async function getComments(videoId: string): Promise<Comment[]> {
 	if (!videoId) throw new Error('videoId is not defined.');
-	const res = await auth.get(`${commentsBase}/${videoId}`);
+	const res = await axios.get(`${commentsBase}/${videoId}`);
 	return res.data;
 }
 

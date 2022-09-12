@@ -59,5 +59,6 @@ export enum QueryKeys {
 	VIDEOS = 'Videos',
 	USER = 'User',
 	GOOGLE_USER = 'googleUser',
-	USERS = 'Users'
+	USERS = 'Users',
+	RECOMMENDATIONS = 'Recommendations'
 }

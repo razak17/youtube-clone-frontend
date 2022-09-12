@@ -9,14 +9,14 @@ import ReplyOutlinedIcon from '@mui/icons-material/ReplyOutlined';
 import AddTaskOutlinedIcon from '@mui/icons-material/AddTaskOutlined';
 import ThumbUpIcon from '@mui/icons-material/ThumbUp';
 import ThumbDownIcon from '@mui/icons-material/ThumbDown';
-import Comments from '../components/Comments';
 
-import Card from '../components/Card';
 import { QueryKeys } from '../types';
 import { useMe } from '../context/me';
 import { dislikeVideo, getVideo, getVideoOwner, likeVideo, subscribe, unsubscribe } from '../lib/api';
 import { useMainContext } from '../context';
 import { SidebarProps } from '../components/Sidebar';
+import Comments from '../components/Comments';
+import Recommendation, { StyledRecommendation } from '../components/Recommendation';
 
 const StyledContainer = styled.div`
 	background-color: ${({ theme }) => theme.bg};
@@ -25,8 +25,12 @@ const StyledContainer = styled.div`
 	flex-direction: column;
 `;
 
+const StyledWrapper = styled.div<SidebarProps>`
+	display: flex;
+`;
+
 const StyledContent = styled.div<SidebarProps>`
-	width: ${(props) => (props.sidebarOpen ? 'calc(100% - 170px)' : 'calc(100% - 270px)')};
+	width: 100%;
 `;
 
 const StyledVideoWrapper = styled.div`
@@ -73,10 +77,6 @@ const StyledButton = styled.div`
 const StyledHr = styled.hr`
 	margin: 15px 0px;
 	border: 0.5px solid ${({ theme }) => theme.soft};
-`;
-
-const StyledRecommendation = styled.div<SidebarProps>`
-	width: ${(props) => (props.sidebarOpen ? '390px' : '100px')};
 `;
 
 const StyledChannel = styled.div`
@@ -135,9 +135,7 @@ const Video = () => {
 	const videoPath = path.split('/')[2];
 	const { sidebarOpen } = useMainContext();
 
-	const { data: video, isLoading: videoLoading } = useQuery([QueryKeys.CURRENT_VIDEO, videoPath], () =>
-		getVideo(videoPath)
-	);
+	const { data: video } = useQuery([QueryKeys.CURRENT_VIDEO, videoPath], () => getVideo(videoPath));
 
 	const { data: owner } = useQuery([QueryKeys.CURRENT_VIDEO_OWNER], () => getVideoOwner(videoPath));
 
@@ -167,91 +165,100 @@ const Video = () => {
 
 	const handleLike = () => {
 		if (!user) navigate('/login');
-		likeMutation.mutate(video?._id as string);
+		user && likeMutation.mutate(video?._id as string);
 	};
 
 	const handleDislike = () => {
 		if (!user) navigate('/login');
-		dislikeMutation.mutate(video?._id as string);
+		user && dislikeMutation.mutate(video?._id as string);
 	};
 
 	const handleSubscribe = () => {
-		if (!user) navigate('/login', { state: path });
+		if (!user) {
+			navigate('/login', { state: path });
+			return;
+		}
 		owner?.subscribers?.includes(user?._id as string)
 			? unsubscribeMutation.mutate(owner?._id as string)
 			: subscribeMutation.mutate(owner?._id as string);
 	};
 
 	// https://www.youtube.com/embed/k3Vfj-e1Ma4
-
-	if (videoLoading) {
-		return <p>Loading...</p>;
-	}
-
+	console.log('ttt', video?.tags);
 	return (
-		<StyledContainer>
-			<StyledContent sidebarOpen={sidebarOpen}>
-				<StyledVideoWrapper>
-					<StyledVideoFrame src={video?.videoUrl} sidebarOpen={sidebarOpen} controls />
-				</StyledVideoWrapper>
-				<StyledTitle>{video?.title}</StyledTitle>
-				{video && (
-					<StyledDetails>
-						<StyledInfo>
-							<span>
-								{video.views === 0 ? 'No' : video.views} {video.views === 1 ? 'view' : 'views'} •{' '}
-								{format(video?.createdAt.toString())}
-							</span>
-						</StyledInfo>
-						<StyledButtons>
-							<StyledButton onClick={handleLike}>
-								{/* eslint-disable-next-line max-len */}
-								{video?.likes?.includes(user?._id as string) ? <ThumbUpIcon /> : <ThumbUpOutlinedIcon />}
-								{video?.likes?.length}
-							</StyledButton>
-							<StyledButton onClick={handleDislike}>
-								{/* eslint-disable-next-line max-len */}
-								{video?.dislikes?.includes(user?._id as string) ? <ThumbDownIcon /> : <ThumbDownOffAltOutlinedIcon />}
-								{video?.dislikes?.length}
-							</StyledButton>
-							<StyledButton>
-								<ReplyOutlinedIcon /> Share
-							</StyledButton>
-							<StyledButton>
-								<AddTaskOutlinedIcon /> Save
-							</StyledButton>
-						</StyledButtons>
-					</StyledDetails>
-				)}
-				<StyledHr />
-				<StyledChannel>
-					<StyledChannelInfo>
-						<StyledImage src={owner?.profilePic} />
-						<StyledChannelDetail>
-							<StyledChannelName>{owner?.username}</StyledChannelName>
-							<StyledChannelCounter>
+		<>
+			<StyledContainer>
+				<StyledWrapper sidebarOpen={sidebarOpen}>
+					<StyledContent sidebarOpen={sidebarOpen}>
+						<StyledVideoWrapper>
+							<StyledVideoFrame src={video?.videoUrl} sidebarOpen={sidebarOpen} controls />
+						</StyledVideoWrapper>
+						<StyledTitle>{video?.title}</StyledTitle>
+						<StyledDetails>
+							<StyledInfo>
 								<span>
-									{owner?.subscribers?.length === 0 ? 'No' : owner?.subscribers?.length}{' '}
-									{owner?.subscribers?.length === 1 ? 'subscriber' : 'subscribers'}
+									{/* eslint-disable-next-line max-len */}
+									{video?.views === 0 ? 'No' : video?.views} {video?.views === 1 ? 'view' : 'views'} •{' '}
+									{format(video?.createdAt?.toString() as string)}
 								</span>
-							</StyledChannelCounter>
-							<StyledDescription>{video?.description}</StyledDescription>
-						</StyledChannelDetail>
-					</StyledChannelInfo>
-					{owner?._id !== user?._id && (
-						<StyledSubscribe
-							onClick={handleSubscribe}
-							subscribed={owner?.subscribers?.includes(user?._id as string) as boolean}
-						>
-							{owner?.subscribers?.includes(user?._id as string) ? 'SUBSCRIBED' : 'SUBSCRIBE'}
-						</StyledSubscribe>
+							</StyledInfo>
+							<StyledButtons>
+								<StyledButton onClick={handleLike}>
+									{/* eslint-disable-next-line max-len */}
+									{video?.likes?.includes(user?._id as string) ? <ThumbUpIcon /> : <ThumbUpOutlinedIcon />}
+									{video?.likes?.length}
+								</StyledButton>
+								<StyledButton onClick={handleDislike}>
+									{/* eslint-disable-next-line max-len */}
+									{video?.dislikes?.includes(user?._id as string) ? <ThumbDownIcon /> : <ThumbDownOffAltOutlinedIcon />}
+									{video?.dislikes?.length}
+								</StyledButton>
+								<StyledButton>
+									<ReplyOutlinedIcon /> Share
+								</StyledButton>
+								<StyledButton>
+									<AddTaskOutlinedIcon /> Save
+								</StyledButton>
+							</StyledButtons>
+						</StyledDetails>
+						<StyledHr />
+						<StyledChannel>
+							<StyledChannelInfo>
+								<StyledImage src={owner?.profilePic} />
+								<StyledChannelDetail>
+									<StyledChannelName>{owner?.username}</StyledChannelName>
+									<StyledChannelCounter>
+										<span>
+											{owner?.subscribers?.length === 0 ? 'No' : owner?.subscribers?.length}{' '}
+											{owner?.subscribers?.length === 1 ? 'subscriber' : 'subscribers'}
+										</span>
+									</StyledChannelCounter>
+									<StyledDescription>{video?.description}</StyledDescription>
+								</StyledChannelDetail>
+							</StyledChannelInfo>
+							{owner?._id !== user?._id && (
+								<StyledSubscribe
+									onClick={handleSubscribe}
+									subscribed={owner?.subscribers?.includes(user?._id as string) as boolean}
+								>
+									{owner?.subscribers?.includes(user?._id as string) ? 'SUBSCRIBED' : 'SUBSCRIBE'}
+								</StyledSubscribe>
+							)}
+						</StyledChannel>
+						<StyledHr />
+						<Comments videoId={videoPath} />
+					</StyledContent>
+					{video && video.tags?.length ? (
+						/* eslint-disable-next-line max-len */
+						<Recommendation tags={video?.tags as string[]} sidebarOpen={sidebarOpen} videoPath={videoPath} />
+					) : (
+						<StyledRecommendation sidebarOpen={sidebarOpen}>
+							<h3>No Recommendations</h3>
+						</StyledRecommendation>
 					)}
-				</StyledChannel>
-				<StyledHr />
-				<Comments videoId={videoPath} />
-			</StyledContent>
-			<StyledRecommendation sidebarOpen={sidebarOpen}></StyledRecommendation>
-		</StyledContainer>
+				</StyledWrapper>
+			</StyledContainer>
+		</>
 	);
 };
 
