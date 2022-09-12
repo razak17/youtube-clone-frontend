@@ -1,3 +1,9 @@
+export const baseColors = {
+	blue: '#065fd4',
+	red: '#cc1a00',
+	dark: '#030303'
+};
+
 export const darkColors = {
 	bg: '#181818',
 	bgLighter: '#202020',
@@ -5,7 +11,7 @@ export const darkColors = {
 	textSoft: '#aaaaaa',
 	soft: '#383838',
 	softer: '#303030',
-	blue: '#065fd4'
+	...baseColors
 };
 
 export const lightColors = {
@@ -15,5 +21,5 @@ export const lightColors = {
 	textSoft: '#606060',
 	soft: '#e5e5e5',
 	softer: '#cccccc',
-	blue: '#065fd4'
+	...baseColors
 };

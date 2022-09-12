@@ -111,10 +111,10 @@ const StyledDescription = styled.p`
 	font-size: 14px;
 `;
 
-const StyledSubscribe = styled.button`
-	background-color: #cc1a00;
+const StyledSubscribe = styled.button<{ subscribed: boolean }>`
+	background-color: ${({ theme, subscribed }) => (subscribed ? theme.textSoft : theme.red)};
+	color: ${({ theme, subscribed }) => (subscribed ? theme.dark : theme.soft)};
 	font-weight: 500;
-	color: white;
 	border: none;
 	border-radius: 3px;
 	height: max-content;
@@ -185,7 +185,7 @@ const Video = () => {
 
 	return (
 		<StyledContainer>
-			<StyledContent>
+			<StyledContent sidebarOpen={sidebarOpen}>
 				<StyledVideoWrapper>
 					<StyledVideoFrame sidebarOpen={sidebarOpen} />
 				</StyledVideoWrapper>
@@ -233,7 +233,10 @@ const Video = () => {
 						</StyledChannelDetail>
 					</StyledChannelInfo>
 					{owner?._id !== user?._id && (
-						<StyledSubscribe onClick={handleSubscribe}>
+						<StyledSubscribe
+							onClick={handleSubscribe}
+							subscribed={owner?.subscribers?.includes(user?._id as string) as boolean}
+						>
 							{owner?.subscribers?.includes(user?._id as string) ? 'SUBSCRIBED' : 'SUBSCRIBE'}
 						</StyledSubscribe>
 					)}
