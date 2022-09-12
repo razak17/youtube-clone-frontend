@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction, useState } from 'react';
+import { Dispatch, SetStateAction } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import HomeIcon from '@mui/icons-material/Home';
@@ -22,6 +22,10 @@ import logo from '../assets/logo.png';
 import { FC } from '../main';
 import { useMe } from '../context/me';
 import { useMainContext } from '../context';
+import { logout } from '../lib/api';
+import { AxiosError } from 'axios';
+import { useMutation, useQueryClient } from 'react-query';
+import { QueryKeys } from '../types';
 
 const StyledContainer = styled.nav`
 display: ${(props) => props.contextMenu ? "none" : "block"};
@@ -120,9 +124,19 @@ const Sidebar: FC<{
 	setDarkMode: Dispatch<SetStateAction<boolean>>;
 }> = ({ darkMode, setDarkMode }) => {
 	const { user } = useMe();
-  const {menuOpen} = useMainContext();
+  const queryClient = useQueryClient();
+  const { menuOpen } = useMainContext();
 
-  const toggleMenu = () => setMenuOpen(!menuOpen);
+
+	const mutation = useMutation<string, AxiosError, Parameters<typeof logout>>(logout, {
+		onSuccess: () => {
+			queryClient.invalidateQueries([QueryKeys.ME]);
+		}
+	});
+
+  const handleLogout = () => {
+    mutation.mutate([]);
+  };
 
 	return (
 		<StyledContainer contextMenu={menuOpen ? 'open' : undefined}>
@@ -221,6 +235,17 @@ const Sidebar: FC<{
 					{darkMode ? 'Light' : 'Dark'} Mode
 				</StyledItem>
 			</StyledGuideSection>
+          {user && (
+					<StyledLogin onClick={handleLogout}>
+						<Link to='login' style={{ textDecoration: 'none' }}>
+							<StyledBtn>
+								<AccountCircleOutlinedIcon />
+								Logout
+							</StyledBtn>
+						</Link>
+					</StyledLogin>
+
+          )}
 		</StyledWrapper>
 		</StyledContainer>
 	);

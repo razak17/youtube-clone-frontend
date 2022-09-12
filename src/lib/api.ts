@@ -43,6 +43,11 @@ export async function login(payload: { email: string; password: string }) {
 	return res.data;
 }
 
+export async function logout() {
+	const res = await auth.post(`${authBase}/logout` );
+	return res.data;
+}
+
 export async function googleLogin(payload: GoogleUser) {
 	const res = await auth.post(`${authBase}/google`, payload);
 	return res.data;

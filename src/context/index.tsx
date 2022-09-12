@@ -4,7 +4,7 @@ import { FC } from '../main';
 const MainContext = createContext<{
   menuOpen: boolean,
   setMenuOpen: Dispatch<SetStateAction<boolean>>
-} | undefined>(undefined);
+} | null>(null);
 
 const MainContextProvider: FC<{ children: ReactNode }> = ({ children }) => {
   const [menuOpen, setMenuOpen] = useState(true);

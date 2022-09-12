@@ -86,7 +86,7 @@ const StyledAvatar = styled.img`
 const Navbar = () => {
 	const [open, setOpen] = useState(false);
 	const { user } = useMe();
-  const {menuOpen, setMenuOpen} = useMainContext();
+  const { menuOpen, setMenuOpen } = useMainContext();
 
 	return (
 		<>
