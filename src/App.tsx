@@ -13,7 +13,7 @@ import { MeContextProvider } from './context/me';
 import PrivateRoute from './components/PrivateRoute';
 import AuthRoute from './components/AuthRoute';
 import { useMainContext } from './context';
-import Upload from './components/Upload';
+import Upload from './pages/Upload';
 
 const StyledCOntainer = styled.div`
 	background-color: ${({ theme }) => theme.bg};
