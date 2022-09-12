@@ -67,6 +67,7 @@ const StyledButton = styled.button`
 `;
 
 const StyledUser = styled.div`
+  margin-right: ${(props) => props.contextMenu ? '32px' : '0px'};
 	display: flex;
 	align-items: center;
 	gap: 10px;
@@ -98,7 +99,7 @@ const Navbar = () => {
 						<SearchOutlinedIcon style={{ color: '#606060' }} />
 					</StyeldSearch>
 					{user ? (
-						<StyledUser>
+						<StyledUser contextMenu={menuOpen ? 'open' : undefined}>
 							<VideoCallOutlinedIcon onClick={() => setOpen(true)} />
 							<StyledAvatar src={user.profilePic} />
 						</StyledUser>
