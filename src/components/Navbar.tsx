@@ -8,16 +8,17 @@ import { useState } from 'react';
 import Upload from './Upload';
 import { useMainContext } from '../context';
 import MenuIcon from '@mui/icons-material/Menu';
+import { SidebarProps } from './Sidebar';
 
-const Container = styled.header`
+const Container = styled.header<SidebarProps>`
 	display: flex;
 	flex-direction: column;
 	position: fixed;
 	z-index: 1100;
-	width: ${(props) => (props.contextMenu ? '100%' : 'calc(100% - 270px)')};
+	width: ${(props) => (props.sidebarOpen ? '100%' : 'calc(100% - 270px)')};
 	top: 0;
-	left: ${(props) => (props.contextMenu ? '' : 'auto')};
-	right: ${(props) => (props.contextMenu ? '' : '0')};
+	left: ${(props) => (props.sidebarOpen ? '' : 'auto')};
+	right: ${(props) => (props.sidebarOpen ? '' : '0')};
 	background-color: ${({ theme }) => theme.bgLighter};
 	border-bottom: 1px solid ${({ theme }) => theme.softer};
 	padding: 8px 16px;
@@ -51,8 +52,8 @@ const StyledInput = styled.input`
 	outline: none;
 `;
 
-const StyledButton = styled.button`
-	margin-right: ${(props) => (props.contextMenu ? '32px' : '0px')};
+const StyledButton = styled.button<SidebarProps>`
+	margin-right: ${(props) => (props.sidebarOpen ? '32px' : '0px')};
 	padding: 6px 12px;
 	background-color: transparent;
 	border: 1px solid ${({ theme }) => theme.blue};
@@ -66,8 +67,8 @@ const StyledButton = styled.button`
 	gap: 5px;
 `;
 
-const StyledUser = styled.div`
-	margin-right: ${(props) => (props.contextMenu ? '32px' : '0px')};
+const StyledUser = styled.div<SidebarProps>`
+	margin-right: ${(props) => (props.sidebarOpen ? '32px' : '0px')};
 	display: flex;
 	align-items: center;
 	gap: 10px;
@@ -86,14 +87,14 @@ const StyledAvatar = styled.img`
 const Navbar = () => {
 	const [open, setOpen] = useState(false);
 	const { user } = useMe();
-	const { menuOpen, setMenuOpen } = useMainContext();
+	const { sidebarOpen, setSidebarOpen } = useMainContext();
 
 	return (
 		<>
-			<Container contextMenu={menuOpen ? 'open' : undefined}>
+			<Container sidebarOpen={sidebarOpen}>
 				<StyledWrapper>
 					<MenuIcon
-						onClick={() => setMenuOpen(!menuOpen)}
+						onClick={() => setSidebarOpen(!sidebarOpen)}
 						style={{ color: '#fff', borderRadius: '20px', fontSize: '28px', cursor: 'pointer' }}
 					/>
 					<StyeldSearch>
@@ -101,13 +102,13 @@ const Navbar = () => {
 						<SearchOutlinedIcon style={{ color: '#606060' }} />
 					</StyeldSearch>
 					{user ? (
-						<StyledUser contextMenu={menuOpen ? 'open' : undefined}>
+            <StyledUser sidebarOpen={sidebarOpen}>
 							<VideoCallOutlinedIcon onClick={() => setOpen(true)} />
 							<StyledAvatar src={user.profilePic} />
 						</StyledUser>
 					) : (
 						<Link to='register' style={{ textDecoration: 'none' }}>
-							<StyledButton contextMenu={menuOpen ? 'open' : undefined}>
+							<StyledButton sidebarOpen={sidebarOpen}>
 								<AccountCircleOutlinedIcon />
 								sign up
 							</StyledButton>

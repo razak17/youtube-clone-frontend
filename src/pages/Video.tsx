@@ -14,22 +14,22 @@ import Comments from '../components/Comments';
 import Card from '../components/Card';
 import { QueryKeys } from '../types';
 import { useMe } from '../context/me';
-import { dislikeVideo, getComments, getVideo, getVideoOwner, likeVideo, subscribe, unsubscribe } from '../lib/api';
+import { dislikeVideo, getVideo, getVideoOwner, likeVideo, subscribe, unsubscribe } from '../lib/api';
 import { useMainContext } from '../context';
+import { SidebarProps } from '../components/Sidebar';
 
 const StyledContainer = styled.div`
-  display: flex;
+	display: flex;
 `;
 
-const StyledContent = styled.div`
-	width: ${(props) => (props.contextMenu ? 'calc(100% - 70px)' : '')};
+const StyledContent = styled.div<SidebarProps>`
+	width: ${(props) => (props.sidebarOpen ? 'calc(100% - 70px)' : '')};
 `;
 
-const StyledVideoWrapper = styled.div`
-`;
+const StyledVideoWrapper = styled.div``;
 
-const StyledVideoFrame = styled.video`
-	width: ${(props) => (props.contextMenu ? '920px' : '100%')};
+const StyledVideoFrame = styled.video<SidebarProps>`
+	width: ${(props) => (props.sidebarOpen ? '920px' : '100%')};
 	max-height: 720px;
 	object-fit: cover;
 `;
@@ -70,8 +70,8 @@ const StyledHr = styled.hr`
 	border: 0.5px solid ${({ theme }) => theme.soft};
 `;
 
-const StyledRecommendation = styled.div`
-	width: ${(props) => (props.contextMenu ? '390px' : '100px')};
+const StyledRecommendation = styled.div<SidebarProps>`
+	width: ${(props) => (props.sidebarOpen ? '390px' : '100px')};
 `;
 
 const StyledChannel = styled.div`
@@ -128,15 +128,13 @@ const Video = () => {
 	const queryClient = useQueryClient();
 	const path = useLocation().pathname;
 	const videoPath = path.split('/')[2];
-	const { menuOpen } = useMainContext();
+	const { sidebarOpen } = useMainContext();
 
 	const { data: video, isLoading: videoLoading } = useQuery([QueryKeys.CURRENT_VIDEO, videoPath], () =>
 		getVideo(videoPath)
 	);
 
-	const { data: owner, isLoading: ownerLoading } = useQuery([QueryKeys.CURRENT_VIDEO_OWNER], () =>
-		getVideoOwner(videoPath)
-	);
+	const { data: owner } = useQuery([QueryKeys.CURRENT_VIDEO_OWNER], () => getVideoOwner(videoPath));
 
 	const likeMutation = useMutation<string, AxiosError, Parameters<typeof likeVideo>['0']>(likeVideo, {
 		onSuccess: () => {
@@ -186,10 +184,10 @@ const Video = () => {
 	}
 
 	return (
-		<StyledContainer  contextMenu={menuOpen ? 'open' : undefined}>
+		<StyledContainer>
 			<StyledContent>
-				<StyledVideoWrapper contextMenu={menuOpen ? 'open' : undefined}>
-					<StyledVideoFrame contextMenu={menuOpen ? 'open' : undefined} src={video?.videoUrl} controls />
+				<StyledVideoWrapper>
+					<StyledVideoFrame sidebarOpen={sidebarOpen} />
 				</StyledVideoWrapper>
 				<StyledTitle>{video?.title}</StyledTitle>
 				{video && (
@@ -243,9 +241,7 @@ const Video = () => {
 				<StyledHr />
 				<Comments videoId={videoPath} />
 			</StyledContent>
-			<StyledRecommendation contextMenu={menuOpen ? 'open' : undefined}>
-
-      </StyledRecommendation>
+			<StyledRecommendation sidebarOpen={sidebarOpen}></StyledRecommendation>
 		</StyledContainer>
 	);
 };

@@ -1,9 +1,8 @@
 import { AxiosError } from 'axios';
-import { ChangeEvent, useState } from 'react';
+import { useState } from 'react';
 import { useMutation, useQuery, useQueryClient } from 'react-query';
 import styled from 'styled-components';
 import { useMe } from '../context/me';
-import { videoURLs } from '../data';
 import { addComment, getComments } from '../lib/api';
 import { QueryKeys } from '../types';
 import Comment from './Comment';

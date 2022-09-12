@@ -3,7 +3,7 @@ import styled, { ThemeProvider } from 'styled-components';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
 import { darkColors, lightColors } from './style/theme';
-import Sidebar from './components/Sidebar';
+import Sidebar, { SidebarProps } from './components/Sidebar';
 import Navbar from './components/Navbar';
 import Home from './pages/Home';
 import Login from './pages/Login';
@@ -25,15 +25,15 @@ const StyledInner = styled.div`
 	display: flex;
 `;
 
-const StyledMain = styled.main`
+const StyledMain = styled.main<SidebarProps>`
 	display: flex;
-	width: ${(props) => (props.contextMenu ? '100%' : 'calc(100% - 270px)')};
+	width: ${(props) => (props.sidebarOpen ? '100%' : 'calc(100% - 270px)')};
 	padding: 72px 16px;
 `;
 
 function App() {
 	const [darkMode, setDarkMode] = useState(true);
-	const { menuOpen } = useMainContext();
+	const { sidebarOpen } = useMainContext();
 
 	return (
 		<MeContextProvider>
@@ -43,7 +43,7 @@ function App() {
 						<StyledInner>
 							<Navbar />
 							<Sidebar darkMode={darkMode} setDarkMode={setDarkMode} />
-							<StyledMain contextMenu={menuOpen ? 'open' : undefined}>
+              <StyledMain sidebarOpen={sidebarOpen}>
 								<Routes>
 									<Route path='/'>
 										<Route index element={<Home type='random' />} />

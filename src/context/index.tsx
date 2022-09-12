@@ -1,15 +1,14 @@
 import { createContext, Dispatch, ReactNode, SetStateAction, useContext, useState } from 'react';
 import { FC } from '../main';
 
-const MainContext = createContext<{
-	menuOpen: boolean;
-	setMenuOpen: Dispatch<SetStateAction<boolean>>;
-} | null>(null);
+const MainContext = createContext<{ sidebarOpen: boolean; setSidebarOpen: Dispatch<SetStateAction<boolean>> } | null>(
+	null
+);
 
 const MainContextProvider: FC<{ children: ReactNode }> = ({ children }) => {
-	const [menuOpen, setMenuOpen] = useState(false);
+	const [sidebarOpen, setSidebarOpen] = useState(false);
 
-	return <MainContext.Provider value={{ menuOpen, setMenuOpen }}>{children}</MainContext.Provider>;
+	return <MainContext.Provider value={{ sidebarOpen, setSidebarOpen }}>{children}</MainContext.Provider>;
 };
 
 const useMainContext = () => useContext(MainContext);

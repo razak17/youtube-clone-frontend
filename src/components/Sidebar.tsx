@@ -27,8 +27,12 @@ import { AxiosError } from 'axios';
 import { useMutation, useQueryClient } from 'react-query';
 import { QueryKeys } from '../types';
 
-const StyledContainer = styled.nav`
-	display: ${(props) => (props.contextMenu ? 'none' : 'block')};
+export interface SidebarProps {
+	sidebarOpen: boolean;
+}
+
+const StyledContainer = styled.nav<SidebarProps>`
+	display: ${(props) => (props.sidebarOpen ? 'none' : 'block')};
 	width: 240px;
 	color: ${({ theme }) => theme.text};
 `;
@@ -125,7 +129,7 @@ const Sidebar: FC<{
 }> = ({ darkMode, setDarkMode }) => {
 	const { user } = useMe();
 	const queryClient = useQueryClient();
-	const { menuOpen } = useMainContext();
+	const { sidebarOpen } = useMainContext();
 
 	const mutation = useMutation<string, AxiosError, Parameters<typeof logout>>(logout, {
 		onSuccess: () => {
@@ -138,7 +142,7 @@ const Sidebar: FC<{
 	};
 
 	return (
-		<StyledContainer contextMenu={menuOpen ? 'open' : undefined}>
+		<StyledContainer sidebarOpen={sidebarOpen}>
 			<StyledWrapper>
 				<StyledLogoWrapper>
 					<Link to='/' style={{ textDecoration: 'none', color: 'inherit' }}>
