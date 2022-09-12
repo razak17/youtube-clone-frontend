@@ -4,8 +4,6 @@ import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
 import VideoCallOutlinedIcon from '@mui/icons-material/VideoCallOutlined';
 import { Link } from 'react-router-dom';
 import { useMe } from '../context/me';
-import { useState } from 'react';
-import Upload from './Upload';
 import { useMainContext } from '../context';
 import MenuIcon from '@mui/icons-material/Menu';
 import { SidebarProps } from './Sidebar';
@@ -85,7 +83,6 @@ const StyledAvatar = styled.img`
 `;
 
 const Navbar = () => {
-	const [open, setOpen] = useState(false);
 	const { user } = useMe();
 	const { sidebarOpen, setSidebarOpen } = useMainContext();
 
@@ -102,9 +99,12 @@ const Navbar = () => {
 						<SearchOutlinedIcon style={{ color: '#606060' }} />
 					</StyeldSearch>
 					{user ? (
-            <StyledUser sidebarOpen={sidebarOpen}>
-							<VideoCallOutlinedIcon onClick={() => setOpen(true)} />
-							<StyledAvatar src={user.profilePic} />
+						<StyledUser sidebarOpen={sidebarOpen}>
+							<Link to='upload' style={{ textDecoration: 'none', color: 'inherit' }}>
+								{/* eslint-disable-next-line max-len */}
+								<VideoCallOutlinedIcon style={{ cursor: 'pointer' }} />
+							</Link>
+							<StyledAvatar style={{ cursor: 'pointer' }} src={user.profilePic} />
 						</StyledUser>
 					) : (
 						<Link to='register' style={{ textDecoration: 'none' }}>
@@ -116,7 +116,6 @@ const Navbar = () => {
 					)}
 				</StyledWrapper>
 			</Container>
-			{open && <Upload />}
 		</>
 	);
 };

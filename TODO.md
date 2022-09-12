@@ -1,9 +1,10 @@
 ### TODOs
 
-- Logout
-- Comments
-- Sidebar(sticky)
-- Search
+✅ Logout
+✅ Comments
+✅ Sidebar(sticky)
 - Video Upload
+- Search
 - History
 - Save
+- Form Error Handling

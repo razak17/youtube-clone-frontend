@@ -6,10 +6,10 @@ export interface Video {
 	description: string;
 	thumbnailUrl: string;
 	videoUrl: string;
-	views: number;
-	tags: string[];
-	likes: string[];
-	dislikes: string[];
+	views?: number;
+	tags?: string[];
+	likes?: string[];
+	dislikes?: string[];
 	createdAt: Date;
 	updatedAt: Date;
 	__v: number;

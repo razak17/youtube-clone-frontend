@@ -64,6 +64,13 @@ export async function getVideo(videoId: string): Promise<Video> {
 	return res.data;
 }
 
+export async function uploadVideo(
+	payload: Omit<Video, '__v' | '_id' | 'owner' | 'createdAt' | 'updatedAt'>
+): Promise<Video> {
+	const res = await auth.post(`${videoBase}`, payload);
+	return res.data;
+}
+
 export const getVideoOwner = async (videoId: string): Promise<User> => {
 	if (!videoId) throw new Error('videoId is not defined.');
 	const video = await getVideo(videoId);
@@ -101,7 +108,7 @@ export async function getComments(videoId: string): Promise<Comment[]> {
 	return res.data;
 }
 
-export async function addComment(payload: Pick<Comment, "videoId" | "description">) {
+export async function addComment(payload: Pick<Comment, 'videoId' | 'description'>) {
 	const res = await auth.post(`${commentsBase}`, payload);
 	return res.data;
 }

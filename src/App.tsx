@@ -13,12 +13,12 @@ import { MeContextProvider } from './context/me';
 import PrivateRoute from './components/PrivateRoute';
 import AuthRoute from './components/AuthRoute';
 import { useMainContext } from './context';
+import Upload from './components/Upload';
 
 const StyledCOntainer = styled.div`
 	background-color: ${({ theme }) => theme.bg};
 	display: flex;
-	height: 100vh;
-	overflow-x: scroll;
+	height: 100%;
 `;
 
 const StyledInner = styled.div`
@@ -43,7 +43,7 @@ function App() {
 						<StyledInner>
 							<Navbar />
 							<Sidebar darkMode={darkMode} setDarkMode={setDarkMode} />
-              <StyledMain sidebarOpen={sidebarOpen}>
+							<StyledMain sidebarOpen={sidebarOpen}>
 								<Routes>
 									<Route path='/'>
 										<Route index element={<Home type='random' />} />
@@ -53,6 +53,14 @@ function App() {
 											element={
 												<PrivateRoute>
 													<Home type='subscriptions' />
+												</PrivateRoute>
+											}
+										/>
+										<Route
+											path='upload'
+											element={
+												<PrivateRoute>
+													<Upload sidebarOpen={sidebarOpen} />
 												</PrivateRoute>
 											}
 										/>

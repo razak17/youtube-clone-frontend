@@ -19,18 +19,23 @@ import { useMainContext } from '../context';
 import { SidebarProps } from '../components/Sidebar';
 
 const StyledContainer = styled.div`
+	background-color: ${({ theme }) => theme.bg};
 	display: flex;
+	height: 100%;
+	flex-direction: column;
 `;
 
 const StyledContent = styled.div<SidebarProps>`
-	width: ${(props) => (props.sidebarOpen ? 'calc(100% - 70px)' : '')};
+	width: ${(props) => (props.sidebarOpen ? 'calc(100% - 170px)' : 'calc(100% - 270px)')};
 `;
 
-const StyledVideoWrapper = styled.div``;
+const StyledVideoWrapper = styled.div`
+	max-height: 720px;
+`;
 
 const StyledVideoFrame = styled.video<SidebarProps>`
-	width: ${(props) => (props.sidebarOpen ? '920px' : '100%')};
-	max-height: 720px;
+	width: 100%;
+	height: 480px;
 	object-fit: cover;
 `;
 
@@ -187,7 +192,7 @@ const Video = () => {
 		<StyledContainer>
 			<StyledContent sidebarOpen={sidebarOpen}>
 				<StyledVideoWrapper>
-					<StyledVideoFrame sidebarOpen={sidebarOpen} />
+					<StyledVideoFrame src={video?.videoUrl} sidebarOpen={sidebarOpen} controls />
 				</StyledVideoWrapper>
 				<StyledTitle>{video?.title}</StyledTitle>
 				{video && (
@@ -201,12 +206,13 @@ const Video = () => {
 						<StyledButtons>
 							<StyledButton onClick={handleLike}>
 								{/* eslint-disable-next-line max-len */}
-								{video.likes.includes(user?._id as string) ? <ThumbUpIcon /> : <ThumbUpOutlinedIcon />}
-								{video.likes.length}
+								{video?.likes?.includes(user?._id as string) ? <ThumbUpIcon /> : <ThumbUpOutlinedIcon />}
+								{video?.likes?.length}
 							</StyledButton>
 							<StyledButton onClick={handleDislike}>
-								{video.dislikes.includes(user?._id as string) ? <ThumbDownIcon /> : <ThumbDownOffAltOutlinedIcon />}
-								{video.dislikes.length}
+								{/* eslint-disable-next-line max-len */}
+								{video?.dislikes?.includes(user?._id as string) ? <ThumbDownIcon /> : <ThumbDownOffAltOutlinedIcon />}
+								{video?.dislikes?.length}
 							</StyledButton>
 							<StyledButton>
 								<ReplyOutlinedIcon /> Share

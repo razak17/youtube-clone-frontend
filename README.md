@@ -6,7 +6,8 @@ A youtube clone created with React.
 
 - React
 - Styled components
-- material UI
+- Material UI
+- Firebase
 
 ## Installation
 
