@@ -112,6 +112,12 @@ const StyledSubscribe = styled.button`
 	cursor: pointer;
 `;
 
+const StyledVideoFrame = styled.video`
+  max-height: 720px;
+  width: 100%;
+  object-fit: cover;
+`;
+
 const Video = () => {
 	const { user } = useMe();
 	const navigate = useNavigate();
@@ -180,15 +186,7 @@ const Video = () => {
 		<StyledContainer>
 			<StyledContent>
 				<StyledVideoWrapper>
-					<iframe
-						width='100%'
-						height='400'
-						src=''
-						title='YouTube video player'
-						frameBorder='0'
-						allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture'
-						allowFullScreen
-					></iframe>
+          <StyledVideoFrame src={video?.videoUrl} controls />
 				</StyledVideoWrapper>
 				<StyledTitle>{video?.title}</StyledTitle>
 				{video && (

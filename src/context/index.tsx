@@ -7,7 +7,7 @@ const MainContext = createContext<{
 } | null>(null);
 
 const MainContextProvider: FC<{ children: ReactNode }> = ({ children }) => {
-  const [menuOpen, setMenuOpen] = useState(true);
+  const [menuOpen, setMenuOpen] = useState(false);
 
 	return (
 		<MainContext.Provider value={{ menuOpen, setMenuOpen }}>
