@@ -4,8 +4,12 @@
 ✅ Comments
 ✅ Sidebar(sticky)
 ✅ Video Upload
-- Search
+✅ Search
+- Design Search Results page
+- Skeleton loading screen
+- Channel page
+- Manage subscriptions
 - History
-- Save
+- Save (Watch Later)
 - Form Error Handling
 - Mobile Responsiveness
