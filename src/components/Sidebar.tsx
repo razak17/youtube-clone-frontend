@@ -233,10 +233,10 @@ const Sidebar: FC<{
 						<HelpIcon />
 						Help
 					</StyledItem>
-					<StyledItem onClick={() => setDarkMode(!darkMode)}>
-						<SettingsBrightnessIcon />
-						{darkMode ? 'Light' : 'Dark'} Mode
-					</StyledItem>
+					{/* <StyledItem onClick={() => setDarkMode(!darkMode)}> */}
+					{/* 	<SettingsBrightnessIcon /> */}
+					{/* 	{darkMode ? 'Light' : 'Dark'} Mode */}
+					{/* </StyledItem> */}
 				</StyledGuideSection>
 				{user && (
 					<StyledLogin onClick={handleLogout}>

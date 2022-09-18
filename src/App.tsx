@@ -18,7 +18,6 @@ import Search from './pages/Search';
 
 const StyledCOntainer = styled.div`
 	background-color: ${({ theme }) => theme.bg};
-  padding-bottom: 100vh;
 `;
 
 const StyledWrapper = styled.div`
