@@ -7,9 +7,8 @@ import { getVideos } from '../lib/api';
 import { FC } from '../main';
 
 const StyledContianer = styled.div`
-	background-color: ${({ theme }) => theme.bg};
 	display: flex;
-	gap: 24px;
+	gap: 14px;
 	flex-wrap: wrap;
 `;
 
@@ -22,7 +21,7 @@ const Home: FC<{ type: VideoType }> = ({ type }) => {
 
 	return (
 		<StyledContianer>
-			{videos?.length &&
+			{videos &&
 				videos.map((video) => {
 					return <Card key={video._id} video={video} ownerId={video.owner} />;
 				})}

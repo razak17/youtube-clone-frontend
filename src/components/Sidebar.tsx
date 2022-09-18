@@ -2,21 +2,21 @@ import { Dispatch, SetStateAction } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import HomeIcon from '@mui/icons-material/Home';
-import ExploreOutlinedIcon from '@mui/icons-material/ExploreOutlined';
-import SubscriptionsOutlinedIcon from '@mui/icons-material/SubscriptionsOutlined';
-import VideoLibraryOutlinedIcon from '@mui/icons-material/VideoLibraryOutlined';
-import HistoryOutlinedIcon from '@mui/icons-material/HistoryOutlined';
-import LibraryMusicOutlinedIcon from '@mui/icons-material/LibraryMusicOutlined';
-import SportsEsportsOutlinedIcon from '@mui/icons-material/SportsEsportsOutlined';
-import SportsBasketballOutlinedIcon from '@mui/icons-material/SportsBasketballOutlined';
-import MovieOutlinedIcon from '@mui/icons-material/MovieOutlined';
-import ArticleOutlinedIcon from '@mui/icons-material/ArticleOutlined';
-import LiveTvOutlinedIcon from '@mui/icons-material/LiveTvOutlined';
-import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined';
-import SettingsOutlinedIcon from '@mui/icons-material/SettingsOutlined';
-import FlagOutlinedIcon from '@mui/icons-material/FlagOutlined';
-import HelpOutlineOutlinedIcon from '@mui/icons-material/HelpOutlineOutlined';
-import SettingsBrightnessOutlinedIcon from '@mui/icons-material/SettingsBrightnessOutlined';
+import ExploreIcon from '@mui/icons-material/Explore';
+import SubscriptionsIcon from '@mui/icons-material/Subscriptions';
+import VideoLibraryIcon from '@mui/icons-material/VideoLibrary';
+import HistoryIcon from '@mui/icons-material/History';
+import LibraryMusicIcon from '@mui/icons-material/LibraryMusic';
+import SportsEsportsIcon from '@mui/icons-material/SportsEsports';
+import SportsBasketballIcon from '@mui/icons-material/SportsBasketball';
+import MovieIcon from '@mui/icons-material/Movie';
+import ArticleIcon from '@mui/icons-material/Article';
+import LiveTvIcon from '@mui/icons-material/LiveTv';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import SettingsIcon from '@mui/icons-material/Settings';
+import FlagIcon from '@mui/icons-material/Flag';
+import HelpIcon from '@mui/icons-material/Help';
+import SettingsBrightnessIcon from '@mui/icons-material/SettingsBrightness';
 
 import logo from '../assets/logo.png';
 import { FC } from '../main';
@@ -161,24 +161,24 @@ const Sidebar: FC<{
 					</Link>
 					<Link to='/explore' style={{ textDecoration: 'none', color: 'inherit' }}>
 						<StyledItem>
-							<ExploreOutlinedIcon />
-							Explore
+							<ExploreIcon />
+							ExploreIcon
 						</StyledItem>
 					</Link>
 					<Link to='/subscriptions' style={{ textDecoration: 'none', color: 'inherit' }}>
 						<StyledItem>
-							<SubscriptionsOutlinedIcon />
+							<SubscriptionsIcon />
 							Subscriptions
 						</StyledItem>
 					</Link>
 				</StyledGuideSection>
 				<StyledGuideSection>
 					<StyledItem>
-						<VideoLibraryOutlinedIcon />
+						<VideoLibraryIcon />
 						Library
 					</StyledItem>
 					<StyledItem>
-						<HistoryOutlinedIcon />
+						<HistoryIcon />
 						History
 					</StyledItem>
 					{!user && (
@@ -186,7 +186,7 @@ const Sidebar: FC<{
 							log in to like videos, comment, and subscribe.
 							<Link to='login' style={{ textDecoration: 'none' }}>
 								<StyledBtn>
-									<AccountCircleOutlinedIcon />
+									<AccountCircleIcon />
 									LOG IN
 								</StyledBtn>
 							</Link>
@@ -196,45 +196,45 @@ const Sidebar: FC<{
 				<StyledTitle>More from DevTube</StyledTitle>
 				<StyledGuideSection>
 					<StyledItem>
-						<LibraryMusicOutlinedIcon />
+						<LibraryMusicIcon />
 						Music
 					</StyledItem>
 					<StyledItem>
-						<SportsBasketballOutlinedIcon />
+						<SportsBasketballIcon />
 						Sports
 					</StyledItem>
 					<StyledItem>
-						<SportsEsportsOutlinedIcon />
+						<SportsEsportsIcon />
 						Gaming
 					</StyledItem>
 					<StyledItem>
-						<MovieOutlinedIcon />
+						<MovieIcon />
 						Movies
 					</StyledItem>
 					<StyledItem>
-						<ArticleOutlinedIcon />
+						<ArticleIcon />
 						News
 					</StyledItem>
 					<StyledItem>
-						<LiveTvOutlinedIcon />
+						<LiveTvIcon />
 						Live
 					</StyledItem>
 				</StyledGuideSection>
 				<StyledGuideSection>
 					<StyledItem>
-						<SettingsOutlinedIcon />
+						<SettingsIcon />
 						Settings
 					</StyledItem>
 					<StyledItem>
-						<FlagOutlinedIcon />
+						<FlagIcon />
 						Report
 					</StyledItem>
 					<StyledItem>
-						<HelpOutlineOutlinedIcon />
+						<HelpIcon />
 						Help
 					</StyledItem>
 					<StyledItem onClick={() => setDarkMode(!darkMode)}>
-						<SettingsBrightnessOutlinedIcon />
+						<SettingsBrightnessIcon />
 						{darkMode ? 'Light' : 'Dark'} Mode
 					</StyledItem>
 				</StyledGuideSection>
@@ -242,7 +242,7 @@ const Sidebar: FC<{
 					<StyledLogin onClick={handleLogout}>
 						<Link to='login' style={{ textDecoration: 'none' }}>
 							<StyledBtn>
-								<AccountCircleOutlinedIcon />
+								<AccountCircleIcon />
 								Logout
 							</StyledBtn>
 						</Link>
