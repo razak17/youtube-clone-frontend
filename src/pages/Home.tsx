@@ -5,7 +5,6 @@ import { useQuery } from 'react-query';
 import { QueryKeys, VideoType } from '../types';
 import { getVideos } from '../lib/api';
 import { FC } from '../main';
-import Skeleton from '../components/Skeleton';
 
 const StyledContianer = styled.div`
 	background-color: ${({ theme }) => theme.bg};
