@@ -7,6 +7,8 @@ import { register } from '../lib/api';
 import { QueryKeys } from '../types';
 
 export const StyledContainer = styled.div`
+	height: 100%;
+	width: 100%;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
