@@ -7,7 +7,7 @@ import { getUser } from '../lib/api';
 import { useQuery } from 'react-query';
 
 const StyledContainer = styled.div`
-	width: ${(props) => props.itemType !== 'sm' && '250px'};
+	width: ${(props) => props.itemType !== 'sm' && '240px'};
 	margin-bottom: ${(props) => (props.itemType === 'sm' ? '10px' : '45px')};
 	cursor: pointer;
 	display: ${(props) => props.itemType === 'sm' && 'flex'};

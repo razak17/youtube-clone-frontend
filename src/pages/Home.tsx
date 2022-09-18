@@ -5,17 +5,21 @@ import { useQuery } from 'react-query';
 import { QueryKeys, VideoType } from '../types';
 import { getVideos } from '../lib/api';
 import { FC } from '../main';
+import Skeleton from '../components/Skeleton';
 
 const StyledContianer = styled.div`
 	background-color: ${({ theme }) => theme.bg};
 	display: flex;
 	gap: 24px;
 	flex-wrap: wrap;
-	height: 100%;
 `;
 
 const Home: FC<{ type: VideoType }> = ({ type }) => {
-	const { data: videos } = useQuery([QueryKeys.VIDEOS, type], () => getVideos(type), { initialData: [] });
+	const { data: videos, isLoading } = useQuery([QueryKeys.VIDEOS, type], () => getVideos(type), { initialData: [] });
+
+	if (isLoading) {
+		return <h1>Loading...</h1>;
+	}
 
 	return (
 		<StyledContianer>

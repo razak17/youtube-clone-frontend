@@ -3,6 +3,7 @@ import { RefetchOptions, RefetchQueryFilters, useQuery } from 'react-query';
 import { getMe } from '../lib/api';
 import { FC } from '../main';
 import { QueryKeys, User } from '../types';
+import CircularProgress from '@mui/material/CircularProgress';
 
 const MeContext = createContext<{
 	user: User | undefined;
@@ -19,7 +20,13 @@ const MeContextProvider: FC<{ children: ReactNode }> = ({ children }) => {
 
 	return (
 		<MeContext.Provider value={{ user: data as User, refetch, remove }}>
-			{isLoading ? <p>Loading...</p> : children}
+			{isLoading ? (
+				<div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+					<CircularProgress size='2rem' />
+				</div>
+			) : (
+				children
+			)}
 		</MeContext.Provider>
 	);
 };
