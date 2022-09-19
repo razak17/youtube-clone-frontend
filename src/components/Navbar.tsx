@@ -110,10 +110,10 @@ const Navbar = () => {
 					{user ? (
 						<StyledUser sidebarOpen={sidebarOpen}>
 							<Link to='upload' style={{ textDecoration: 'none', color: 'inherit' }}>
-								{/* eslint-disable-next-line max-len */}
 								<VideoCallOutlinedIcon style={{ cursor: 'pointer' }} />
 							</Link>
-							<StyledAvatar style={{ cursor: 'pointer' }} src={user.profilePic} />
+							{/* <StyledAvatar style={{ cursor: 'pointer' }} src={user.profilePic} /> */}
+							<p>{user.username}</p>
 						</StyledUser>
 					) : (
 						<Link to='register' style={{ textDecoration: 'none' }}>
