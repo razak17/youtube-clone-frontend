@@ -1,7 +1,6 @@
 import { AxiosError } from 'axios';
-import { useState } from 'react';
 import { useMutation, useQueryClient } from 'react-query';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
@@ -9,7 +8,7 @@ import { z } from 'zod';
 import { login } from '../lib/api';
 import GoogleLogin from './GoogleLogin';
 import { QueryKeys } from '../types';
-import { Input, StyledInput } from '../components/Input';
+import { Error, Input } from '../components/Input';
 import { Form } from '../components/Form';
 import Button from '../components/Button';
 
@@ -17,8 +16,7 @@ export const FormSchema = z.object({
 	email: z.string().email('Please enter a valid email address.'),
 	password: z
 		.string()
-		.min(6, 'Please choose a longer password')
-		.max(256, 'Consider using a short password')
+		.min(6, 'Password has to be at least 6 characters long.')
 });
 
 type FormSchemaType = z.infer<typeof FormSchema>;
@@ -37,7 +35,6 @@ const Login = () => {
 
 	const {
 		register: loginForm,
-		watch,
 		handleSubmit,
 		formState: { errors, isSubmitting }
 	} = useForm<FormSchemaType>({
@@ -46,12 +43,16 @@ const Login = () => {
 
 	const onSubmit: SubmitHandler<FormSchemaType> = async (data) => {
 		console.log(data);
-		// mutation.mutate(formData);
+		mutation.mutate(data);
+		console.log({ mutation });
 	};
 
 	return (
 		<Form type='login'>
 			<form onSubmit={handleSubmit(onSubmit)}>
+				{(mutation?.error?.response?.data as string) ? (
+					<Error error={mutation?.error?.response?.data as string} />
+				) : null}
 				<Input
 					type='email'
 					disabled={isSubmitting || mutation.isLoading}
@@ -71,6 +72,7 @@ const Login = () => {
 					text={isSubmitting || mutation.isLoading ? 'Logging in' : 'Login'}
 				/>
 			</form>
+			<GoogleLogin />
 		</Form>
 	);
 };

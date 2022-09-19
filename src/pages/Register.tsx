@@ -43,7 +43,6 @@ const Register = () => {
 
 	const {
 		register: registerForm,
-		watch,
 		handleSubmit,
 		formState: { errors, isSubmitting }
 	} = useForm<FormSchemaType>({
@@ -57,7 +56,9 @@ const Register = () => {
 	return (
 		<Form type='Register'>
 			<form onSubmit={handleSubmit(onSubmit)}>
-				<Error error={mutation?.error?.response?.data as string} />
+				{(mutation?.error?.response?.data as string) ? (
+					<Error error={mutation?.error?.response?.data as string} />
+				) : null}
 				<Input
 					type='text'
 					disabled={isSubmitting || mutation.isLoading}
