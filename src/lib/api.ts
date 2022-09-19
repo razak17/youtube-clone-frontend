@@ -28,48 +28,48 @@ export const getUser = async (userId: string): Promise<User> => {
 	return res.data;
 };
 
-export async function register(payload: {
+export const register = async (payload: {
 	username: string;
 	email: string;
 	password: string;
 	confirmPassword: string;
-}) {
+}) => {
 	const res = await axios.post(`${userBase}/register`, payload);
 	return res.data;
-}
+};
 
-export async function login(payload: { email: string; password: string }) {
+export const login = async (payload: { email: string; password: string }) => {
 	const res = await auth.post(`${authBase}/login`, payload);
 	return res.data;
-}
+};
 
-export async function logout() {
+export const logout = async () => {
 	const res = await auth.post(`${authBase}/logout`);
 	return res.data;
-}
+};
 
-export async function googleLogin(payload: GoogleUser) {
+export const googleLogin = async (payload: GoogleUser) => {
 	const res = await auth.post(`${authBase}/google`, payload);
 	return res.data;
-}
+};
 
-export async function getMe(): Promise<User> {
+export const getMe = async (): Promise<User> => {
 	const res = await auth.get(`${userBase}/me`);
 	return res.data;
-}
+};
 
-export async function getVideo(videoId: string): Promise<Video> {
+export const getVideo = async (videoId: string): Promise<Video> => {
 	if (!videoId) throw new Error('videoId is not defined.');
 	const res = await axios.get(`${videoBase}/find/${videoId}`);
 	return res.data;
-}
+};
 
-export async function uploadVideo(
+export const uploadVideo = async (
 	payload: Omit<Video, '__v' | '_id' | 'owner' | 'createdAt' | 'updatedAt'>
-): Promise<Video> {
+): Promise<Video> => {
 	const res = await auth.post(`${videoBase}`, payload);
 	return res.data;
-}
+};
 
 export const getVideoOwner = async (videoId: string): Promise<User> => {
 	if (!videoId) throw new Error('videoId is not defined.');
@@ -90,37 +90,37 @@ export const videoSearch = async (query: string): Promise<Video[]> => {
 	return res.data;
 };
 
-export async function likeVideo(videoId: string) {
+export const likeVideo = async (videoId: string) => {
 	if (!videoId) throw new Error('videoId is not defined.');
 	const res = await auth.put(`${userBase}/like/${videoId}`);
 	return res.data;
-}
+};
 
-export async function dislikeVideo(videoId: string) {
+export const dislikeVideo = async (videoId: string) => {
 	if (!videoId) throw new Error('videoId is not defined.');
 	const res = await auth.put(`${userBase}/dislike/${videoId}`);
 	return res.data;
-}
+};
 
-export async function subscribe(userId: string) {
+export const subscribe = async (userId: string) => {
 	if (!userId) throw new Error('userId is not defined.');
 	const res = await auth.put(`${userBase}/sub/${userId}`);
 	return res.data;
-}
+};
 
-export async function unsubscribe(userId: string) {
+export const unsubscribe = async (userId: string) => {
 	if (!userId) throw new Error('userId is not defined.');
 	const res = await auth.put(`${userBase}/unsub/${userId}`);
 	return res.data;
-}
+};
 
-export async function getComments(videoId: string): Promise<Comment[]> {
+export const getComments = async (videoId: string): Promise<Comment[]> => {
 	if (!videoId) throw new Error('videoId is not defined.');
 	const res = await axios.get(`${commentsBase}/${videoId}`);
 	return res.data;
-}
+};
 
-export async function addComment(payload: Pick<Comment, 'videoId' | 'description'>) {
+export const addComment = async (payload: Pick<Comment, 'videoId' | 'description'>) => {
 	const res = await auth.post(`${commentsBase}`, payload);
 	return res.data;
-}
+};

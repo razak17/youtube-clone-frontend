@@ -24,11 +24,11 @@ const StyledSpan = styled.span`
 	color: red;
 	font-size: 12px;
 `;
-export function Error({ error }: { error?: string }) {
+export const Error = ({ error }: { error?: string }) => {
 	if (!error) return null;
 
 	return <StyledSpan>{error as string}</StyledSpan>;
-}
+};
 
 export const Input = forwardRef<HTMLInputElement, InputProps>(function Input(
 	{ type = 'text', error, ...props },
