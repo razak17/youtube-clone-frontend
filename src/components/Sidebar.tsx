@@ -162,7 +162,7 @@ const Sidebar: FC<{
 					<Link to='/explore' style={{ textDecoration: 'none', color: 'inherit' }}>
 						<StyledItem>
 							<ExploreIcon />
-							ExploreIcon
+							Explore
 						</StyledItem>
 					</Link>
 					<Link to='/subscriptions' style={{ textDecoration: 'none', color: 'inherit' }}>

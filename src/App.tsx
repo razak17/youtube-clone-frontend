@@ -30,7 +30,7 @@ const StyledMain = styled.main<SidebarProps>`
 	padding: 72px 16px;
 `;
 
-function App() {
+const App = () => {
 	const [darkMode, setDarkMode] = useState(true);
 	const { sidebarOpen } = useMainContext();
 
@@ -92,6 +92,6 @@ function App() {
 			</ThemeProvider>
 		</MeContextProvider>
 	);
-}
+};
 
 export default App;
