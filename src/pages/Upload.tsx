@@ -94,7 +94,9 @@ const Upload = ({ sidebarOpen }: { sidebarOpen: boolean }) => {
 	const navigate = useNavigate();
 	const queryClient = useQueryClient();
 
-	const handleChangeInput = (e: React.ChangeEvent<HTMLInputElement> & React.ChangeEvent<HTMLTextAreaElement>) => {
+	const handleChangeInput = (
+		e: React.ChangeEvent<HTMLInputElement> & React.ChangeEvent<HTMLTextAreaElement>
+	) => {
 		setFormData((prev) => {
 			return { ...prev, [e.target.name]: e.target.value };
 		});
@@ -117,7 +119,9 @@ const Upload = ({ sidebarOpen }: { sidebarOpen: boolean }) => {
 			(snapshot) => {
 				const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
 				/* eslint-disable-next-line max-len */
-				urlType === 'thumbnailUrl' ? setThumbnailProgress(Math.round(progress)) : setVideoProgress(Math.round(progress));
+				urlType === 'thumbnailUrl'
+					? setThumbnailProgress(Math.round(progress))
+					: setVideoProgress(Math.round(progress));
 				switch (snapshot.state) {
 					case 'paused':
 						console.log('Upload is paused');
@@ -144,7 +148,11 @@ const Upload = ({ sidebarOpen }: { sidebarOpen: boolean }) => {
 
 	const mutation = useMutation<Video, AxiosError, Parameters<typeof uploadVideo>['0']>(uploadVideo, {
 		onSuccess: (data) => {
-			queryClient.invalidateQueries([QueryKeys.VIDEOS, QueryKeys.CURRENT_VIDEO_OWNER, QueryKeys.COMMENTS]);
+			queryClient.invalidateQueries([
+				QueryKeys.VIDEOS,
+				QueryKeys.CURRENT_VIDEO_OWNER,
+				QueryKeys.COMMENTS
+			]);
 			navigate(`/watch/${data._id}`);
 		}
 	});
@@ -192,7 +200,12 @@ const Upload = ({ sidebarOpen }: { sidebarOpen: boolean }) => {
 					<button onClick={handleUpload}>upload</button>
 					<Input type='text' placeholder='Title' name='title' onChange={handleChangeInput} />
 					<Desc placeholder='Description' name='description' rows={8} onChange={handleChangeInput} />
-					<Input type='text' name='tags' placeholder='Separate the tags with commas.' onChange={handleTags} />
+					<Input
+						type='text'
+						name='tags'
+						placeholder='Separate the tags with commas.'
+						onChange={handleTags}
+					/>
 					<Button disabled={videoProgress !== 100 || thumbnailProgress !== 100} onClick={handleSubmit}>
 						Submit
 					</Button>

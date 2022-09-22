@@ -28,7 +28,10 @@
 		"object-curly-spacing": [1, "always"],
 		"object-curly-newline": 0,
 		"no-unused-vars": [1, { "args": "after-used", "argsIgnorePattern": "^_" }],
-		"no-underscore-dangle": ["error", { "allow": ["_d", "_dh", "_h", "_id", "_m", "_n", "_t", "_text"] }],
+		"no-underscore-dangle": [
+			"error",
+			{ "allow": ["_d", "_dh", "_h", "_id", "_m", "_n", "_t", "_text"] }
+		],
 		"max-len": [1, { "code": 100 }],
 		"react/function-component-definition": 0,
 		"react/prop-types": 0,

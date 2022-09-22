@@ -28,14 +28,17 @@ const Recommendation = ({
 	videoPath: string;
 }) => {
 	/* eslint-disable-next-line max-len */
-	const { data: videos } = useQuery([QueryKeys.RECOMMENDATIONS, videoPath], () => getRecommendations(tags.toString()));
+	const { data: videos } = useQuery([QueryKeys.RECOMMENDATIONS, videoPath], () =>
+		getRecommendations(tags.toString())
+	);
 
 	return (
 		<StyledRecommendation sidebarOpen={sidebarOpen}>
 			<h3>Recommendations</h3>
 			<StyledInner>
 				{/* eslint-disable-next-line max-len */}
-				{videos && videos.map((video) => <Card type='sm' key={video._id} video={video} ownerId={video.owner} />)}
+				{videos &&
+					videos.map((video) => <Card type='sm' key={video._id} video={video} ownerId={video.owner} />)}
 			</StyledInner>
 		</StyledRecommendation>
 	);

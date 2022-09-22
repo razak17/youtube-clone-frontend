@@ -49,9 +49,7 @@ const Comments = ({ videoId }: { videoId: string }) => {
 	const { user } = useMe();
 	const queryClient = useQueryClient();
 
-	const { data: comments } = useQuery([QueryKeys.COMMENTS, videoId], () =>
-		getComments(videoId)
-	);
+	const { data: comments } = useQuery([QueryKeys.COMMENTS, videoId], () => getComments(videoId));
 
 	const mutation = useMutation<string, AxiosError, Parameters<typeof addComment>['0']>(addComment, {
 		onSuccess: () => {
@@ -61,7 +59,8 @@ const Comments = ({ videoId }: { videoId: string }) => {
 	});
 
 	const handleSubmit = () => {
-		if (commentDescription.trim() !== '') mutation.mutate({ description: commentDescription, videoId });
+		if (commentDescription.trim() !== '')
+			mutation.mutate({ description: commentDescription, videoId });
 	};
 
 	return (

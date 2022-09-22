@@ -15,7 +15,7 @@ const Container = styled.div`
 `;
 
 const Wrapper = styled.div`
-margin-top: 8px;
+	margin-top: 8px;
 	display: flex;
 	gap: 24px;
 	flex-wrap: wrap;
@@ -32,7 +32,10 @@ const Search = () => {
 				<>
 					<h2>Search results: {query.split('=')[1]}</h2>
 					{/* eslint-disable-next-line max-len */}
-					<Wrapper>{videos && videos.map((video) => <Card key={video._id} video={video} ownerId={video.owner} />)}</Wrapper>
+					<Wrapper>
+						{videos &&
+							videos.map((video) => <Card key={video._id} video={video} ownerId={video.owner} />)}
+					</Wrapper>
 				</>
 			) : (
 				<h2>No results: {query.split('=')[1]}</h2>

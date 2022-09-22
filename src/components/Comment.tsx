@@ -39,7 +39,9 @@ const StyledText = styled.span`
 `;
 
 const Comment = ({ comment }: { comment: CommentType }) => {
-	const { data: commentOwner } = useQuery([QueryKeys.COMMENT_OWNER, comment.videoId], () => getUser(comment.owner));
+	const { data: commentOwner } = useQuery([QueryKeys.COMMENT_OWNER, comment.videoId], () =>
+		getUser(comment.owner)
+	);
 	return (
 		<StyledCOntainer>
 			<StyledAvatar src={commentOwner?.profilePic} />

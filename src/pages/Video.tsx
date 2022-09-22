@@ -12,7 +12,14 @@ import ThumbDownIcon from '@mui/icons-material/ThumbDown';
 
 import { QueryKeys } from '../types';
 import { useMe } from '../context/me';
-import { dislikeVideo, getVideo, getVideoOwner, likeVideo, subscribe, unsubscribe } from '../lib/api';
+import {
+	dislikeVideo,
+	getVideo,
+	getVideoOwner,
+	likeVideo,
+	subscribe,
+	unsubscribe
+} from '../lib/api';
 import { useMainContext } from '../context';
 import { SidebarProps } from '../components/Sidebar';
 import Comments from '../components/Comments';
@@ -139,29 +146,41 @@ const Video = () => {
 
 	const { data: owner } = useQuery([QueryKeys.CURRENT_VIDEO_OWNER], () => getVideoOwner(videoPath));
 
-	const likeMutation = useMutation<string, AxiosError, Parameters<typeof likeVideo>['0']>(likeVideo, {
-		onSuccess: () => {
-			queryClient.invalidateQueries([QueryKeys.CURRENT_VIDEO]);
+	const likeMutation = useMutation<string, AxiosError, Parameters<typeof likeVideo>['0']>(
+		likeVideo,
+		{
+			onSuccess: () => {
+				queryClient.invalidateQueries([QueryKeys.CURRENT_VIDEO]);
+			}
 		}
-	});
+	);
 
-	const dislikeMutation = useMutation<string, AxiosError, Parameters<typeof dislikeVideo>['0']>(dislikeVideo, {
-		onSuccess: () => {
-			queryClient.invalidateQueries([QueryKeys.CURRENT_VIDEO]);
+	const dislikeMutation = useMutation<string, AxiosError, Parameters<typeof dislikeVideo>['0']>(
+		dislikeVideo,
+		{
+			onSuccess: () => {
+				queryClient.invalidateQueries([QueryKeys.CURRENT_VIDEO]);
+			}
 		}
-	});
+	);
 
-	const subscribeMutation = useMutation<string, AxiosError, Parameters<typeof subscribe>['0']>(subscribe, {
-		onSuccess: () => {
-			queryClient.invalidateQueries([QueryKeys.CURRENT_VIDEO_OWNER]);
+	const subscribeMutation = useMutation<string, AxiosError, Parameters<typeof subscribe>['0']>(
+		subscribe,
+		{
+			onSuccess: () => {
+				queryClient.invalidateQueries([QueryKeys.CURRENT_VIDEO_OWNER]);
+			}
 		}
-	});
+	);
 
-	const unsubscribeMutation = useMutation<string, AxiosError, Parameters<typeof unsubscribe>['0']>(unsubscribe, {
-		onSuccess: () => {
-			queryClient.invalidateQueries([QueryKeys.CURRENT_VIDEO_OWNER]);
+	const unsubscribeMutation = useMutation<string, AxiosError, Parameters<typeof unsubscribe>['0']>(
+		unsubscribe,
+		{
+			onSuccess: () => {
+				queryClient.invalidateQueries([QueryKeys.CURRENT_VIDEO_OWNER]);
+			}
 		}
-	});
+	);
 
 	const handleLike = () => {
 		if (!user) navigate('/login');
@@ -210,7 +229,11 @@ const Video = () => {
 								</StyledButton>
 								<StyledButton onClick={handleDislike}>
 									{/* eslint-disable-next-line max-len */}
-									{video?.dislikes?.includes(user?._id as string) ? <ThumbDownIcon /> : <ThumbDownOffAltOutlinedIcon />}
+									{video?.dislikes?.includes(user?._id as string) ? (
+										<ThumbDownIcon />
+									) : (
+										<ThumbDownOffAltOutlinedIcon />
+									)}
 									{video?.dislikes?.length}
 								</StyledButton>
 								<StyledButton>
@@ -250,7 +273,11 @@ const Video = () => {
 					</StyledContent>
 					{video && video.tags?.length ? (
 						/* eslint-disable-next-line max-len */
-						<Recommendation tags={video?.tags as string[]} sidebarOpen={sidebarOpen} videoPath={videoPath} />
+						<Recommendation
+							tags={video?.tags as string[]}
+							sidebarOpen={sidebarOpen}
+							videoPath={videoPath}
+						/>
 					) : (
 						<StyledRecommendation sidebarOpen={sidebarOpen}>
 							<h3>No Recommendations</h3>

@@ -14,9 +14,7 @@ import Button from '../components/Button';
 
 export const FormSchema = z.object({
 	email: z.string().email('Please enter a valid email address.'),
-	password: z
-		.string()
-		.min(6, 'Password has to be at least 6 characters long.')
+	password: z.string().min(6, 'Password has to be at least 6 characters long.')
 });
 
 type FormSchemaType = z.infer<typeof FormSchema>;

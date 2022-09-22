@@ -13,7 +13,9 @@ const StyledContianer = styled.div`
 `;
 
 const Home: FC<{ type: VideoType }> = ({ type }) => {
-	const { data: videos, isLoading } = useQuery([QueryKeys.VIDEOS, type], () => getVideos(type), { initialData: [] });
+	const { data: videos, isLoading } = useQuery([QueryKeys.VIDEOS, type], () => getVideos(type), {
+		initialData: []
+	});
 
 	if (isLoading) {
 		return <h1>Loading...</h1>;

@@ -15,8 +15,15 @@ const CurrentVideoContext = createContext<{
 	currentVideo: undefined
 });
 
-const CurrentVideoContextProvider: FC<{ children: ReactNode; videoId: string }> = ({ children, videoId }) => {
-	const { data: random, isLoading, refetch } = useQuery([QueryKeys.CURRENT_VIDEO], () => getVideo(videoId));
+const CurrentVideoContextProvider: FC<{ children: ReactNode; videoId: string }> = ({
+	children,
+	videoId
+}) => {
+	const {
+		data: random,
+		isLoading,
+		refetch
+	} = useQuery([QueryKeys.CURRENT_VIDEO], () => getVideo(videoId));
 
 	return (
 		<CurrentVideoContext.Provider value={{ currentVideo: random as Video, refetch }}>

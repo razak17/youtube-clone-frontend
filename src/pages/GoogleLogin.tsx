@@ -20,11 +20,14 @@ export const StyledBtn = styled.button`
 
 const GoogleLogin = () => {
 	const navigate = useNavigate();
-	const mutation = useMutation<string, AxiosError, Parameters<typeof googleLogin>['0']>(googleLogin, {
-		onSuccess: () => {
-			navigate('/', { replace: true });
+	const mutation = useMutation<string, AxiosError, Parameters<typeof googleLogin>['0']>(
+		googleLogin,
+		{
+			onSuccess: () => {
+				navigate('/', { replace: true });
+			}
 		}
-	});
+	);
 
 	const handleGoogleLogin = async () => {
 		signInWithPopup(auth, provider)
