@@ -125,7 +125,7 @@ const StyledDescription = styled.p`
 
 const StyledSubscribe = styled.button<{ subscribed: boolean }>`
 	background-color: ${({ theme, subscribed }) => (subscribed ? theme.textSoft : theme.red)};
-	color: ${({ theme, subscribed }) => (subscribed ? theme.dark : theme.soft)};
+	color: ${({ theme, subscribed }) => (subscribed ? theme.dark : theme.light)};
 	font-weight: 500;
 	border: none;
 	border-radius: 3px;
@@ -203,7 +203,7 @@ const Video = () => {
 	};
 
 	// https://www.youtube.com/embed/k3Vfj-e1Ma4
-	console.log('ttt', video?.tags);
+	console.log({ video });
 	return (
 		<>
 			<StyledContainer>

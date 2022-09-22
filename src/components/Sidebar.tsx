@@ -148,7 +148,7 @@ const Sidebar: FC<{
 					<Link to='/' style={{ textDecoration: 'none', color: 'inherit' }}>
 						<Logo>
 							<img src={logo} />
-							<span>DevTube</span>
+							<span>YouTube</span>
 						</Logo>
 					</Link>
 				</StyledLogoWrapper>

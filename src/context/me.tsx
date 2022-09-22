@@ -22,7 +22,13 @@ const MeContextProvider: FC<{ children: ReactNode }> = ({ children }) => {
 		<MeContext.Provider value={{ user: data as User, refetch, remove }}>
 			{isLoading ? (
 				<div
-					style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '1rem' }}
+					style={{
+						display: 'flex',
+						alignItems: 'center',
+						justifyContent: 'center',
+						padding: '2rem',
+						marginTop: '3rem'
+					}}
 				>
 					<CircularProgress size='1rem' />
 				</div>

@@ -1,7 +1,8 @@
 export const baseColors = {
 	blue: '#065fd4',
 	red: '#cc1a00',
-	dark: '#030303'
+	dark: '#030303',
+	light: '#f9f9f9'
 };
 
 export const darkColors = {
