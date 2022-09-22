@@ -193,7 +193,7 @@ const Sidebar: FC<{
 						</StyledLogin>
 					)}
 				</StyledGuideSection>
-				<StyledTitle>More from DevTube</StyledTitle>
+				<StyledTitle>More from YouTube</StyledTitle>
 				<StyledGuideSection>
 					<StyledItem>
 						<LibraryMusicIcon />
