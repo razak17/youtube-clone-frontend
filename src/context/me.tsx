@@ -24,7 +24,7 @@ const MeContextProvider: FC<{ children: ReactNode }> = ({ children }) => {
 				<div
 					style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '1rem' }}
 				>
-					<CircularProgress size='2rem' />
+					<CircularProgress size='1rem' />
 				</div>
 			) : (
 				children
