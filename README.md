@@ -1,6 +1,6 @@
-## Youtube Clone with React
+## YouTube Clone with React (Bootstrapped with Vite)
 
-A youtube clone created with React.
+A YouTube clone created with React and Material UI.
 
 ## Technologies used:
 
@@ -13,6 +13,14 @@ A youtube clone created with React.
 
 Make sure you have node and yarn installed.
 
+## Environment variables
+
+- specify api end point
+  e.g. VITE_PUBLIC_API_ENDPOINT="http://localhost:1337/api"
+
+- Firebase key for google authentication
+VITE_FIREBASE_KEY=""
+
 ### Install packages
 
 ```yarn
@@ -20,7 +28,6 @@ yarn
 ```
 
 ### Start local server
-
 ```bash
 yarn dev
 ```
