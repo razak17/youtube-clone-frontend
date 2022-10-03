@@ -119,7 +119,7 @@ const Navbar = () => {
 						<Link to='register' style={{ textDecoration: 'none' }}>
 							<StyledButton sidebarOpen={sidebarOpen}>
 								<AccountCircleOutlinedIcon />
-								register
+								sign in
 							</StyledButton>
 						</Link>
 					)}

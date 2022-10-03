@@ -9,6 +9,7 @@ import { useNavigate } from 'react-router-dom';
 export const StyledBtn = styled.button`
 	border-radius: 3px;
 	border: none;
+  width: 100%;
 	margin-top: 14px;
 	padding: 10px 24px;
 	font-weight: 500;

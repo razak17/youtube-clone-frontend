@@ -9,6 +9,7 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Form } from '../components/Form';
 import Button from '../components/Button';
+import { StyledWrapper } from './Login';
 
 export const FormSchema = z
 	.object({
@@ -59,38 +60,40 @@ const Register = () => {
 				{(mutation?.error?.response?.data as string) ? (
 					<Error error={mutation?.error?.response?.data as string} />
 				) : null}
-				<Input
-					type='text'
-					disabled={isSubmitting || mutation.isLoading}
-					placeholder='Username'
-					{...registerForm('username')}
-					error={errors.username}
-				/>
-				<Input
-					type='email'
-					disabled={isSubmitting || mutation.isLoading}
-					placeholder='Email'
-					{...registerForm('email')}
-					error={errors.email}
-				/>
-				<Input
-					type='password'
-					disabled={isSubmitting || mutation.isLoading}
-					placeholder='Password'
-					{...registerForm('password')}
-					error={errors.password}
-				/>
-				<Input
-					type='password'
-					disabled={isSubmitting || mutation.isLoading}
-					placeholder='Confirm Password'
-					{...registerForm('confirmPassword')}
-					error={errors.confirmPassword}
-				/>
-				<Button
-					disabled={isSubmitting || mutation.isLoading}
-					text={isSubmitting || mutation.isLoading ? 'Submitting' : 'Register'}
-				/>
+				<StyledWrapper>
+					<Input
+						type='text'
+						disabled={isSubmitting || mutation.isLoading}
+						placeholder='Username'
+						{...registerForm('username')}
+						error={errors.username}
+					/>
+					<Input
+						type='email'
+						disabled={isSubmitting || mutation.isLoading}
+						placeholder='Email'
+						{...registerForm('email')}
+						error={errors.email}
+					/>
+					<Input
+						type='password'
+						disabled={isSubmitting || mutation.isLoading}
+						placeholder='Password'
+						{...registerForm('password')}
+						error={errors.password}
+					/>
+					<Input
+						type='password'
+						disabled={isSubmitting || mutation.isLoading}
+						placeholder='Confirm Password'
+						{...registerForm('confirmPassword')}
+						error={errors.confirmPassword}
+					/>
+					<Button
+						disabled={isSubmitting || mutation.isLoading}
+						text={isSubmitting || mutation.isLoading ? 'Submitting' : 'Register'}
+					/>
+				</StyledWrapper>
 			</form>
 		</Form>
 	);

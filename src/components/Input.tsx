@@ -5,10 +5,9 @@ import styled from 'styled-components';
 export const StyledInput = styled.input`
 	border: 1px solid ${({ theme }) => theme.soft};
 	border-radius: 3px;
-	padding: 10px 0;
-	margin: 8px 0;
+	padding: 10px;
+	margin-bottom: 14px;
 	background-color: transparent;
-	width: 100%;
 	outline: none;
 	color: ${({ theme }) => theme.text};
 `;

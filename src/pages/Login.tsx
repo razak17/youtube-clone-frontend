@@ -11,6 +11,13 @@ import { QueryKeys } from '../types';
 import { Error, Input } from '../components/Input';
 import { Form } from '../components/Form';
 import Button from '../components/Button';
+import styled from 'styled-components';
+
+export const StyledWrapper = styled.div`
+	display: flex;
+	align-items: center;
+	flex-direction: column;
+`;
 
 export const FormSchema = z.object({
 	email: z.string().email('Please enter a valid email address.'),
@@ -51,24 +58,26 @@ const Login = () => {
 				{(mutation?.error?.response?.data as string) ? (
 					<Error error={mutation?.error?.response?.data as string} />
 				) : null}
-				<Input
-					type='email'
-					disabled={isSubmitting || mutation.isLoading}
-					placeholder='Email'
-					{...loginForm('email')}
-					error={errors.email}
-				/>
-				<Input
-					type='password'
-					disabled={isSubmitting || mutation.isLoading}
-					placeholder='Password'
-					{...loginForm('password')}
-					error={errors.password}
-				/>
-				<Button
-					disabled={isSubmitting || mutation.isLoading}
-					text={isSubmitting || mutation.isLoading ? 'Logging in' : 'Login'}
-				/>
+				<StyledWrapper>
+					<Input
+						type='email'
+						disabled={isSubmitting || mutation.isLoading}
+						placeholder='Email'
+						{...loginForm('email')}
+						error={errors.email}
+					/>
+					<Input
+						type='password'
+						disabled={isSubmitting || mutation.isLoading}
+						placeholder='Password'
+						{...loginForm('password')}
+						error={errors.password}
+					/>
+					<Button
+						disabled={isSubmitting || mutation.isLoading}
+						text={isSubmitting || mutation.isLoading ? 'Logging in' : 'Login'}
+					/>
+				</StyledWrapper>
 			</form>
 			<GoogleLogin />
 		</Form>

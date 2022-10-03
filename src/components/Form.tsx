@@ -17,7 +17,6 @@ export const StyledSection = styled.div`
 	display: flex;
 	align-items: center;
 	flex-direction: column;
-	width: 250px;
 	border-radius: 3px;
 	background-color: ${({ theme }) => theme.bgLighter};
 	border: 1px solid ${({ theme }) => theme.soft};
@@ -26,6 +25,12 @@ export const StyledSection = styled.div`
 	h1 {
 		font-size: 24px;
 	}
+`;
+
+export const StyledWrapper = styled.div`
+	display: flex;
+	align-items: center;
+	flex-direction: column;
 `;
 
 export const StyledSpan = styled.div`

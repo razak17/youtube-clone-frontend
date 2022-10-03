@@ -12,11 +12,10 @@ import SportsBasketballIcon from '@mui/icons-material/SportsBasketball';
 import MovieIcon from '@mui/icons-material/Movie';
 import ArticleIcon from '@mui/icons-material/Article';
 import LiveTvIcon from '@mui/icons-material/LiveTv';
-import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined';
 import SettingsIcon from '@mui/icons-material/Settings';
 import FlagIcon from '@mui/icons-material/Flag';
 import HelpIcon from '@mui/icons-material/Help';
-import SettingsBrightnessIcon from '@mui/icons-material/SettingsBrightness';
 
 import logo from '../assets/logo.png';
 import { FC } from '../main';
@@ -186,8 +185,8 @@ const Sidebar: FC<{
 							log in to like videos, comment, and subscribe.
 							<Link to='login' style={{ textDecoration: 'none' }}>
 								<StyledBtn>
-									<AccountCircleIcon />
-									LOG IN
+									<AccountCircleOutlinedIcon />
+									sign in
 								</StyledBtn>
 							</Link>
 						</StyledLogin>
