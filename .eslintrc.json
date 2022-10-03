@@ -15,10 +15,9 @@
 		"eslint:recommended",
 		"plugin:react/recommended",
 		"plugin:@typescript-eslint/recommended",
-		"plugin:react-hooks/recommended",
 		"prettier"
 	],
-	"plugins": ["react", "@typescript-eslint", "react-hooks"],
+	"plugins": ["react", "@typescript-eslint"],
 	"rules": {
 		"no-shadow": 0,
 		"@typescript-eslint/no-unused-vars": 0,

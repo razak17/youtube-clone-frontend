@@ -1,23 +1,20 @@
+import { useState } from 'react';
 import styled from 'styled-components';
 import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined';
 import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
 import VideoCallOutlinedIcon from '@mui/icons-material/VideoCallOutlined';
 import { Link, useNavigate } from 'react-router-dom';
-import { useMe } from '../context/me';
-import { useMainContext } from '../context';
-import MenuIcon from '@mui/icons-material/Menu';
-import { SidebarProps } from './Sidebar';
-import { useState } from 'react';
 
-const Container = styled.header<SidebarProps>`
+import { useMe } from '../context/me';
+import Logo from './Logo';
+
+const Container = styled.header`
 	display: flex;
 	flex-direction: column;
 	position: fixed;
 	z-index: 1100;
-	width: ${(props) => (props.sidebarOpen ? '100%' : 'calc(100% - 270px)')};
+	width: 100%;
 	top: 0;
-	left: ${(props) => (props.sidebarOpen ? '' : 'auto')};
-	right: ${(props) => (props.sidebarOpen ? '' : '0')};
 	background-color: ${({ theme }) => theme.bgLighter};
 	border-bottom: 1px solid ${({ theme }) => theme.softer};
 	padding: 8px 16px;
@@ -52,8 +49,7 @@ const StyledInput = styled.input`
 	outline: none;
 `;
 
-const StyledButton = styled.button<SidebarProps>`
-	margin-right: ${(props) => (props.sidebarOpen ? '32px' : '0px')};
+const StyledButton = styled.button`
 	padding: 6px 12px;
 	background-color: transparent;
 	border: 1px solid ${({ theme }) => theme.blue};
@@ -67,8 +63,7 @@ const StyledButton = styled.button<SidebarProps>`
 	gap: 5px;
 `;
 
-const StyledUser = styled.div<SidebarProps>`
-	margin-right: ${(props) => (props.sidebarOpen ? '32px' : '0px')};
+const StyledUser = styled.div`
 	display: flex;
 	align-items: center;
 	gap: 10px;
@@ -76,19 +71,10 @@ const StyledUser = styled.div<SidebarProps>`
 	color: ${({ theme }) => theme.text};
 `;
 
-const StyledAvatar = styled.img`
-	width: 32px;
-	height: 32px;
-	margin-left: 12px;
-	border-radius: 50%;
-	background-color: ${({ theme }) => theme.textSoft};
-`;
-
 const Navbar = () => {
 	const { user } = useMe();
 	const navigate = useNavigate();
 
-	const { sidebarOpen, setSidebarOpen } = useMainContext();
 	const [query, setQuery] = useState('');
 
 	const handleSearch = () => {
@@ -97,27 +83,23 @@ const Navbar = () => {
 
 	return (
 		<>
-			<Container sidebarOpen={sidebarOpen}>
+			<Container>
 				<StyledWrapper>
-					<MenuIcon
-						onClick={() => setSidebarOpen(!sidebarOpen)}
-						style={{ color: '#fff', borderRadius: '20px', fontSize: '28px', cursor: 'pointer' }}
-					/>
+          <Logo />
 					<StyeldSearch>
 						<StyledInput placeholder='Search' onChange={(e) => setQuery(e.target.value)} />
 						<SearchOutlinedIcon style={{ color: '#606060', cursor: 'pointer' }} onClick={handleSearch} />
 					</StyeldSearch>
 					{user ? (
-						<StyledUser sidebarOpen={sidebarOpen}>
+						<StyledUser>
 							<Link to='upload' style={{ textDecoration: 'none', color: 'inherit' }}>
 								<VideoCallOutlinedIcon style={{ cursor: 'pointer' }} />
 							</Link>
-							{/* <StyledAvatar style={{ cursor: 'pointer' }} src={user.profilePic} /> */}
 							<p>{user.username}</p>
 						</StyledUser>
 					) : (
 						<Link to='login' style={{ textDecoration: 'none' }}>
-							<StyledButton sidebarOpen={sidebarOpen}>
+							<StyledButton>
 								<AccountCircleOutlinedIcon />
 								sign in
 							</StyledButton>

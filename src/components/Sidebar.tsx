@@ -17,7 +17,6 @@ import SettingsIcon from '@mui/icons-material/Settings';
 import FlagIcon from '@mui/icons-material/Flag';
 import HelpIcon from '@mui/icons-material/Help';
 
-import logo from '../assets/logo.png';
 import { FC } from '../main';
 import { useMe } from '../context/me';
 import { useMainContext } from '../context';
@@ -25,12 +24,14 @@ import { logout } from '../lib/api';
 import { AxiosError } from 'axios';
 import { useMutation, useQueryClient } from 'react-query';
 import { QueryKeys } from '../types';
+import Logo from './Logo';
 
 export interface SidebarProps {
 	sidebarOpen: boolean;
 }
 
 const StyledContainer = styled.nav<SidebarProps>`
+	position: absolute;
 	display: ${(props) => (props.sidebarOpen ? 'none' : 'block')};
 	width: 240px;
 	color: ${({ theme }) => theme.text};
@@ -47,37 +48,6 @@ const StyledWrapper = styled.div`
 	z-index: 1200;
 	top: 0px;
 	left: 0px;
-	border-right: 1px solid ${({ theme }) => theme.soft};
-`;
-
-const StyledLogoWrapper = styled.div`
-	background-color: ${({ theme }) => theme.bgLighter};
-	position: sticky;
-	top: 0;
-	padding: 13px 28px;
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-	// border-bottom: 1px solid ${({ theme }) => theme.soft};
-	span {
-		font-weight: bold;
-		font-size: 18px;
-		padding-top: 6px;
-	}
-`;
-
-const Logo = styled.div`
-	display: flex;
-	align-items: center;
-	gap: 5px;
-	span {
-		font-weight: bold;
-		font-size: 18px;
-		padding-top: 0px;
-	}
-	img {
-		height: 22px;
-	}
 `;
 
 const StyledGuideSection = styled.div`
@@ -90,7 +60,7 @@ const StyledItem = styled.div`
 	align-items: center;
 	gap: 20px;
 	cursor: pointer;
-	padding: 8px 28px;
+	padding: 12px 16px;
 `;
 
 const StyledLogin = styled.div`
@@ -122,13 +92,17 @@ const StyledTitle = styled.h2`
 	color: ${({ theme }) => theme.textSoft};
 `;
 
+const StyledLogo = styled.div`
+	padding: 8px 16px;
+`;
+
 const Sidebar: FC<{
 	darkMode?: boolean;
 	setDarkMode: Dispatch<SetStateAction<boolean>>;
-}> = ({ darkMode, setDarkMode }) => {
+}> = () => {
 	const { user } = useMe();
 	const queryClient = useQueryClient();
-	const { sidebarOpen } = useMainContext();
+	const { sidebarOpen, setSidebarOpen } = useMainContext();
 
 	const mutation = useMutation<string, AxiosError, Parameters<typeof logout>>(logout, {
 		onSuccess: () => {
@@ -143,14 +117,9 @@ const Sidebar: FC<{
 	return (
 		<StyledContainer sidebarOpen={sidebarOpen}>
 			<StyledWrapper>
-				<StyledLogoWrapper>
-					<Link to='/' style={{ textDecoration: 'none', color: 'inherit' }}>
-						<Logo>
-							<img src={logo} />
-							<span>YouTube</span>
-						</Logo>
-					</Link>
-				</StyledLogoWrapper>
+				<StyledLogo>
+					<Logo />
+				</StyledLogo>
 				<StyledGuideSection>
 					<Link to='/' style={{ textDecoration: 'none', color: 'inherit' }}>
 						<StyledItem>
@@ -241,7 +210,7 @@ const Sidebar: FC<{
 					<StyledLogin onClick={handleLogout}>
 						<Link to='login' style={{ textDecoration: 'none' }}>
 							<StyledBtn>
-								<AccountCircleIcon />
+								<AccountCircleOutlinedIcon />
 								Logout
 							</StyledBtn>
 						</Link>
