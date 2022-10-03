@@ -116,7 +116,7 @@ const Navbar = () => {
 							<p>{user.username}</p>
 						</StyledUser>
 					) : (
-						<Link to='register' style={{ textDecoration: 'none' }}>
+						<Link to='login' style={{ textDecoration: 'none' }}>
 							<StyledButton sidebarOpen={sidebarOpen}>
 								<AccountCircleOutlinedIcon />
 								sign in
