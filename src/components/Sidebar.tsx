@@ -60,7 +60,7 @@ const StyledItem = styled.div`
 	align-items: center;
 	gap: 20px;
 	cursor: pointer;
-	padding: 12px 16px;
+	padding: 10px 16px;
 `;
 
 const StyledLogin = styled.div`
@@ -102,7 +102,7 @@ const Sidebar: FC<{
 }> = () => {
 	const { user } = useMe();
 	const queryClient = useQueryClient();
-	const { sidebarOpen, setSidebarOpen } = useMainContext();
+	const { sidebarOpen } = useMainContext();
 
 	const mutation = useMutation<string, AxiosError, Parameters<typeof logout>>(logout, {
 		onSuccess: () => {
