@@ -9,12 +9,10 @@ import { useMe } from '../context/me';
 import Logo from './Logo';
 
 const Container = styled.header`
-	display: flex;
-	flex-direction: column;
-	position: fixed;
+	position: sticky;
+  top: 0;
+  overflow: hidden;
 	z-index: 1100;
-	width: 100%;
-	top: 0;
 	background-color: ${({ theme }) => theme.bgLighter};
 	border-bottom: 1px solid ${({ theme }) => theme.softer};
 	padding: 8px 16px;
@@ -22,19 +20,15 @@ const Container = styled.header`
 
 const StyledWrapper = styled.div`
 	display: flex;
-	align-items: center;
 	justify-content: space-between;
-	height: 100%;
+	align-items: center;
 	position: relative;
 `;
 
-const StyeldSearch = styled.div`
+const StyledSearch = styled.div`
 	width: 40%;
-	left: 0;
-	right: 0;
 	display: flex;
 	align-items: center;
-	justify-content: space-between;
 	padding: 6px;
 	border: 1px solid ${({ theme }) => theme.softer};
 	border-radius: 3px;
@@ -43,10 +37,12 @@ const StyeldSearch = styled.div`
 
 const StyledInput = styled.input`
 	border: none;
+	padding: 8px;
 	background-color: ${({ theme }) => theme.bg};
 	width: 100%;
 	color: ${({ theme }) => theme.text};
 	outline: none;
+  font-size: 14px;
 `;
 
 const StyledButton = styled.button`
@@ -85,11 +81,11 @@ const Navbar = () => {
 		<>
 			<Container>
 				<StyledWrapper>
-          <Logo />
-					<StyeldSearch>
+					<Logo />
+					<StyledSearch>
 						<StyledInput placeholder='Search' onChange={(e) => setQuery(e.target.value)} />
 						<SearchOutlinedIcon style={{ color: '#606060', cursor: 'pointer' }} onClick={handleSearch} />
-					</StyeldSearch>
+					</StyledSearch>
 					{user ? (
 						<StyledUser>
 							<Link to='upload' style={{ textDecoration: 'none', color: 'inherit' }}>

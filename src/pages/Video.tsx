@@ -30,6 +30,7 @@ const StyledContainer = styled.div`
 	display: flex;
 	height: 100%;
 	flex-direction: column;
+  padding: 0 18px;
 `;
 
 const StyledWrapper = styled.div<SidebarProps>`

@@ -21,14 +21,13 @@ const StyledCOntainer = styled.div`
 `;
 
 const StyledWrapper = styled.div`
-	display: flex;
 `;
 
 const StyledMain = styled.main<SidebarProps>`
 	display: flex;
-	width: ${(props) => (props.sidebarOpen ? '100%' : 'calc(100% - 270px)')};
+	width: ${(props) => (props.sidebarOpen ? '100%' : 'calc(100% - 250px)')};
 	margin-left: auto;
-	padding: 84px 16px;
+	padding: 32px 0;
 `;
 
 const App = () => {
