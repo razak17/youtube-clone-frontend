@@ -27,7 +27,8 @@ const StyledWrapper = styled.div`
 const StyledMain = styled.main<SidebarProps>`
 	display: flex;
 	width: ${(props) => (props.sidebarOpen ? '100%' : 'calc(100% - 270px)')};
-	padding: 72px 16px;
+	margin-left: auto;
+	padding: 84px 16px;
 `;
 
 const App = () => {
