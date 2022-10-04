@@ -197,7 +197,9 @@ const Upload = ({ sidebarOpen }: { sidebarOpen: boolean }) => {
 					) : (
 						<Input type='file' accept='image/*' onChange={handleThumbnailInput} />
 					)}
-					<button onClick={handleUpload}>upload</button>
+					<button disabled={videoProgress === 1000 && thumbnailProgress === 100} onClick={handleUpload}>
+						upload
+					</button>
 					<Input type='text' placeholder='Title' name='title' onChange={handleChangeInput} />
 					<Desc placeholder='Description' name='description' rows={8} onChange={handleChangeInput} />
 					<Input
