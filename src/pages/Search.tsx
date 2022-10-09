@@ -17,7 +17,7 @@ const Container = styled.div`
 `;
 
 const Wrapper = styled.div`
-  display: flex;
+	display: flex;
 	align-items: center;
 	justify-content: center;
 	margin-top: 8px;
@@ -26,24 +26,24 @@ const Wrapper = styled.div`
 `;
 
 const StyledHeading = styled.div`
-margin-bottom: .8rem;
+	margin-bottom: 0.8rem;
 `;
 
 const Search = () => {
 	const query = useLocation().search;
 
-  /* eslint-disable max-len */
+	/* eslint-disable max-len */
 	const { data: videos, isLoading } = useQuery([QueryKeys.SEARCH, query], () => videoSearch(query));
 
-  if (isLoading) <Loader />;
+	if (isLoading) <Loader />;
 
 	return (
 		<Container>
 			{videos && videos.length ? (
 				<>
-          <StyledHeading>
-            <h2>Search results for: &apos;{query.split('=')[1]}&apos;</h2>
-            </StyledHeading>
+					<StyledHeading>
+						<h2>Search results for: &apos;{query.split('=')[1]}&apos;</h2>
+					</StyledHeading>
 					<Wrapper>
 						{videos &&
 							videos.map((video) => <Card key={video._id} video={video} ownerId={video.owner} />)}

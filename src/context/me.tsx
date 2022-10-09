@@ -21,11 +21,7 @@ const MeContextProvider: FC<{ children: ReactNode }> = ({ children }) => {
 
 	return (
 		<MeContext.Provider value={{ user: data as User, refetch, remove }}>
-			{isLoading ? (
-      <Loader />
-			) : (
-				children
-			)}
+			{isLoading ? <Loader /> : children}
 		</MeContext.Provider>
 	);
 };
