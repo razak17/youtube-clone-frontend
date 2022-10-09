@@ -11,6 +11,8 @@ const StyledContianer = styled.div`
 	gap: 14px;
 	flex-wrap: wrap;
   padding: 0 18px;
+  align-items: center;
+  justify-content: center;
 `;
 
 const Home: FC<{ type: VideoType }> = ({ type }) => {

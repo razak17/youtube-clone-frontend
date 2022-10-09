@@ -33,6 +33,9 @@ const StyledSearch = styled.div`
 	border: 1px solid ${({ theme }) => theme.softer};
 	border-radius: 3px;
 	background-color: ${({ theme }) => theme.bg};
+  @media (max-width: 1080px) {
+    width: 50%;
+  }
 `;
 
 const StyledInput = styled.input`
@@ -59,12 +62,22 @@ const StyledButton = styled.button`
 	gap: 5px;
 `;
 
+const StyledAuth = styled.div`
+  @media (max-width: 1080px) {
+    display: none;
+  }
+`;
+
+
 const StyledUser = styled.div`
 	display: flex;
 	align-items: center;
 	gap: 10px;
 	font-weight: 500;
 	color: ${({ theme }) => theme.text};
+  @media (max-width: 1080px) {
+    display: none;
+  }
 `;
 
 const Navbar = () => {
@@ -94,12 +107,14 @@ const Navbar = () => {
 							<p>{user.username}</p>
 						</StyledUser>
 					) : (
-						<Link to='login' style={{ textDecoration: 'none' }}>
-							<StyledButton>
-								<AccountCircleOutlinedIcon />
-								sign in
-							</StyledButton>
-						</Link>
+            <StyledAuth>
+              <Link to='login' style={{ textDecoration: 'none' }}>
+                <StyledButton>
+                  <AccountCircleOutlinedIcon />
+                  sign in
+                </StyledButton>
+              </Link>
+            </StyledAuth>
 					)}
 				</StyledWrapper>
 			</Container>

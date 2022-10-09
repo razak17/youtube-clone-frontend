@@ -6,34 +6,37 @@ import { format } from 'timeago.js';
 import { getUser } from '../lib/api';
 import { useQuery } from 'react-query';
 
-const StyledContainer = styled.div`
-	width: ${(props) => props.itemType !== 'sm' && '240px'};
-	margin-bottom: ${(props) => (props.itemType === 'sm' ? '10px' : '45px')};
+const StyledContainer = styled.div<{cardSize?: string}>`
+	width: ${(props) => props.cardSize !== 'sm' && '240px'};
+	margin-bottom: ${(props) => (props.cardSize === 'sm' ? '10px' : '45px')};
 	cursor: pointer;
-	display: ${(props) => props.itemType === 'sm' && 'flex'};
+	display: ${(props) => props.cardSize === 'sm' && 'flex'};
 	gap: 10px;
+  @media (max-width: 768px) {
+    width: 300px
+  }
 `;
 
-const StyledImage = styled.img`
+const StyledImage = styled.img<{cardSize?: string}>`
 	width: 100%;
-	height: ${(props) => (props.itemType === 'sm' ? '100px' : '140px')};
+	height: ${(props) => (props.cardSize === 'sm' ? '100px' : '140px')};
 	background-color: #999;
 	flex: 1;
 `;
 
-const StyledDetails = styled.div`
+const StyledDetails = styled.div<{cardSize?: string}>`
 	display: flex;
-	margin-top: ${(props) => props.itemType !== 'sm' && '8px'};
+	margin-top: ${(props) => props.cardSize !== 'sm' && '8px'};
 	gap: 12px;
 	flex: 1;
 `;
 
-const StyledChannelImage = styled.img`
+const StyledChannelImage = styled.img<{cardSize?: string}>`
 	width: 32px;
 	height: 32px;
 	border-radius: 50%;
 	background-color: #999;
-	display: ${(props) => props.itemType === 'sm' && 'none'};
+	display: ${(props) => props.cardSize === 'sm' && 'none'};
 `;
 
 const StyledTexts = styled.div`
@@ -64,10 +67,10 @@ const Card: FC<{ type?: string; video: Video; ownerId: string }> = ({ type, vide
 
 	return (
 		<Link to={`/watch/${video._id}`} style={{ textDecoration: 'none' }}>
-			<StyledContainer itemType={type}>
-				<StyledImage itemType={type} src={video.thumbnailUrl} />
-				<StyledDetails itemType={type}>
-					<StyledChannelImage itemType={type} src={owner?.profilePic} />
+			<StyledContainer cardSize={type}>
+				<StyledImage cardSize={type} src={video.thumbnailUrl} />
+				<StyledDetails cardSize={type}>
+					<StyledChannelImage cardSize={type} src={owner?.profilePic} />
 					<StyledTexts>
 						<StyledTitle>{video.title}</StyledTitle>
 						<StyledChannelName>{owner?.username}</StyledChannelName>

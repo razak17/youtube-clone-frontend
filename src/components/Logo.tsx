@@ -22,7 +22,7 @@ const StyledLogoWrapper = styled.div`
 const StyledLogo = styled.div`
 	display: flex;
 	align-items: center;
-	margin-left: 1.5rem;
+	margin-left: 1rem;
 	gap: 5px;
 	span {
 		font-weight: bold;
@@ -33,6 +33,7 @@ const StyledLogo = styled.div`
 		height: 22px;
 	}
 `;
+
 const Logo = () => {
 	const { sidebarOpen, setSidebarOpen } = useMainContext();
 
@@ -42,12 +43,12 @@ const Logo = () => {
 				onClick={() => setSidebarOpen(!sidebarOpen)}
 				style={{ color: '#fff', borderRadius: '20px', fontSize: '28px', cursor: 'pointer' }}
 			/>
-			<Link to='/' style={{ textDecoration: 'none', color: '#fff' }}>
-				<StyledLogo>
-					<img src={logo} />
-					<span>YouTube</span>
-				</StyledLogo>
-			</Link>
+        <Link to='/' style={{ textDecoration: 'none', color: '#fff' }}>
+          <StyledLogo>
+            <img src={logo} />
+            <span>YouTube</span>
+          </StyledLogo>
+        </Link>
 		</StyledLogoWrapper>
 	);
 };
