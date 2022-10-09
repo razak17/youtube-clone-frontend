@@ -4,6 +4,7 @@ import { getMe } from '../lib/api';
 import { FC } from '../main';
 import { QueryKeys, User } from '../types';
 import CircularProgress from '@mui/material/CircularProgress';
+import Loader from '../components/Loader';
 
 const MeContext = createContext<{
 	user: User | undefined;
@@ -21,17 +22,7 @@ const MeContextProvider: FC<{ children: ReactNode }> = ({ children }) => {
 	return (
 		<MeContext.Provider value={{ user: data as User, refetch, remove }}>
 			{isLoading ? (
-				<div
-					style={{
-						display: 'flex',
-						alignItems: 'center',
-						justifyContent: 'center',
-						padding: '2rem',
-						marginTop: '3rem'
-					}}
-				>
-					<CircularProgress size='1rem' />
-				</div>
+      <Loader />
 			) : (
 				children
 			)}
