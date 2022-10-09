@@ -79,25 +79,45 @@ const StyledUser = styled.div`
 	}
 `;
 
+const StyledForm = styled.form`
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
+`;
+
+const StyledSearchIcon = styled.div`
+  display: flex;
+  cursor: 'pointer';
+  align-items: center;
+  svg {
+    color: #606060;
+  }
+`;
+
 const Navbar = () => {
 	const { user } = useMe();
 	const navigate = useNavigate();
 
 	const [query, setQuery] = useState('');
 
-	const handleSearch = () => {
+	const handleSearch = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
 		if (query.trim() !== '') navigate(`/search?q=${query}`);
 	};
 
+  /* eslint-disable max-len */
 	return (
 		<>
 			<Container>
 				<StyledWrapper>
 					<Logo />
 					<StyledSearch>
-						{/* eslint-disable max-len */}
-						<StyledInput placeholder='Search' onChange={(e) => setQuery(e.target.value)} />
-						<SearchOutlinedIcon style={{ color: '#606060', cursor: 'pointer' }} onClick={handleSearch} />
+            <StyledForm onSubmit={handleSearch}>
+              <StyledInput placeholder='Search' onChange={(e) => setQuery(e.target.value)} />
+              <StyledSearchIcon>
+                <SearchOutlinedIcon />
+              </StyledSearchIcon>
+            </StyledForm>
 					</StyledSearch>
 					{user ? (
 						<StyledUser>
