@@ -2,9 +2,10 @@ import styled from 'styled-components';
 import { auth, provider } from '../lib/firebase';
 import { signInWithPopup } from 'firebase/auth';
 import { AxiosError } from 'axios';
-import { useMutation } from 'react-query';
+import { useMutation, useQueryClient } from 'react-query';
 import { googleLogin } from '../lib/api';
 import { useNavigate } from 'react-router-dom';
+import { QueryKeys } from '../types';
 
 export const StyledBtn = styled.button`
 	border-radius: 3px;
@@ -20,12 +21,14 @@ export const StyledBtn = styled.button`
 `;
 
 const GoogleLogin = () => {
+	const queryClient = useQueryClient();
 	const navigate = useNavigate();
 	const mutation = useMutation<string, AxiosError, Parameters<typeof googleLogin>['0']>(
 		googleLogin,
 		{
 			onSuccess: () => {
 				navigate('/', { replace: true });
+			  queryClient.invalidateQueries([QueryKeys.ME]);
 			}
 		}
 	);
