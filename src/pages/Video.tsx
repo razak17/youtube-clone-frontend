@@ -30,7 +30,7 @@ const StyledContainer = styled.div`
 	display: flex;
 	height: 100%;
 	flex-direction: column;
-  padding: 0 18px;
+	padding: 0 18px;
 `;
 
 const StyledWrapper = styled.div<SidebarProps>`
@@ -143,6 +143,7 @@ const Video = () => {
 	const videoPath = path.split('/')[2];
 	const { sidebarOpen } = useMainContext();
 
+	/* eslint-disable max-len */
 	const { data: video } = useQuery([QueryKeys.CURRENT_VIDEO, videoPath], () => getVideo(videoPath));
 
 	const { data: owner } = useQuery([QueryKeys.CURRENT_VIDEO_OWNER], () => getVideoOwner(videoPath));
@@ -217,19 +218,16 @@ const Video = () => {
 						<StyledDetails>
 							<StyledInfo>
 								<span>
-									{/* eslint-disable-next-line max-len */}
 									{video?.views === 0 ? 'No' : video?.views} {video?.views === 1 ? 'view' : 'views'} •{' '}
 									{format(video?.createdAt?.toString() as string)}
 								</span>
 							</StyledInfo>
 							<StyledButtons>
 								<StyledButton onClick={handleLike}>
-									{/* eslint-disable-next-line max-len */}
 									{video?.likes?.includes(user?._id as string) ? <ThumbUpIcon /> : <ThumbUpOutlinedIcon />}
 									{video?.likes?.length}
 								</StyledButton>
 								<StyledButton onClick={handleDislike}>
-									{/* eslint-disable-next-line max-len */}
 									{video?.dislikes?.includes(user?._id as string) ? (
 										<ThumbDownIcon />
 									) : (
@@ -273,7 +271,6 @@ const Video = () => {
 						<Comments videoId={videoPath} />
 					</StyledContent>
 					{video && video.tags?.length ? (
-						/* eslint-disable-next-line max-len */
 						<Recommendation
 							tags={video?.tags as string[]}
 							sidebarOpen={sidebarOpen}

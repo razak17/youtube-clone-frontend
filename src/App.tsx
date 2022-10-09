@@ -20,19 +20,18 @@ const StyledCOntainer = styled.div`
 	background-color: ${({ theme }) => theme.bg};
 `;
 
-const StyledWrapper = styled.div`
-`;
+const StyledWrapper = styled.div``;
 
 const StyledMain = styled.main<SidebarProps>`
 	display: flex;
 	width: ${(props) => (props.sidebarOpen ? '100%' : 'calc(100% - 250px)')};
 	margin-left: auto;
 	padding: 32px 0;
-  @media (max-width: 1080px) {
-    width: 100%;
-    align-items: center;
-    justify-content: center;
-  }
+	@media (max-width: 1080px) {
+		width: 100%;
+		align-items: center;
+		justify-content: center;
+	}
 `;
 
 const App = () => {

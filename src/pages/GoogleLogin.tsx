@@ -10,7 +10,7 @@ import { QueryKeys } from '../types';
 export const StyledBtn = styled.button`
 	border-radius: 3px;
 	border: none;
-  width: 100%;
+	width: 100%;
 	margin-top: 14px;
 	padding: 10px 24px;
 	font-weight: 500;
@@ -28,7 +28,7 @@ const GoogleLogin = () => {
 		{
 			onSuccess: () => {
 				navigate('/', { replace: true });
-			  queryClient.invalidateQueries([QueryKeys.ME]);
+				queryClient.invalidateQueries([QueryKeys.ME]);
 			}
 		}
 	);

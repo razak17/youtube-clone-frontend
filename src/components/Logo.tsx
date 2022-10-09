@@ -43,12 +43,12 @@ const Logo = () => {
 				onClick={() => setSidebarOpen(!sidebarOpen)}
 				style={{ color: '#fff', borderRadius: '20px', fontSize: '28px', cursor: 'pointer' }}
 			/>
-        <Link to='/' style={{ textDecoration: 'none', color: '#fff' }}>
-          <StyledLogo>
-            <img src={logo} />
-            <span>YouTube</span>
-          </StyledLogo>
-        </Link>
+			<Link to='/' style={{ textDecoration: 'none', color: '#fff' }}>
+				<StyledLogo>
+					<img src={logo} />
+					<span>YouTube</span>
+				</StyledLogo>
+			</Link>
 		</StyledLogoWrapper>
 	);
 };

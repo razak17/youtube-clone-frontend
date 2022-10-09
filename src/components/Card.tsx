@@ -6,32 +6,32 @@ import { format } from 'timeago.js';
 import { getUser } from '../lib/api';
 import { useQuery } from 'react-query';
 
-const StyledContainer = styled.div<{cardSize?: string}>`
+const StyledContainer = styled.div<{ cardSize?: string }>`
 	width: ${(props) => props.cardSize !== 'sm' && '240px'};
 	margin-bottom: ${(props) => (props.cardSize === 'sm' ? '10px' : '45px')};
 	cursor: pointer;
 	display: ${(props) => props.cardSize === 'sm' && 'flex'};
 	gap: 10px;
-  @media (max-width: 768px) {
-    width: 300px
-  }
+	@media (max-width: 768px) {
+		width: 300px;
+	}
 `;
 
-const StyledImage = styled.img<{cardSize?: string}>`
+const StyledImage = styled.img<{ cardSize?: string }>`
 	width: 100%;
 	height: ${(props) => (props.cardSize === 'sm' ? '100px' : '140px')};
 	background-color: #999;
 	flex: 1;
 `;
 
-const StyledDetails = styled.div<{cardSize?: string}>`
+const StyledDetails = styled.div<{ cardSize?: string }>`
 	display: flex;
 	margin-top: ${(props) => props.cardSize !== 'sm' && '8px'};
 	gap: 12px;
 	flex: 1;
 `;
 
-const StyledChannelImage = styled.img<{cardSize?: string}>`
+const StyledChannelImage = styled.img<{ cardSize?: string }>`
 	width: 32px;
 	height: 32px;
 	border-radius: 50%;
@@ -76,6 +76,7 @@ const Card: FC<{ type?: string; video: Video; ownerId: string }> = ({ type, vide
 						<StyledChannelName>{owner?.username}</StyledChannelName>
 						<StyledInfo>
 							<span>
+								{/* eslint-disable max-len */}
 								{video.views === 0 ? 'No' : video.views} {video.views === 1 ? 'view' : 'views'} •{' '}
 								{format(video.createdAt.toString())}
 							</span>

@@ -10,8 +10,8 @@ import Logo from './Logo';
 
 const Container = styled.header`
 	position: sticky;
-  top: 0;
-  overflow: hidden;
+	top: 0;
+	overflow: hidden;
 	z-index: 1100;
 	background-color: ${({ theme }) => theme.bgLighter};
 	border-bottom: 1px solid ${({ theme }) => theme.softer};
@@ -33,9 +33,9 @@ const StyledSearch = styled.div`
 	border: 1px solid ${({ theme }) => theme.softer};
 	border-radius: 3px;
 	background-color: ${({ theme }) => theme.bg};
-  @media (max-width: 1080px) {
-    width: 50%;
-  }
+	@media (max-width: 1080px) {
+		width: 50%;
+	}
 `;
 
 const StyledInput = styled.input`
@@ -45,7 +45,7 @@ const StyledInput = styled.input`
 	width: 100%;
 	color: ${({ theme }) => theme.text};
 	outline: none;
-  font-size: 14px;
+	font-size: 14px;
 `;
 
 const StyledButton = styled.button`
@@ -63,11 +63,10 @@ const StyledButton = styled.button`
 `;
 
 const StyledAuth = styled.div`
-  @media (max-width: 1080px) {
-    display: none;
-  }
+	@media (max-width: 1080px) {
+		display: none;
+	}
 `;
-
 
 const StyledUser = styled.div`
 	display: flex;
@@ -75,9 +74,9 @@ const StyledUser = styled.div`
 	gap: 10px;
 	font-weight: 500;
 	color: ${({ theme }) => theme.text};
-  @media (max-width: 1080px) {
-    display: none;
-  }
+	@media (max-width: 1080px) {
+		display: none;
+	}
 `;
 
 const Navbar = () => {
@@ -96,6 +95,7 @@ const Navbar = () => {
 				<StyledWrapper>
 					<Logo />
 					<StyledSearch>
+						{/* eslint-disable max-len */}
 						<StyledInput placeholder='Search' onChange={(e) => setQuery(e.target.value)} />
 						<SearchOutlinedIcon style={{ color: '#606060', cursor: 'pointer' }} onClick={handleSearch} />
 					</StyledSearch>
@@ -107,14 +107,14 @@ const Navbar = () => {
 							<p>{user.username}</p>
 						</StyledUser>
 					) : (
-            <StyledAuth>
-              <Link to='login' style={{ textDecoration: 'none' }}>
-                <StyledButton>
-                  <AccountCircleOutlinedIcon />
-                  sign in
-                </StyledButton>
-              </Link>
-            </StyledAuth>
+						<StyledAuth>
+							<Link to='login' style={{ textDecoration: 'none' }}>
+								<StyledButton>
+									<AccountCircleOutlinedIcon />
+									sign in
+								</StyledButton>
+							</Link>
+						</StyledAuth>
 					)}
 				</StyledWrapper>
 			</Container>
