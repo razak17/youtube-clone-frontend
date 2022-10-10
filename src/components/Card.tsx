@@ -8,6 +8,7 @@ import { useQuery } from 'react-query';
 
 const StyledContainer = styled.div<{ cardSize?: string }>`
 	width: ${(props) => props.cardSize !== 'sm' && '240px'};
+	height: 240px;
 	margin-bottom: ${(props) => (props.cardSize === 'sm' ? '10px' : '45px')};
 	cursor: pointer;
 	display: ${(props) => props.cardSize === 'sm' && 'flex'};
@@ -19,7 +20,7 @@ const StyledContainer = styled.div<{ cardSize?: string }>`
 
 const StyledImage = styled.img<{ cardSize?: string }>`
 	width: 100%;
-	height: ${(props) => (props.cardSize === 'sm' ? '100px' : '140px')};
+	height: ${(props) => (props.cardSize === 'sm' ? '100px' : '160px')};
 	background-color: #999;
 	flex: 1;
 `;

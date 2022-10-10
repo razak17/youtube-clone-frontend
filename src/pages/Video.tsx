@@ -272,6 +272,7 @@ const Video = () => {
 					</StyledContent>
 					{video && video.tags?.length ? (
 						<Recommendation
+							video={video}
 							tags={video?.tags as string[]}
 							sidebarOpen={sidebarOpen}
 							videoPath={videoPath}

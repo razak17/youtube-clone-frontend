@@ -80,18 +80,18 @@ const StyledUser = styled.div`
 `;
 
 const StyledForm = styled.form`
-  display: flex;
-  justify-content: flex-end;
-  width: 100%;
+	display: flex;
+	justify-content: flex-end;
+	width: 100%;
 `;
 
 const StyledSearchIcon = styled.div`
-  display: flex;
-  cursor: 'pointer';
-  align-items: center;
-  svg {
-    color: #606060;
-  }
+	display: flex;
+	cursor: 'pointer';
+	align-items: center;
+	svg {
+		color: #606060;
+	}
 `;
 
 const Navbar = () => {
@@ -101,23 +101,23 @@ const Navbar = () => {
 	const [query, setQuery] = useState('');
 
 	const handleSearch = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+		e.preventDefault();
 		if (query.trim() !== '') navigate(`/search?q=${query}`);
 	};
 
-  /* eslint-disable max-len */
+	/* eslint-disable max-len */
 	return (
 		<>
 			<Container>
 				<StyledWrapper>
 					<Logo />
 					<StyledSearch>
-            <StyledForm onSubmit={handleSearch}>
-              <StyledInput placeholder='Search' onChange={(e) => setQuery(e.target.value)} />
-              <StyledSearchIcon>
-                <SearchOutlinedIcon />
-              </StyledSearchIcon>
-            </StyledForm>
+						<StyledForm onSubmit={handleSearch}>
+							<StyledInput placeholder='Search' onChange={(e) => setQuery(e.target.value)} />
+							<StyledSearchIcon>
+								<SearchOutlinedIcon />
+							</StyledSearchIcon>
+						</StyledForm>
 					</StyledSearch>
 					{user ? (
 						<StyledUser>

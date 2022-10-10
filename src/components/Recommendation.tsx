@@ -2,9 +2,10 @@ import { useQuery } from 'react-query';
 import styled from 'styled-components';
 
 import { getRecommendations } from '../lib/api';
-import { QueryKeys } from '../types';
+import { QueryKeys, Video } from '../types';
 import { SidebarProps } from './Sidebar';
 import Card from './Card';
+import Loader from './Loader';
 
 export const StyledRecommendation = styled.div<SidebarProps>`
 	color: ${({ theme }) => theme.text};
@@ -22,26 +23,36 @@ export const StyledInner = styled.div`
 `;
 
 const Recommendation = ({
+	video,
 	tags,
 	sidebarOpen,
 	videoPath
 }: {
+	video: Video;
 	tags: string[];
 	sidebarOpen: boolean;
 	videoPath: string;
 }) => {
 	/* eslint-disable-next-line max-len */
-	const { data: videos } = useQuery([QueryKeys.RECOMMENDATIONS, videoPath], () =>
+	const { data: videos, isLoading } = useQuery([QueryKeys.RECOMMENDATIONS, videoPath], () =>
 		getRecommendations(tags.toString())
 	);
+
+	if (isLoading) <Loader />;
+
+	const filteredVideos = videos ? videos?.filter((v) => v._id !== video._id) : null;
+
+	if (!filteredVideos) <h3>No recommendations founds</h3>;
 
 	return (
 		<StyledRecommendation sidebarOpen={sidebarOpen}>
 			<h3>Recommendations</h3>
 			<StyledInner>
-				{videos &&
+				{filteredVideos &&
 					/* eslint-disable-next-line max-len */
-					videos.map((video) => <Card type='sm' key={video._id} video={video} ownerId={video.owner} />)}
+					filteredVideos.map((video) => (
+						<Card type='sm' key={video._id} video={video} ownerId={video.owner} />
+					))}
 			</StyledInner>
 		</StyledRecommendation>
 	);
