@@ -8,7 +8,7 @@ import { useQuery } from 'react-query';
 
 const StyledContainer = styled.div<{ cardSize?: string }>`
 	width: ${(props) => props.cardSize !== 'sm' && '240px'};
-	height: 240px;
+	height: ${(props) => (props.cardSize === 'sm' ? '120px' : '240px')};
 	margin-bottom: ${(props) => (props.cardSize === 'sm' ? '10px' : '45px')};
 	cursor: pointer;
 	display: ${(props) => props.cardSize === 'sm' && 'flex'};
