@@ -1,4 +1,4 @@
-## YouTube Clone with React (Bootstrapped with Vite)
+## YouTube Clone with React.
 
 ![yt](https://user-images.githubusercontent.com/52210954/194866970-f8a08bfa-db6d-4270-8302-3d60c4c2f8fd.png)
 
